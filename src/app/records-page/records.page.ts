@@ -18,6 +18,5 @@ export class RecordsPage implements OnInit {
 
   async loadRecords(){
     this.records = await lastValueFrom(await this.recordService.getRecords());
-    console.log(this.records);
   }
 }
