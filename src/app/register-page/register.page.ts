@@ -48,6 +48,7 @@ export class RegisterPage implements OnInit {
     setTimeout(() => {
       this.records = [];
       this.recordState = 'chegada';
+      localStorage.removeItem('records');
     }, 18 * 60 * 60 * 1000); // 18 horas
   }
 

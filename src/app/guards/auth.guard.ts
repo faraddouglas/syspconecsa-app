@@ -33,6 +33,7 @@ export class AuthGuard implements CanActivate {
 
   logout(){
     localStorage.removeItem('user');
+    localStorage.removeItem('records')
     this.routToLogin();
   }
 }
