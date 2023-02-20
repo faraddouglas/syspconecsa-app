@@ -12,8 +12,8 @@ import { lastValueFrom } from 'rxjs';
 
 export class RegisterPage implements OnInit {
 
-  record:any  = localStorage.getItem('records');
-  records: any [] = localStorage.getItem('records') ? JSON.parse(this.record) : [];
+  storedRecords:any  = localStorage.getItem('records');
+  records: any [] = localStorage.getItem('records') ? JSON.parse(this.storedRecords) : [];
   states: any [] = [];
   recordState = 'chegada';
   user: any = localStorage.getItem('user');
@@ -78,7 +78,7 @@ export class RegisterPage implements OnInit {
     const dateKey: any = date.toLocaleDateString();
 
     if (!this.records[dateKey]) {
-      this.records[dateKey] = localStorage.getItem('records') ? JSON.parse(this.record) : [];
+      this.records[dateKey] = localStorage.getItem('records') ? JSON.parse(this.storedRecords) : [];
     }
 
     if (!this.records[dateKey][this.recordState]) {
