@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Registros
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ul>
+    <li *ngFor="let record of records">
+      {{ record.date }} - {{ record.employee }}- {{ record.checkInTime }} - {{ record.startInterval }} - {{ record.endInterval }}
+    </li>
+  </ul>
+</ion-content>
+
+
+
+
+

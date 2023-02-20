@@ -1,0 +1,7 @@
+{
+  "name": "syspapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
