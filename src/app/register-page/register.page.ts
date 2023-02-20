@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { RegisterService } from './register.service';
 import { lastValueFrom } from 'rxjs';
@@ -30,7 +29,6 @@ export class RegisterPage implements OnInit {
   }
 
   constructor(
-    private router: Router,
     private alertController: AlertController,
     private registerService: RegisterService,
     private navCtrl: NavController
@@ -99,7 +97,7 @@ export class RegisterPage implements OnInit {
     if(this.recordState === 'concluido') {
       localStorage.setItem('records', JSON.stringify(this.records));
       this.presentAlert();
-      this.navCtrl.navigateForward('/records');
+      this.navCtrl.navigateForward('/page/records');
     }
     localStorage.setItem('records', JSON.stringify(this.records));
   }
