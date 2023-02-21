@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
-import { RegistrationDirective } from './registration.directive';
+
 
 @NgModule({
   imports: [
@@ -16,6 +16,6 @@ import { RegistrationDirective } from './registration.directive';
     IonicModule,
     LoginPageRoutingModule
   ],
-  declarations: [LoginPage, RegistrationDirective]
+  declarations: [LoginPage]
 })
 export class LoginPageModule {}

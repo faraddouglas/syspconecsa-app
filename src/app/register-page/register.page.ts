@@ -19,8 +19,9 @@ export class RegisterPage implements OnInit {
   user: any = localStorage.getItem('user');
   userType = JSON.parse(this.user).userType;
   recordToPost: any = {
-    'companyId': JSON.parse(this.user).enterprise,
-    'employee': JSON.parse(this.user).registration,
+    'companyId': JSON.parse(this.user).companyId,
+    'userId': JSON.parse(this.user).userId,
+    'employee': JSON.parse(this.user).name,
     'date': '',
     'checkInTime': '',
     'startInterval': '',
