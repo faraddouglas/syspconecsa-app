@@ -19,9 +19,9 @@ export class RegisterPage implements OnInit {
   user: any = localStorage.getItem('user');
   userType = JSON.parse(this.user).userType;
   recordToPost: any = {
-    'companyId': JSON.parse(this.user).companyId,
     'userId': JSON.parse(this.user).userId,
     'employee': JSON.parse(this.user).name,
+    'companyId': JSON.parse(this.user).companyId,
     'date': '',
     'checkInTime': '',
     'startInterval': '',
@@ -40,7 +40,7 @@ export class RegisterPage implements OnInit {
     this.displayTime();
     this.postRecord();
 
-    if (this.userType === 'hasInterval') {
+    if (this.user.hasInterval === true) {
       this.states = ['chegada', 'intervalo', 'retorno','saida', 'concluido'];
     } else {
       this.states = ['chegada', 'saida', 'concluido'];
