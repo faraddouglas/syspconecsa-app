@@ -14,7 +14,7 @@ export class ManangerPage implements OnInit {
   }
 
   redirectToRegisterEnterprise(){
-    this.navCtrl.navigateForward('/register-enterprise');
+    this.navCtrl.navigateForward('page/register-enterprise');
   }
 
 }
