@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  constructor( private navCtrl:NavController ) {}
 
+  navigateTabs(page: string){
+    this.navCtrl.navigateForward(page);
+  }
 }

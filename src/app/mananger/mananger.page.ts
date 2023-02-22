@@ -1,6 +1,4 @@
-import { AuthGuard } from './../guards/auth.guard';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ManangerPage implements OnInit {
 
-  constructor(private navCtrl: NavController, private auth: AuthGuard, private router: Router) { }
+  constructor( private router: Router) { }
 
   ngOnInit() {
   }

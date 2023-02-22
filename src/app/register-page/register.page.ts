@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { RegisterService } from './register.service';
 import { lastValueFrom } from 'rxjs';
+import { getElement } from 'ionicons/dist/types/stencil-public-runtime';
 
 
 @Component({
@@ -23,11 +24,11 @@ export class RegisterPage implements OnInit {
     'userId': JSON.parse(this.user).userId,
     'employee': JSON.parse(this.user).name,
     'companyId': JSON.parse(this.user).companyId,
-    'date': '',
-    'checkInTime': '',
-    'startInterval': '',
-    'endInterval': '',
-    'checkOutTime': ''
+    'date': null,
+    'checkInTime': null,
+    'startInterval': null,
+    'endInterval': null,
+    'checkOutTime': null
   }
 
   constructor(
@@ -39,7 +40,6 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
 
     this.displayTime();
-    this.postRecord();
 
     localStorage.getItem('user') ? this.user = JSON.parse(this.storedUser) : this.user = {};
     if ( this.user.hasInterval === true) {
@@ -47,12 +47,6 @@ export class RegisterPage implements OnInit {
     } else {
       this.states = ['chegada', 'saida', 'concluido'];
     }
-
-    setTimeout(() => {
-      this.records = [];
-      this.recordState = 'chegada';
-      localStorage.removeItem('records');
-    }, 18 * 60 * 60 * 1000); // 18 horas
   }
 
   displayTime() {
@@ -88,6 +82,11 @@ export class RegisterPage implements OnInit {
       this.records[dateKey][this.recordState] = time;
     }
 
+    if (this.recordState === 'chegada') {
+      this.recordToPost.checkInTime = time;
+      this.postRecord();
+    }
+
     for ( const state of this.states) {
       for (let i = 0; i < this.states.length; i++){
         const nextState = this.states[i];
@@ -99,11 +98,12 @@ export class RegisterPage implements OnInit {
     }
 
     if(this.recordState === 'concluido') {
-      localStorage.setItem('records', JSON.stringify(this.records));
+      this.storeRecord();
+      this.unableButton();
       this.presentAlert();
       this.navCtrl.navigateForward('/page/records');
     }
-    localStorage.setItem('records', JSON.stringify(this.records));
+    this.storeRecord();
   }
 
   async postRecord() {
@@ -111,6 +111,13 @@ export class RegisterPage implements OnInit {
     const dateKey: any = date.toLocaleDateString();
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
+
+    setTimeout(() => {
+      this.records = [];
+      this.recordState = 'chegada';
+      localStorage.removeItem('records');
+    }, 18 * 60 * 60 * 1000); // 18 horas
+
   }
 
   async putRecord() {
@@ -126,5 +133,13 @@ export class RegisterPage implements OnInit {
 
     console.log(lastId);
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
+  }
+
+  storeRecord(){
+    localStorage.setItem('records', JSON.stringify(this.records));
+  }
+
+  unableButton() {
+    document.getElementById('record-time-btn')!.setAttribute('disabled', 'true');
   }
 }
