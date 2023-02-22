@@ -2,7 +2,7 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RecordsPage } from './records.page';
+import { RecordsPage, ReversePipe } from './records.page';
 
 import { RecordsPageRoutingModule } from './records-routing.module';
 
@@ -13,6 +13,6 @@ import { RecordsPageRoutingModule } from './records-routing.module';
     FormsModule,
     RecordsPageRoutingModule
   ],
-  declarations: [RecordsPage]
+  declarations: [RecordsPage, ReversePipe]
 })
 export class RecordsPageModule {}

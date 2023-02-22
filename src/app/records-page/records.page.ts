@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordService } from './record.service';
 import { lastValueFrom } from 'rxjs';
+import { Pipe, PipeTransform } from '@angular/core';
 
 
 @Component({
@@ -18,5 +19,12 @@ export class RecordsPage implements OnInit {
 
   async loadRecords(){
     this.records = await lastValueFrom(await this.recordService.getRecords());
+  }
+}
+
+@Pipe({ name: 'reverse' })
+export class ReversePipe implements PipeTransform {
+  transform(value: any) {
+    return value.slice().reverse();
   }
 }

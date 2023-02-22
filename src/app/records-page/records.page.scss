@@ -9,3 +9,23 @@ ion-card-header.ios {
   display: flex;
   flex-flow: column-reverse;
 }
+
+ion-content.ios {
+  --background: #fff;
+}
+
+ion-content.md {
+  --background: #fff;
+}
+
+ion-label.ios {
+  font-size: 14px;
+}
+
+ion-label.md {
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+

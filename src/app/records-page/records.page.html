@@ -7,14 +7,16 @@
 </ion-header>
 
 <ion-content>
-  <ul>
-    <li *ngFor="let record of records">
-      {{ record.date }} - {{ record.employee }}- {{ record.checkInTime }} - {{ record.startInterval }} - {{ record.endInterval }}
-    </li>
-  </ul>
+  <ion-card *ngFor="let dayRecord of records | reverse">
+    <ion-card-header>
+      {{ dayRecord.date }}
+    </ion-card-header>
+    <ion-card-content>
+      <p>Nome: {{ dayRecord.employee }}</p>
+      <p>Chegada: {{ dayRecord.checkInTime }}</p>
+      <p>Intervalo: {{ dayRecord.startInterval }}</p>
+      <p>Retorno: {{ dayRecord.endInterval }}</p>
+      <p>Saída: {{ dayRecord.checkOutTime }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
-
-
-
-
-
