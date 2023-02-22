@@ -1,3 +1,4 @@
+import { ManangerPage } from './mananger/mananger.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
@@ -28,12 +29,20 @@ const routes: Routes = [
     {
       path: 'page/records',
       loadChildren: () => import('./records-page/records.module').then( m => m.RecordsPageModule)
-    },
+    }
+]},
+  {
+    path: '',
+    component: ManangerPage,
+    canActivate: [AuthGuard],
+    children: [
+
     {
       path: 'page/mananger',
       loadChildren: () => import('./mananger/mananger.module').then( m => m.ManangerPageModule)
     }
-]},
+  ]
+  }
 ];
 
 @NgModule({

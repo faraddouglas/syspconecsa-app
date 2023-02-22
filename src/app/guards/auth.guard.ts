@@ -57,10 +57,14 @@ export class AuthGuard implements CanActivate {
       req.subscribe((res: any) => {
       if(res.userId === userId){
         localStorage.setItem('user', JSON.stringify(res));
+        if(res.userType === 'admin'){
+        this.navCtrl.navigateForward('page/mananger');
+      } else {
         this.navCtrl.navigateForward('page/register');
       }
-      });
     }
+      });
+  }
 
   async presentAlert() {
     const alert = await this.alertController.create({
