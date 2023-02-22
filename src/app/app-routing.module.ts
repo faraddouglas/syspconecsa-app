@@ -40,13 +40,13 @@ const routes: Routes = [
     {
       path: 'page/mananger',
       loadChildren: () => import('./mananger/mananger.module').then( m => m.ManangerPageModule)
+    },
+    {
+      path: 'page/register-enterprise',
+      loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
     }
   ]
   },
-  {
-    path: 'register-enterprise',
-    loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
-  }
 
 ];
 
