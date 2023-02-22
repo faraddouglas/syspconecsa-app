@@ -99,7 +99,7 @@ export class RegisterPage implements OnInit {
 
     if(this.recordState === 'concluido') {
       this.storeRecord();
-      this.unableButton();
+      this.unableButton('record-time-btn');
       this.presentAlert();
       this.navCtrl.navigateForward('/page/records');
     }
@@ -139,7 +139,7 @@ export class RegisterPage implements OnInit {
     localStorage.setItem('records', JSON.stringify(this.records));
   }
 
-  unableButton() {
-    document.getElementById('record-time-btn')!.setAttribute('disabled', 'true');
+  unableButton(btn: string) {
+    document.getElementById(btn)!.setAttribute('disabled', 'true');
   }
 }
