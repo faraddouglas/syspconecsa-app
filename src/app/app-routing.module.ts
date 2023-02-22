@@ -1,3 +1,4 @@
+import { RegisterEnterprisePage } from './mananger/register-enterprise/register-enterprise.page';
 import { ManangerPage } from './mananger/mananger.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
@@ -29,7 +30,7 @@ const routes: Routes = [
     {
       path: 'page/records',
       loadChildren: () => import('./records-page/records.module').then( m => m.RecordsPageModule)
-    }
+    },
 ]},
   {
     path: '',
@@ -40,14 +41,15 @@ const routes: Routes = [
     {
       path: 'page/mananger',
       loadChildren: () => import('./mananger/mananger.module').then( m => m.ManangerPageModule)
-    },
-    {
-      path: 'page/register-enterprise',
-      loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
     }
-  ]
+  ],
   },
-
+  {
+    path: 'page/mananger/register-enterprise',
+    component: RegisterEnterprisePage,
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
+  }
 ];
 
 @NgModule({

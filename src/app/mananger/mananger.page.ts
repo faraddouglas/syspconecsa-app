@@ -1,5 +1,7 @@
+import { AuthGuard } from './../guards/auth.guard';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mananger',
@@ -8,13 +10,12 @@ import { NavController } from '@ionic/angular';
 })
 export class ManangerPage implements OnInit {
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, private auth: AuthGuard, private router: Router) { }
 
   ngOnInit() {
   }
 
   redirectToRegisterEnterprise(){
-    this.navCtrl.navigateForward('page/register-enterprise');
+    this.router.navigate(['/page/mananger/register-enterprise']);
   }
-
 }

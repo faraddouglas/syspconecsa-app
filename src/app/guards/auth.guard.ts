@@ -16,8 +16,8 @@ export class AuthGuard implements CanActivate {
     ) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    _route: ActivatedRouteSnapshot,
+    _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.checkAuth();
   }
 
@@ -33,6 +33,14 @@ export class AuthGuard implements CanActivate {
   private routToLogin(){
     this.navCtrl.navigateRoot('page/login');
     return true;
+  }
+
+  private redirect(page: string){
+    this.navCtrl.navigateForward(page);
+  }
+
+  redirectTo(page: string){
+    this.redirect(page)
   }
 
   logout(){

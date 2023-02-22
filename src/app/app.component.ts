@@ -10,7 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 export class AppComponent {
   constructor(private authGuard: AuthGuard) {}
   @HostListener('window:beforeunload', ['$event'])
-  onBeforeUnload(event: BeforeUnloadEvent) {
+  onBeforeUnload(_event: BeforeUnloadEvent) {
     this.authGuard.logout();
   }
 }

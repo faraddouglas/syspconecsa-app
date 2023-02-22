@@ -6,7 +6,7 @@ import { RegisterEnterprisePage } from './register-enterprise.page';
 const routes: Routes = [
   {
     path: '',
-    component: RegisterEnterprisePage
+    component: RegisterEnterprisePage,
   }
 ];
 

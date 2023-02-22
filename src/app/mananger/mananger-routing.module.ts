@@ -5,8 +5,14 @@ import { ManangerPage } from './mananger.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: ManangerPage
+    path: 'page/mananger',
+    component: ManangerPage,
+    children: [
+      {
+        path: '/register-enterprise',
+        loadChildren: () => import('./register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
+      }
+    ]
   }
 ];
 
