@@ -10,7 +10,6 @@ export class LoginPage implements OnInit {
   userId: string = '';
   companyId: string = '';
   userType: string = '';
-  hasInterval: boolean = true;
 
   constructor( private authGuard: AuthGuard ) { }
 

@@ -13,6 +13,7 @@ import { lastValueFrom } from 'rxjs';
 export class RegisterPage implements OnInit {
 
   storedRecords:any  = localStorage.getItem('records');
+  storedUser:any = localStorage.getItem('user');
   records: any [] = localStorage.getItem('records') ? JSON.parse(this.storedRecords) : [];
   states: any [] = [];
   recordState = 'chegada';
@@ -40,7 +41,8 @@ export class RegisterPage implements OnInit {
     this.displayTime();
     this.postRecord();
 
-    if (this.user.hasInterval === true) {
+    localStorage.getItem('user') ? this.user = JSON.parse(this.storedUser) : this.user = {};
+    if ( this.user.hasInterval === true) {
       this.states = ['chegada', 'intervalo', 'retorno','saida', 'concluido'];
     } else {
       this.states = ['chegada', 'saida', 'concluido'];

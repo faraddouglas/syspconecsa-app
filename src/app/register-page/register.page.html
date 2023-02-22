@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="ion-padding" >
-  <ng-container *ngIf="userType === 'hasInterval'; else noInterval">
+  <ng-container *ngIf=" user.hasInterval === true; else noInterval">
   <ion-list *ngFor="let record of records | keyvalue">
     <ion-item>
       <ion-label>{{ record.key }}</ion-label>
