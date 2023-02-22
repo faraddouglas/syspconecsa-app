@@ -42,7 +42,12 @@ const routes: Routes = [
       loadChildren: () => import('./mananger/mananger.module').then( m => m.ManangerPageModule)
     }
   ]
+  },
+  {
+    path: 'register-enterprise',
+    loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
   }
+
 ];
 
 @NgModule({

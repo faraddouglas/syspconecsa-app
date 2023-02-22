@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>mananger</ion-title>
+    <ion-title>
+      Painel
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="person-add-outline"></ion-icon>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="full" routerLink="/register-user">
+              Cadastrar Usuário
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
 
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="full" routerLink="/register-enterprise" (click)="redirectToRegisterEnterprise()">
+              Cadastrar Empresa
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
