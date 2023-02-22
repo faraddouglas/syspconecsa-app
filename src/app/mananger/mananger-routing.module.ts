@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ManangerPage,
     children: [
       {
-        path: '/register-enterprise',
+        path: 'register-enterprise',
         loadChildren: () => import('./register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
       }
     ]
