@@ -50,7 +50,7 @@ export class AuthGuard implements CanActivate {
   }
 
   async login(companyId: string, userId: string){
-    const req: any =  this.http.get(
+    const req: any =  this.http.post(
       `https://syspteste.herokuapp.com/api/login?companyId=${companyId}&userId=${userId}`, {
         responseType: 'json'
       })
@@ -63,8 +63,9 @@ export class AuthGuard implements CanActivate {
         }
       ))
       req.subscribe((res: any) => {
-      if(res.userId === userId){
-        localStorage.setItem('user', JSON.stringify(res));
+      if(res.user.userId === userId){
+        localStorage.setItem('user', JSON.stringify(res.user));
+        localStorage.setItem('token', res.token);
         if(res.userType === 'admin'){
         this.navCtrl.navigateForward('page/mananger');
       } else {
