@@ -14,12 +14,14 @@ export class LoginPage implements OnInit {
   constructor( private authGuard: AuthGuard) { }
 
   ngOnInit() {}
+    isSubmitting = false;
 
   async login(){
     if(this.userId === '' || this.companyId === ''){
       this.authGuard.presentAlert();
   } else {
     this.authGuard.login(this.companyId, this.userId);
+    this.isSubmitting = true;
     }
   }
 }

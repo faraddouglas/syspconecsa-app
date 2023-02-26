@@ -18,7 +18,10 @@
       <ion-label position="floating">Matricula:</ion-label>
       <ion-input type="Matricula" [(ngModel)]="userId"></ion-input>
 
-      <ion-button (click)="login()">Entrar</ion-button>
+      <ion-button (click)="login()"[disabled]="isSubmitting">
+        <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
+        Entrar
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
