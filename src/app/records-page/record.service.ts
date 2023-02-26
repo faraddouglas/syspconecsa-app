@@ -6,8 +6,11 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class RecordService {
+  user: any = localStorage.getItem('user');
+  userId = JSON.parse(this.user).userId;
+  companyId = JSON.parse(this.user).companyId;
   records: any[] = [];
-  getRecordsUrl = 'https://syspteste.herokuapp.com/api/employee-time-record'
+  getRecordsUrl = `https://syspteste.herokuapp.com/api/user-records?companyId=${this.companyId}&userId=${this.userId}`;
   token = localStorage.getItem('token');
 
 
@@ -21,6 +24,6 @@ export class RecordService {
       'Conection': 'keep-alive',
       'Accept': '*/*'
     });
-    return lastValueFrom( this.http.get<any>(this.getRecordsUrl, {headers: headers}))
+    return lastValueFrom( this.http.get<any>(this.getRecordsUrl, { headers: headers }))
   };
 }
