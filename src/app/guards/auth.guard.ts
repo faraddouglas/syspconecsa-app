@@ -59,6 +59,7 @@ export class AuthGuard implements CanActivate {
         catchError((err) => {
           if(err.status === 401){
             this.presentAlert();
+            this.logout();
           }
           throw new Error('Não foi possível realizar o login');
         }

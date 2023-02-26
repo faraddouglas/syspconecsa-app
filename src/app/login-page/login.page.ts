@@ -10,6 +10,7 @@ export class LoginPage implements OnInit {
   userId: string = '';
   companyId: string = '';
   userType: string = '';
+  user = localStorage.getItem('user');
 
   constructor( private authGuard: AuthGuard) { }
 
@@ -20,8 +21,10 @@ export class LoginPage implements OnInit {
     if(this.userId === '' || this.companyId === ''){
       this.authGuard.presentAlert();
   } else {
-    this.authGuard.login(this.companyId, this.userId);
-    this.isSubmitting = true;
+      await this.authGuard.login(this.companyId, this.userId);
+      if(!this.user){
+        this.isSubmitting = false;
+      } else { this.isSubmitting = true; }
     }
   }
 }
