@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { RegisterService } from './register.service';
 import { lastValueFrom } from 'rxjs';
-import { getElement } from 'ionicons/dist/types/stencil-public-runtime';
 
 
 @Component({
