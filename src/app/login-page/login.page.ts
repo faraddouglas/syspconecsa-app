@@ -11,7 +11,7 @@ export class LoginPage implements OnInit {
   companyId: string = '';
   userType: string = '';
 
-  constructor( private authGuard: AuthGuard ) { }
+  constructor( private authGuard: AuthGuard) { }
 
   ngOnInit() {}
 

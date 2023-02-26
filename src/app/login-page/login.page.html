@@ -1,10 +1,13 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
+  <ion-header collapse="condense">
+    <ion-title>Login</ion-title>
 </ion-header>
+  </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-header>
       <ion-icon name="person-circle-outline"></ion-icon>
@@ -19,6 +22,8 @@
       <ion-button (click)="login()">Entrar</ion-button>
     </ion-card-content>
   </ion-card>
-
-
 </ion-content>
+
+<ion-footer collapse="condense">
+  App Ponto V1.0
+</ion-footer>

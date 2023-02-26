@@ -45,7 +45,8 @@ export class AuthGuard implements CanActivate {
 
   logout(){
     localStorage.removeItem('user');
-    localStorage.removeItem('records')
+    localStorage.removeItem('records');
+    localStorage.removeItem('token');
     this.routToLogin();
   }
 
@@ -66,7 +67,7 @@ export class AuthGuard implements CanActivate {
       if(res.user.userId === userId){
         localStorage.setItem('user', JSON.stringify(res.user));
         localStorage.setItem('token', res.token);
-        if(res.userType === 'admin'){
+        if(res.user.userType === 'admin'){
         this.navCtrl.navigateForward('page/mananger');
       } else {
         this.navCtrl.navigateForward('page/register');

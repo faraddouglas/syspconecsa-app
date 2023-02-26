@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { TabsPage } from './tabs/tabs.page';
 
 const routes: Routes = [
+
   {
     path: '', redirectTo: 'page/login', pathMatch: 'full'
   },
@@ -49,7 +50,7 @@ const routes: Routes = [
     component: RegisterEnterprisePage,
     canActivate: [AuthGuard],
     loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
-  }
+  },
 ];
 
 @NgModule({
