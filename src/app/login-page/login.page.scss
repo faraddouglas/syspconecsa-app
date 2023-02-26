@@ -1,9 +1,7 @@
-
 ion-card-header.ios {
   display: flex;
   align-items: safe center;
   flex-flow: column;
-  margin-top: auto;
 }
 ion-card-header.md {
   display: flex;
@@ -14,10 +12,7 @@ ion-card-header.md {
 ion-icon{
   color: #011c43e6;
   font-size: 100px;
-  text-align: left;
   margin-top: 30px;
-  margin-bottom: auto;
-  display: flex;
   border-radius: 50px;
   box-shadow: 0px 0px 15px whitesmoke;
 }
@@ -28,8 +23,6 @@ ion-card-content.ios{
   background-size: 100%;
   background-position: top;
   display: block;
-  justify-content: center;
-  align-items: center;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
@@ -42,8 +35,6 @@ ion-card-content.md{
   background-size: 90%;
   background-position: top;
   display: block;
-  justify-content: center;
-  align-items: center;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
@@ -52,7 +43,7 @@ ion-card-content.md{
 }
 
 ion-card{
-  margin-top: 80px;
+  margin-top: 90px;
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
@@ -60,17 +51,15 @@ ion-card{
   border-radius: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
   max-width: 500px;
   max-height: 500px;
   flex-flow: column;
   box-shadow: 5px 5px 15px black;
   background-color: #7fbd8c;
-  position: relative;
 }
 
 ion-card.ios{
-  margin-top: 80px;
+  margin-top: 90px;
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
@@ -78,11 +67,9 @@ ion-card.ios{
   border-radius: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
   max-width: 500px;
   max-height: 500px;
   flex-flow: column;
-  position: relative;
 }
 
 ion-label{
@@ -111,7 +98,7 @@ ion-label.ios{
   margin-top: auto;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
+  display: block;
 }
 
 ion-input{
@@ -144,22 +131,22 @@ ion-input.ios{
   backdrop-filter: blur(5px);
 }
 
-ion-button{
+ion-button.md{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
   font-size: 20px;
   text-align: center;
   align-items: center;
-  display: block;
+  display: flex;
   border-radius: 30px;
   max-width: auto;
   max-height: auto;
+  min-height: 60px;
+  min-width: 230px;
   margin-top: 60px;
   margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
-  min-height: 60px;
-  min-width: 230px;
   box-shadow: 0px 5px 15px black;
   text-shadow: 1px 0px 5px #000;
 }
@@ -187,10 +174,8 @@ ion-content{
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
+  display: block;
   border: #6e7f8f 0.1px solid;
-  align-items: center;
-  justify-content: center;
   flex-flow: column;
 }
 
@@ -219,8 +204,7 @@ ion-title{
   text-align: left;
   display: block;
   border-bottom: #6e7f8f 1px solid;
-  align-items: left;
-  margin-top: 40px;
+  margin-top: auto;
   margin-bottom: auto;
   margin-left: -10px;
   margin-right: auto;
@@ -233,12 +217,11 @@ ion-title.ios{
   color: #fff;
   font-size: 20px;
   text-align: left;
-  display: block;
+  display: flex;
   border-bottom: #6e7f8f 1px solid;
-  align-items: left;
-  margin-top: 40px;
+  margin-top: auto;
   margin-bottom: auto;
-  margin-left: -80px;
+  margin-left: auto;
   margin-right: auto;
   padding: auto;
 }
@@ -256,8 +239,6 @@ ion-footer{
   border: #01a44e 10px solid;
   color: #f5f5f5;
   justify-content: left;
-  position: relative;
-  align-items: center;
   text-shadow: 1px 0px 5px #000;
 }
 
@@ -284,4 +265,3 @@ ion-footer{
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
-
