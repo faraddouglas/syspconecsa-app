@@ -28,6 +28,9 @@ log.txt
 /tmp
 /out-tsc
 /bazel-out
+/ios
+/vscode
+/android
 
 # Node
 /node_modules

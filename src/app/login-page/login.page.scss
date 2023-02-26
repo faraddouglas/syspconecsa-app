@@ -15,7 +15,7 @@ ion-icon{
   color: #011c43e6;
   font-size: 100px;
   text-align: left;
-  margin-top: auto;
+  margin-top: 30px;
   margin-bottom: auto;
   display: flex;
   border-radius: 50px;
@@ -27,8 +27,13 @@ ion-card-content.ios{
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: top;
-  display: flex;
-  flex-flow: column;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 ion-card-content.md{
@@ -36,44 +41,48 @@ ion-card-content.md{
   background-repeat: no-repeat;
   background-size: 90%;
   background-position: top;
-  display: flex;
-  flex-flow: column;
+  display: block;
   justify-content: center;
-  align-items: safe center;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  flex-flow: column;
 }
 
 ion-card{
-  margin-top: 20px;
+  margin-top: 80px;
   margin-bottom: auto;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid #fff;
   border-radius: 10px;
-  padding: 10px;
   display: flex;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   max-width: 500px;
   max-height: 500px;
   flex-flow: column;
   box-shadow: 5px 5px 15px black;
   background-color: #7fbd8c;
+  position: relative;
 }
 
 ion-card.ios{
-  margin-top: 40px;
+  margin-top: 80px;
   margin-bottom: auto;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid #fff;
   border-radius: 10px;
-  padding: 10px;
   display: flex;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   max-width: 500px;
   max-height: 500px;
   flex-flow: column;
+  position: relative;
 }
 
 ion-label{
@@ -101,7 +110,7 @@ ion-label.ios{
   margin-bottom: auto;
   margin-top: auto;
   margin-left: auto;
-  margin-right: 200px;
+  margin-right: auto;
   display: flex;
 }
 
@@ -140,17 +149,17 @@ ion-button{
   color: #fff;
   font-size: 20px;
   text-align: center;
-  margin-top: 25px;
-  margin-bottom: 20px;
-  display: flex;
+  align-items: center;
+  display: block;
   border-radius: 30px;
   max-width: auto;
   max-height: auto;
+  margin-top: 60px;
+  margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
   min-height: 60px;
   min-width: 230px;
-  align-items: center;
   box-shadow: 0px 5px 15px black;
   text-shadow: 1px 0px 5px #000;
 }
@@ -159,8 +168,8 @@ ion-button.ios{
   color: #fff;
   font-size: 20px;
   text-align: left;
-  margin-top: 20px;
-  margin-bottom: auto;
+  margin-top: 60px;
+  margin-bottom: 30px;
   display: flex;
   border-radius: 10px;
   max-width: auto;
@@ -174,7 +183,15 @@ ion-button.ios{
 
 ion-content{
   --ion-background-color: radial-gradient(circle, rgba(0,0,0,0.6138830532212884) 0%, rgba(1,28,67,0.7175245098039216) 35%, rgba(1,164,78,0.5186449579831933) 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
   border: #6e7f8f 0.1px solid;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
 }
 
 ion-header{
@@ -200,10 +217,14 @@ ion-title{
   color: #fff;
   font-size: 20px;
   text-align: left;
-  display: flex;
+  display: block;
   border-bottom: #6e7f8f 1px solid;
-  align-items: end;
+  align-items: left;
+  margin-top: 40px;
+  margin-bottom: auto;
   margin-left: -10px;
+  margin-right: auto;
+  padding: auto;
   text-shadow: 1px 0px 5px #000;
 }
 
@@ -211,10 +232,15 @@ ion-title.ios{
   background-color: #01a44e;
   color: #fff;
   font-size: 20px;
-  margin-top: 20px;
   text-align: left;
-  margin-left: -80px;
+  display: block;
   border-bottom: #6e7f8f 1px solid;
+  align-items: left;
+  margin-top: 40px;
+  margin-bottom: auto;
+  margin-left: -80px;
+  margin-right: auto;
+  padding: auto;
 }
 
 ion-footer{
@@ -234,7 +260,6 @@ ion-footer{
   align-items: center;
   text-shadow: 1px 0px 5px #000;
 }
-
 
 .spinner-button {
   position: relative;
