@@ -51,7 +51,7 @@ export class RegisterPage implements OnInit {
   displayTime() {
     setInterval(() => {
       const date = new Date();
-      const time = date.toLocaleTimeString();
+      const time = date.toLocaleTimeString('pt-BR');
       document.querySelectorAll('#time').forEach((element) => {
         element.innerHTML = time;
         }, 1000);
@@ -70,8 +70,8 @@ export class RegisterPage implements OnInit {
 
   recordTime() {
     const date = new Date();
-    const time: any = date.toLocaleTimeString();
-    const dateKey: any = date.toLocaleDateString();
+    const time: any = date.toLocaleTimeString('pt-BR');
+    const dateKey: any = date.toLocaleDateString('pt-BR');
 
     if (!this.records[dateKey]) {
       this.records[dateKey] = localStorage.getItem('records') ? JSON.parse(this.storedRecords) : [];
@@ -107,7 +107,7 @@ export class RegisterPage implements OnInit {
 
   async postRecord() {
     const date = new Date();
-    const dateKey: any = date.toLocaleDateString();
+    const dateKey: any = date.toLocaleDateString('pt-BR');
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
 
@@ -121,7 +121,7 @@ export class RegisterPage implements OnInit {
 
   async putRecord() {
     const date = new Date();
-    const dateKey: any = date.toLocaleDateString();
+    const dateKey: any = date.toLocaleDateString('pt-BR');
     const lastId: string = await this.registerService.getLastId();
 
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));

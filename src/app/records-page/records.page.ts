@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordService } from './record.service';
-import { lastValueFrom } from 'rxjs';
 import { Pipe, PipeTransform } from '@angular/core';
-
 
 @Component({
   selector: 'app-records',
@@ -19,6 +17,17 @@ export class RecordsPage implements OnInit {
 
   async loadRecords(){
     this.records = await this.recordService.getRecords();
+  }
+
+  formatDate(_date: string) {
+    const date = new Date(_date);
+    const day = date.getUTCDate();
+    const month = date.getUTCMonth() + 1;
+    const year = date.getUTCFullYear();
+
+    if(month < 10) {
+      return day + "/" + '0' + month + "/" + year;
+    } else { return day + "/" + month + "/" + year; }
   }
 }
 

@@ -9,7 +9,7 @@
 <ion-content>
   <ion-card *ngFor="let dayRecord of records | reverse">
     <ion-card-header>
-      {{ dayRecord.date }}
+      {{ formatDate(dayRecord.date) }}
     </ion-card-header>
     <ion-card-content>
       <p>Nome: {{ dayRecord.employee }}</p>
