@@ -1,3 +1,4 @@
+import { RecordService } from './../records-page/record.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { RegisterService } from './register.service';
@@ -33,12 +34,21 @@ export class RegisterPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private registerService: RegisterService,
+    private recordService: RecordService,
     private navCtrl: NavController
     ) {}
 
   ngOnInit() {
 
-    this.displayTime();
+    this.recordService.getRecords().then((records) => {
+      for (const record of records) {
+        if(record.date === String(new Date().toLocaleDateString()).split('/').reverse().join('-')) {
+          this.unableButton('record-time-btn');
+          this.presentAlert();
+          break;
+        }
+      }
+  });
 
     localStorage.getItem('user') ? this.user = JSON.parse(this.storedUser) : this.user = {};
     if ( this.user.hasInterval === true) {
@@ -46,12 +56,14 @@ export class RegisterPage implements OnInit {
     } else {
       this.states = ['chegada', 'saida', 'concluido'];
     }
+
+    this.displayTime();
   }
 
   displayTime() {
     setInterval(() => {
       const date = new Date();
-      const time = date.toLocaleTimeString('pt-BR');
+      const time = date.toLocaleTimeString();
       document.querySelectorAll('#time').forEach((element) => {
         element.innerHTML = time;
         }, 1000);
@@ -70,12 +82,8 @@ export class RegisterPage implements OnInit {
 
   recordTime() {
     const date = new Date();
-    const time: any = date.toLocaleTimeString('pt-BR');
-    const dateKey: any = date.toLocaleDateString('pt-BR');
-
-    if (!this.records[dateKey]) {
-      this.records[dateKey] = localStorage.getItem('records') ? JSON.parse(this.storedRecords) : [];
-    }
+    const time: any = date.toLocaleTimeString();
+    const dateKey: any = date.toLocaleDateString();
 
     if (!this.records[dateKey][this.recordState]) {
       this.records[dateKey][this.recordState] = time;
@@ -107,7 +115,7 @@ export class RegisterPage implements OnInit {
 
   async postRecord() {
     const date = new Date();
-    const dateKey: any = date.toLocaleDateString('pt-BR');
+    const dateKey: any = date.toLocaleDateString();
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
 
@@ -121,7 +129,7 @@ export class RegisterPage implements OnInit {
 
   async putRecord() {
     const date = new Date();
-    const dateKey: any = date.toLocaleDateString('pt-BR');
+    const dateKey: any = date.toLocaleDateString();
     const lastId: string = await this.registerService.getLastId();
 
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
@@ -130,7 +138,6 @@ export class RegisterPage implements OnInit {
     this.recordToPost.startInterval = this.records[dateKey]['intervalo'];
     this.recordToPost.endInterval = this.records[dateKey]['retorno'];
 
-    console.log(lastId);
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
   }
 
