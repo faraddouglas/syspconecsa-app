@@ -169,7 +169,11 @@ ion-button.ios{
 }
 
 ion-content{
-  --ion-background-color: radial-gradient(circle, rgba(0,0,0,0.6138830532212884) 0%, rgba(1,28,67,0.7175245098039216) 35%, rgba(1,164,78,0.5186449579831933) 100%);
+  --ion-background-color: radial-gradient(
+    circle, rgba(0,0,0,0.6138830532212884) 0%,
+     rgba(1,28,67,0.7175245098039216) 35%,
+     rgba(1,164,78,0.5186449579831933) 100%
+    );
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
