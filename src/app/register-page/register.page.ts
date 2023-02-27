@@ -126,7 +126,6 @@ export class RegisterPage implements OnInit {
       this.recordState = 'chegada';
       localStorage.removeItem('records');
     }, 18 * 60 * 60 * 1000); // 18 horas
-
   }
 
   async putRecord() {
