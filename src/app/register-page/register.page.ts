@@ -42,10 +42,12 @@ export class RegisterPage implements OnInit {
 
     this.recordService.getRecords().then((records) => {
       for (const record of records) {
-        if(record.date === String(new Date().toLocaleDateString()).split('/').reverse().join('-')) {
-          this.unableButton('record-time-btn');
-          this.presentAlert();
-          break;
+        if(record.date === String(new Date().toLocaleDateString()).split('/').reverse().join('-')
+          && record.checkOutTime !== null || ''
+          ){
+            this.unableButton('record-time-btn');
+            this.presentAlert();
+            break;
         }
       }
   });
