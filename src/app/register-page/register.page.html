@@ -11,16 +11,16 @@
       <ion-label>{{ record.key }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>chegada: {{ record.value.chegada }}</ion-label>
+      <ion-label>chegada: {{ record.value[states[0]] }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>intervalo: {{ record.value.intervalo }}</ion-label>
+      <ion-label>intervalo: {{ record.value[states[1]] }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>retorno: {{ record.value.retorno }}</ion-label>
+      <ion-label>retorno: {{ record.value[states[2]] }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>saída: {{ record.value.saida }}</ion-label>
+      <ion-label>saída: {{ record.value[states[3]] }}</ion-label>
     </ion-item>
   </ion-list>
 </ng-container>
@@ -30,10 +30,10 @@
       <ion-label>{{ record.key }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>chegada: {{ record.value.chegada }}</ion-label>
+      <ion-label>chegada: {{ record.value[states[0]] }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>saída: {{ record.value.saida }}</ion-label>
+      <ion-label>saída: {{ record.value[states[1]] }}</ion-label>
     </ion-item>
   </ion-list>
 </ng-template>

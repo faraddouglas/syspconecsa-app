@@ -42,7 +42,7 @@ export class RegisterPage implements OnInit {
     };
 
     if ( this.hasInterval === true) {
-      this.states = ['chegada', 'intervalo', 'retorno','saida', 'concluído'];
+      this.states = ['chegada', 'intervalo', 'retorno','saída', 'concluído'];
     } else {
       this.states = ['chegada', 'saída', 'concluído'];
     };
@@ -152,6 +152,8 @@ export class RegisterPage implements OnInit {
       this.presentAlert();
       this.navCtrl.navigateForward('/page/records');
     };
+
+    this.storeRecord();
   };
 
   async postRecord() {
@@ -171,15 +173,13 @@ export class RegisterPage implements OnInit {
       this.recordToPost.checkInTime = this.records[dateKey][this.states[0]];
       this.recordToPost.checkOutTime = this.records[dateKey][this.states[this.states.length - 2]];
     } else {
+        this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
+        this.recordToPost.checkInTime = this.records[dateKey][this.states[0]];
+        this.recordToPost.checkOutTime = this.records[dateKey][this.states[this.states.length - 2]];
+        this.recordToPost.startInterval = this.records[dateKey][this.states[1]];
+        this.recordToPost.endInterval = this.records[dateKey][this.states[2]];
+        };
 
-    this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
-    this.recordToPost.checkInTime = this.records[dateKey][this.states[0]];
-    this.recordToPost.checkOutTime = this.records[dateKey][this.states[this.states.length - 2]];
-    this.recordToPost.startInterval = this.records[dateKey][this.states[1]];
-    this.recordToPost.endInterval = this.records[dateKey][this.states[2]];
-    };
-
-    this.storeRecord();
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
   };
 
