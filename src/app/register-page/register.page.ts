@@ -35,11 +35,11 @@ export class RegisterPage implements OnInit {
 
     if (!this.records[this.dateKey]) {
       this.records[this.dateKey] = {};
-    }
+    };
 
     if (!this.records[this.dateKey][this.recordState]) {
       this.records[this.dateKey][this.recordState] = this.time;
-    }
+    };
 
     this.recordToPost = {
       'userId': JSON.parse(this.user).userId,
@@ -58,6 +58,10 @@ export class RegisterPage implements OnInit {
         if (record.date === this.formatedDate
           && record.checkOutTime !== null || ''
           ){
+            this.records[this.dateKey]['chegada'] = record.checkInTime;
+            this.records[this.dateKey]['intervalo'] = record.startInterval;
+            this.records[this.dateKey]['retorno'] = record.endInterval;
+            this.records[this.dateKey]['saida'] = record.checkOutTime;
             this.unableButton('record-time-btn');
             this.recordState = 'concluido';
             this.presentAlert();
@@ -98,7 +102,7 @@ export class RegisterPage implements OnInit {
       this.states = ['chegada', 'intervalo', 'retorno','saida', 'concluido'];
     } else {
       this.states = ['chegada', 'saida', 'concluido'];
-    }
+    };
 
     this.displayTime();
   };
@@ -128,7 +132,7 @@ export class RegisterPage implements OnInit {
     if (this.recordState === this.states[0]) {
       this.recordToPost.checkInTime = this.time;
       this.postRecord();
-    }
+    };
 
     this.records[this.dateKey][this.recordState] = this.time;
 
@@ -139,7 +143,7 @@ export class RegisterPage implements OnInit {
           this.recordState = nextState;
         }
       }
-    }
+    };
 
     this.unableButton('record-time-btn');
     this.putRecord();
@@ -156,13 +160,7 @@ export class RegisterPage implements OnInit {
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
     this.storeRecord();
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
-
-    setTimeout(() => {
-      this.records = [];
-      this.recordState = null;
-      localStorage.removeItem('records');
-    }, 18 * 60 * 60 * 1000); // 18 horas
-  }
+  };
 
   async putRecord() {
     const date = new Date();
@@ -177,13 +175,13 @@ export class RegisterPage implements OnInit {
 
     this.storeRecord();
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
-  }
+  };
 
   storeRecord(){
     localStorage.setItem('records', JSON.stringify(this.records));
-  }
+  };
 
   unableButton(btn: string) {
     document.getElementById(btn)!.setAttribute('disabled', 'true');
-  }
-}
+  };
+};
