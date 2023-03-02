@@ -13,23 +13,16 @@ import { lastValueFrom } from 'rxjs';
 
 export class RegisterPage implements OnInit {
 
-  storedRecords:any  = localStorage.getItem('records');
-  storedUser:any = localStorage.getItem('user');
-  records: any [] = localStorage.getItem('records') ? JSON.parse(this.storedRecords) : [];
+  user:any = localStorage.getItem('user');
+  records: any [] = [];
   states: any [] = [];
-  recordState = 'chegada';
-  user: any = localStorage.getItem('user');
   userType = JSON.parse(this.user).userType;
-  recordToPost: any = {
-    'userId': JSON.parse(this.user).userId,
-    'employee': JSON.parse(this.user).name,
-    'companyId': JSON.parse(this.user).companyId,
-    'date': null,
-    'checkInTime': null,
-    'startInterval': null,
-    'endInterval': null,
-    'checkOutTime': null
-  }
+  hasInterval = JSON.parse(this.user).hasInterval;
+  recordState: any = null;
+  recordToPost: any = {};
+  time: any = new Date().toLocaleTimeString();
+  dateKey: any = new Date().toLocaleDateString();
+  formatedDate = String(new Date().toLocaleDateString()).split('/').reverse().join('-');
 
   constructor(
     private alertController: AlertController,
@@ -40,27 +33,75 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
 
-    this.recordService.getRecords().then((records) => {
-      for (const record of records) {
-        if(record.date === String(new Date().toLocaleDateString()).split('/').reverse().join('-')
+    if (!this.records[this.dateKey]) {
+      this.records[this.dateKey] = {};
+    }
+
+    if (!this.records[this.dateKey][this.recordState]) {
+      this.records[this.dateKey][this.recordState] = this.time;
+    }
+
+    this.recordToPost = {
+      'userId': JSON.parse(this.user).userId,
+      'employee': JSON.parse(this.user).name,
+      'companyId': JSON.parse(this.user).companyId,
+      'date': null,
+      'checkInTime': null,
+      'startInterval': null,
+      'endInterval': null,
+      'checkOutTime': null
+    };
+
+    this.recordService.getRecords().then((dbRecords) => {
+      if (dbRecords.length !== 0) {
+      for (const record of dbRecords) {
+        if (record.date === this.formatedDate
           && record.checkOutTime !== null || ''
           ){
             this.unableButton('record-time-btn');
+            this.recordState = 'concluido';
             this.presentAlert();
-            break;
+        } else if (this.hasInterval === true &&
+          record.date === this.formatedDate &&
+          record.startInterval === null || ''){
+            this.records[this.dateKey]['chegada'] = record.checkInTime;
+            this.recordState = 'intervalo';
+        } else if (this.hasInterval === true &&
+          record.date === this.formatedDate &&
+          record.endInterval === null || ''){
+            this.records[this.dateKey]['chegada'] = record.checkInTime;
+            this.records[this.dateKey]['intervalo'] = record.startInterval;
+            this.recordState = 'retorno';
+        } else if (this.hasInterval === true &&
+          record.date === this.formatedDate &&
+          record.checkOutTime === null || ''){
+            this.records[this.dateKey]['chegada'] = record.checkInTime;
+            this.records[this.dateKey]['intervalo'] = record.startInterval;
+            this.records[this.dateKey]['retorno'] = record.endInterval;
+            this.recordState = 'saida';
+        } else if (this.hasInterval === false &&
+          record.date === this.formatedDate &&
+          record.checkOutTime === null || ''){
+            this.records[this.dateKey]['chegada'] = record.checkInTime;
+            this.recordState = 'saida';
+        } else {
+          this.recordState = 'chegada';
         }
+        break;
       }
-  });
+    } else {
+      this.recordState = 'chegada';
+    }
+    });
 
-    localStorage.getItem('user') ? this.user = JSON.parse(this.storedUser) : this.user = {};
-    if ( this.user.hasInterval === true) {
+    if ( this.hasInterval === true) {
       this.states = ['chegada', 'intervalo', 'retorno','saida', 'concluido'];
     } else {
       this.states = ['chegada', 'saida', 'concluido'];
     }
 
     this.displayTime();
-  }
+  };
 
   displayTime() {
     setInterval(() => {
@@ -70,7 +111,7 @@ export class RegisterPage implements OnInit {
         element.innerHTML = time;
         }, 1000);
     });
-  }
+  };
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -80,50 +121,45 @@ export class RegisterPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
-  }
+  };
 
   recordTime() {
-    const date = new Date();
-    const time: any = date.toLocaleTimeString();
-    const dateKey: any = date.toLocaleDateString();
 
-    if (!this.records[dateKey][this.recordState]) {
-      this.records[dateKey][this.recordState] = time;
-    }
-
-    if (this.recordState === 'chegada') {
-      this.recordToPost.checkInTime = time;
+    if (this.recordState === this.states[0]) {
+      this.recordToPost.checkInTime = this.time;
       this.postRecord();
     }
+
+    this.records[this.dateKey][this.recordState] = this.time;
 
     for ( const state of this.states) {
       for (let i = 0; i < this.states.length; i++){
         const nextState = this.states[i];
-        if (this.recordState === state && !this.records[dateKey][nextState]) {
+        if (this.recordState === state && !this.records[this.dateKey][nextState]) {
           this.recordState = nextState;
         }
       }
-      this.putRecord();
     }
 
-    if(this.recordState === 'concluido') {
-      this.storeRecord();
-      this.unableButton('record-time-btn');
+    this.unableButton('record-time-btn');
+    this.putRecord();
+
+    if(this.recordState === this.states[this.states.length - 1]) {
       this.presentAlert();
       this.navCtrl.navigateForward('/page/records');
     }
-    this.storeRecord();
-  }
+  };
 
   async postRecord() {
     const date = new Date();
     const dateKey: any = date.toLocaleDateString();
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
+    this.storeRecord();
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
 
     setTimeout(() => {
       this.records = [];
-      this.recordState = 'chegada';
+      this.recordState = null;
       localStorage.removeItem('records');
     }, 18 * 60 * 60 * 1000); // 18 horas
   }
@@ -139,6 +175,7 @@ export class RegisterPage implements OnInit {
     this.recordToPost.startInterval = this.records[dateKey]['intervalo'];
     this.recordToPost.endInterval = this.records[dateKey]['retorno'];
 
+    this.storeRecord();
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
   }
 

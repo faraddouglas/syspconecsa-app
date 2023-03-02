@@ -45,8 +45,8 @@ export class AuthGuard implements CanActivate {
 
   logout(){
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
     localStorage.removeItem('records');
+    localStorage.removeItem('token');
     this.routToLogin();
   }
 
