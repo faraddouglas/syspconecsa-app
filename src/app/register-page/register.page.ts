@@ -41,6 +41,12 @@ export class RegisterPage implements OnInit {
       this.records[this.dateKey][this.recordState] = this.time;
     };
 
+    if ( this.hasInterval === true) {
+      this.states = ['chegada', 'intervalo', 'retorno','saida', 'concluído'];
+    } else {
+      this.states = ['chegada', 'saída', 'concluído'];
+    };
+
     this.recordToPost = {
       'userId': JSON.parse(this.user).userId,
       'employee': JSON.parse(this.user).name,
@@ -55,54 +61,48 @@ export class RegisterPage implements OnInit {
     this.recordService.getRecords().then((dbRecords) => {
       if (dbRecords.length !== 0) {
       for (const record of dbRecords) {
-        if (record.date === this.formatedDate
+        if (this.hasInterval === true && record.date === this.formatedDate
           && record.checkOutTime !== null || ''
           ){
-            this.records[this.dateKey]['chegada'] = record.checkInTime;
-            this.records[this.dateKey]['intervalo'] = record.startInterval;
-            this.records[this.dateKey]['retorno'] = record.endInterval;
-            this.records[this.dateKey]['saida'] = record.checkOutTime;
+            this.records[this.dateKey][this.states[0]] = record.checkInTime;
+            this.records[this.dateKey][this.states[1]] = record.startInterval;
+            this.records[this.dateKey][this.states[2]] = record.endInterval;
+            this.records[this.dateKey][this.states[this.states.length -2]] = record.checkOutTime;
             this.unableButton('record-time-btn');
-            this.recordState = 'concluido';
+            this.recordState = this.states[this.states.length - 1];
             this.presentAlert();
         } else if (this.hasInterval === true &&
           record.date === this.formatedDate &&
           record.startInterval === null || ''){
-            this.records[this.dateKey]['chegada'] = record.checkInTime;
-            this.recordState = 'intervalo';
+            this.records[this.dateKey][this.states[0]] = record.checkInTime;
+            this.recordState = this.states[1];
         } else if (this.hasInterval === true &&
           record.date === this.formatedDate &&
           record.endInterval === null || ''){
-            this.records[this.dateKey]['chegada'] = record.checkInTime;
-            this.records[this.dateKey]['intervalo'] = record.startInterval;
-            this.recordState = 'retorno';
+            this.records[this.dateKey][this.states[0]] = record.checkInTime;
+            this.records[this.dateKey][this.states[1]] = record.startInterval;
+            this.recordState = this.states[2];
         } else if (this.hasInterval === true &&
           record.date === this.formatedDate &&
           record.checkOutTime === null || ''){
-            this.records[this.dateKey]['chegada'] = record.checkInTime;
-            this.records[this.dateKey]['intervalo'] = record.startInterval;
-            this.records[this.dateKey]['retorno'] = record.endInterval;
-            this.recordState = 'saida';
+            this.records[this.dateKey][this.states[0]] = record.checkInTime;
+            this.records[this.dateKey][this.states[1]] = record.startInterval;
+            this.records[this.dateKey][this.states[2]] = record.endInterval;
+            this.recordState = this.states[this.states.length -2];
         } else if (this.hasInterval === false &&
           record.date === this.formatedDate &&
           record.checkOutTime === null || ''){
-            this.records[this.dateKey]['chegada'] = record.checkInTime;
-            this.recordState = 'saida';
+            this.records[this.dateKey][this.states[0]] = record.checkInTime;
+            this.recordState = this.states[this.states.length -2];
         } else {
-          this.recordState = 'chegada';
+          this.recordState = this.states[0];
         }
         break;
       }
     } else {
-      this.recordState = 'chegada';
-    }
-    });
-
-    if ( this.hasInterval === true) {
-      this.states = ['chegada', 'intervalo', 'retorno','saida', 'concluido'];
-    } else {
-      this.states = ['chegada', 'saida', 'concluido'];
+      this.recordState = this.states[0];
     };
+    });
 
     this.displayTime();
   };
@@ -141,8 +141,8 @@ export class RegisterPage implements OnInit {
         const nextState = this.states[i];
         if (this.recordState === state && !this.records[this.dateKey][nextState]) {
           this.recordState = nextState;
-        }
-      }
+        };
+      };
     };
 
     this.unableButton('record-time-btn');
@@ -151,7 +151,7 @@ export class RegisterPage implements OnInit {
     if(this.recordState === this.states[this.states.length - 1]) {
       this.presentAlert();
       this.navCtrl.navigateForward('/page/records');
-    }
+    };
   };
 
   async postRecord() {
@@ -167,11 +167,17 @@ export class RegisterPage implements OnInit {
     const dateKey: any = date.toLocaleDateString();
     const lastId: string = await this.registerService.getLastId();
 
+    if(this.hasInterval === false){
+      this.recordToPost.checkInTime = this.records[dateKey][this.states[0]];
+      this.recordToPost.checkOutTime = this.records[dateKey][this.states[this.states.length - 2]];
+    } else {
+
     this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
-    this.recordToPost.checkInTime = this.records[dateKey]['chegada'];
-    this.recordToPost.checkOutTime = this.records[dateKey]['saida'];
-    this.recordToPost.startInterval = this.records[dateKey]['intervalo'];
-    this.recordToPost.endInterval = this.records[dateKey]['retorno'];
+    this.recordToPost.checkInTime = this.records[dateKey][this.states[0]];
+    this.recordToPost.checkOutTime = this.records[dateKey][this.states[this.states.length - 2]];
+    this.recordToPost.startInterval = this.records[dateKey][this.states[1]];
+    this.recordToPost.endInterval = this.records[dateKey][this.states[2]];
+    };
 
     this.storeRecord();
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
