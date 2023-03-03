@@ -93,7 +93,15 @@ export class RegisterPage implements OnInit {
           record.checkOutTime === null || ''){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.recordState = this.states[this.states.length -2];
-        } else {
+        } else if (this.hasInterval === false &&
+          record.date === this.formatedDate &&
+          record.checkOutTime !== null || ''){
+            this.records[this.dateKey][this.states[0]] = record.checkInTime;
+            this.records[this.dateKey][this.states[this.states.length -2]] = record.checkOutTime;
+            this.unableButton('record-time-btn');
+            this.recordState = this.states[this.states.length - 1];
+            this.presentAlert();
+          } else {
           this.recordState = this.states[0];
         }
         break;
