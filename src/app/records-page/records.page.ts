@@ -22,6 +22,7 @@ export class RecordsPage implements OnInit {
   }
 
   formatDate(_date: string) {
+
     const date = new Date(_date);
     const day = date.getUTCDate();
     const month = date.getUTCMonth() + 1;
