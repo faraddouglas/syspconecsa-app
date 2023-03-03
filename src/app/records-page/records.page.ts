@@ -19,6 +19,7 @@ export class RecordsPage implements OnInit {
 
   async loadRecords(){
     this.records = await this.recordService.getRecords();
+    console.log(this.records);
   }
 
   formatDate(_date: string) {

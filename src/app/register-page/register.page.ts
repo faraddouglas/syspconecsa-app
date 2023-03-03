@@ -47,10 +47,10 @@ export class RegisterPage implements OnInit {
     };
 
     this.recordToPost = {
+      'date': this.dateKey,
       'userId': JSON.parse(this.user).userId,
       'employee': JSON.parse(this.user).name,
       'companyId': JSON.parse(this.user).companyId,
-      'date': null,
       'checkInTime': null,
       'startInterval': null,
       'endInterval': null,
@@ -172,11 +172,9 @@ export class RegisterPage implements OnInit {
     const lastId: string = await this.registerService.getLastId();
 
     if(this.hasInterval === false){
-      this.recordToPost.date = this.formatedDate;
       this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
       this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
     } else {
-        this.recordToPost.date = this.formatedDate;
         this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
         this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
         this.recordToPost.startInterval = this.records[this.dateKey][this.states[1]];

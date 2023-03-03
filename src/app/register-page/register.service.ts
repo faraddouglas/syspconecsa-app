@@ -29,7 +29,13 @@ export class RegisterService {
 
   async getLastId(): Promise<any> {
     const records: any = await this.recordService.getRecords();
-    const lastRecord = records[records.length - 1];
-    return lastRecord.id;
+    const idList: any = records.map((record: any) => record.id);
+    let lastId = 0;
+    idList.forEach((id: any) => {
+      while(id > lastId){
+        lastId = id;
+      }
+    });
+    return lastId;
   }
 }
