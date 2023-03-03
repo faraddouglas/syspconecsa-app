@@ -32,7 +32,6 @@ export class RegisterPage implements OnInit {
     ) {}
 
   ngOnInit() {
-
     if (!this.records[this.dateKey]) {
       this.records[this.dateKey] = {};
     };
@@ -128,7 +127,6 @@ export class RegisterPage implements OnInit {
   };
 
   recordTime() {
-
     if (this.recordState === this.states[0]) {
       this.recordToPost.checkInTime = this.time;
       this.postRecord();
