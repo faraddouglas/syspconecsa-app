@@ -47,7 +47,6 @@ export class RegisterPage implements OnInit {
     };
 
     this.recordToPost = {
-      'date': this.dateKey,
       'date': this.formatedDate,
       'userId': JSON.parse(this.user).userId,
       'employee': JSON.parse(this.user).name,
