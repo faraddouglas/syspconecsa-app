@@ -60,7 +60,7 @@ export class RegisterPage implements OnInit {
     this.recordService.getRecords().then((dbRecords) => {
       if (dbRecords.length !== 0) {
       for (const record of dbRecords) {
-        if (this.hasInterval === true && record.date === this.formatedDate
+        if (this.hasInterval === true || 'true' && record.date === this.formatedDate
           && record.checkOutTime !== null || ''
           ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
@@ -70,32 +70,37 @@ export class RegisterPage implements OnInit {
             this.unableButton('record-time-btn');
             this.recordState = this.states[this.states.length - 1];
             this.presentAlert();
-        } else if (this.hasInterval === true &&
+        } else if (this.hasInterval === true || 'true' &&
           record.date === this.formatedDate &&
-          record.startInterval === null || ''){
+          record.startInterval === null || ''
+          ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.recordState = this.states[1];
-        } else if (this.hasInterval === true &&
+        } else if (this.hasInterval === true || 'true' &&
           record.date === this.formatedDate &&
-          record.endInterval === null || ''){
+          record.endInterval === null || ''
+          ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.records[this.dateKey][this.states[1]] = record.startInterval;
             this.recordState = this.states[2];
-        } else if (this.hasInterval === true &&
+        } else if (this.hasInterval === true || 'true' &&
           record.date === this.formatedDate &&
-          record.checkOutTime === null || ''){
+          record.checkOutTime === null || ''
+          ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.records[this.dateKey][this.states[1]] = record.startInterval;
             this.records[this.dateKey][this.states[2]] = record.endInterval;
             this.recordState = this.states[this.states.length -2];
-        } else if (this.hasInterval === false &&
+        } else if (this.hasInterval === false || 'false' &&
           record.date === this.formatedDate &&
-          record.checkOutTime === null || ''){
+          record.checkOutTime === null || ''
+          ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.recordState = this.states[this.states.length -2];
-        } else if (this.hasInterval === false &&
+        } else if (this.hasInterval === false || 'false' &&
           record.date === this.formatedDate &&
-          record.checkOutTime !== null || ''){
+          record.checkOutTime !== null || ''
+          ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.records[this.dateKey][this.states[this.states.length -2]] = record.checkOutTime;
             this.unableButton('record-time-btn');
