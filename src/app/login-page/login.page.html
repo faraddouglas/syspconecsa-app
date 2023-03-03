@@ -14,11 +14,11 @@
 
     <ion-card-content>
       <ion-label position="floating">Cod. Empresa:</ion-label>
-      <ion-input type="Empresa" [(ngModel)]="companyId"></ion-input>
+      <ion-input (keypress)="numericOnly()" inputmode="numeric" type="Empresa" [(ngModel)]="companyId"></ion-input>
       <ion-label position="floating">Matricula:</ion-label>
-      <ion-input type="Matricula" [(ngModel)]="userId"></ion-input>
+      <ion-input (keypress)="numericOnly()" inputmode="numeric" type="Matricula" [(ngModel)]="userId"></ion-input>
 
-      <ion-button (click)="login()"[disabled]="isSubmitting">
+      <ion-button (click)="login()" [disabled]="isSubmitting">
         <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
         Entrar
       </ion-button>

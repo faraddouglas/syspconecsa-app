@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
     isSubmitting = false;
 
   async login(){
+
     if(this.userId === '' || this.companyId === ''){
       this.authGuard.presentAlert();
   } else {
@@ -26,5 +27,11 @@ export class LoginPage implements OnInit {
         this.isSubmitting = false;
       } else { this.isSubmitting = true; }
     }
+  }
+
+  numericOnly(){
+    addEventListener('numericOnly', (event: any) => {
+      event.target.value = event.target.value.replace(/[^0-9]/g, '');
+    });
   }
 }
