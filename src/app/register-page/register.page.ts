@@ -176,7 +176,7 @@ export class RegisterPage implements OnInit {
   async putRecord() {
     const lastId: string = await this.registerService.getLastId();
 
-    if(this.hasInterval === false){
+    if(this.hasInterval === false || 'false'){
       this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
       this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
     } else {
