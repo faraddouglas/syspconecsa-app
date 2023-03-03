@@ -157,27 +157,24 @@ export class RegisterPage implements OnInit {
   };
 
   async postRecord() {
-    const date = new Date();
-    const dateKey: any = date.toLocaleDateString();
-    this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
+    this.recordToPost.date = String(this.dateKey.split('/').reverse().join('-'));
     this.storeRecord();
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
   };
 
   async putRecord() {
-    const date = new Date();
-    const dateKey: any = date.toLocaleDateString();
     const lastId: string = await this.registerService.getLastId();
 
     if(this.hasInterval === false){
-      this.recordToPost.checkInTime = this.records[dateKey][this.states[0]];
-      this.recordToPost.checkOutTime = this.records[dateKey][this.states[this.states.length - 2]];
+      this.recordToPost.date = this.formatedDate;
+      this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
+      this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
     } else {
-        this.recordToPost.date = String(dateKey.split('/').reverse().join('-'));
-        this.recordToPost.checkInTime = this.records[dateKey][this.states[0]];
-        this.recordToPost.checkOutTime = this.records[dateKey][this.states[this.states.length - 2]];
-        this.recordToPost.startInterval = this.records[dateKey][this.states[1]];
-        this.recordToPost.endInterval = this.records[dateKey][this.states[2]];
+        this.recordToPost.date = this.formatedDate;
+        this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
+        this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
+        this.recordToPost.startInterval = this.records[this.dateKey][this.states[1]];
+        this.recordToPost.endInterval = this.records[this.dateKey][this.states[2]];
         };
 
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
