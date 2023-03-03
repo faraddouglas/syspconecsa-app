@@ -48,6 +48,7 @@ export class RegisterPage implements OnInit {
 
     this.recordToPost = {
       'date': this.dateKey,
+      'date': this.formatedDate,
       'userId': JSON.parse(this.user).userId,
       'employee': JSON.parse(this.user).name,
       'companyId': JSON.parse(this.user).companyId,
@@ -60,8 +61,8 @@ export class RegisterPage implements OnInit {
     this.recordService.getRecords().then((dbRecords) => {
       if (dbRecords.length !== 0) {
       for (const record of dbRecords) {
-        if (this.hasInterval === true || 'true' && record.date === this.formatedDate
-          && record.checkOutTime !== null || ''
+        if (this.hasInterval === true && record.date === this.formatedDate
+          && record.checkOutTime !== null
           ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.records[this.dateKey][this.states[1]] = record.startInterval;
@@ -70,36 +71,36 @@ export class RegisterPage implements OnInit {
             this.unableButton('record-time-btn');
             this.recordState = this.states[this.states.length - 1];
             this.presentAlert();
-        } else if (this.hasInterval === true || 'true' &&
+        } else if (this.hasInterval === true &&
           record.date === this.formatedDate &&
-          record.startInterval === null || ''
+          record.startInterval === null
           ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.recordState = this.states[1];
-        } else if (this.hasInterval === true || 'true' &&
+        } else if (this.hasInterval === true &&
           record.date === this.formatedDate &&
-          record.endInterval === null || ''
+          record.endInterval === null
           ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.records[this.dateKey][this.states[1]] = record.startInterval;
             this.recordState = this.states[2];
-        } else if (this.hasInterval === true || 'true' &&
+        } else if (this.hasInterval === true &&
           record.date === this.formatedDate &&
-          record.checkOutTime === null || ''
+          record.checkOutTime === null
           ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.records[this.dateKey][this.states[1]] = record.startInterval;
             this.records[this.dateKey][this.states[2]] = record.endInterval;
             this.recordState = this.states[this.states.length -2];
-        } else if (this.hasInterval === false || 'false' &&
+        } else if (this.hasInterval === false &&
           record.date === this.formatedDate &&
-          record.checkOutTime === null || ''
+          record.checkOutTime === null
           ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.recordState = this.states[this.states.length -2];
-        } else if (this.hasInterval === false || 'false' &&
+        } else if (this.hasInterval === false &&
           record.date === this.formatedDate &&
-          record.checkOutTime !== null || ''
+          record.checkOutTime !== null
           ){
             this.records[this.dateKey][this.states[0]] = record.checkInTime;
             this.records[this.dateKey][this.states[this.states.length -2]] = record.checkOutTime;
@@ -168,7 +169,7 @@ export class RegisterPage implements OnInit {
   };
 
   async postRecord() {
-    this.recordToPost.date = String(this.dateKey.split('/').reverse().join('-'));
+    this.recordToPost.date = this.formatedDate;
     this.storeRecord();
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
   };
@@ -176,7 +177,7 @@ export class RegisterPage implements OnInit {
   async putRecord() {
     const lastId: string = await this.registerService.getLastId();
 
-    if(this.hasInterval === false || 'false'){
+    if(this.hasInterval === false){
       this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
       this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
     } else {
