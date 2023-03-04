@@ -22,7 +22,7 @@ export class RegisterPage implements OnInit {
   recordToPost: any = {};
   time: any = new Date().toLocaleTimeString();
   dateKey: any = new Date().toLocaleDateString();
-  formatedDate = String(new Date().toLocaleDateString()).split('/').reverse().join('-');
+  formatedDate = String(this.dateKey.split('/').reverse().join('-'));
 
   constructor(
     private alertController: AlertController,
@@ -32,20 +32,6 @@ export class RegisterPage implements OnInit {
     ) {}
 
   ngOnInit() {
-    if (!this.records[this.dateKey]) {
-      this.records[this.dateKey] = {};
-    };
-
-    if (!this.records[this.dateKey][this.recordState]) {
-      this.records[this.dateKey][this.recordState] = this.time;
-    };
-
-    if ( this.hasInterval === true) {
-      this.states = ['chegada', 'intervalo', 'retorno','saída', 'concluído'];
-    } else {
-      this.states = ['chegada', 'saída', 'concluído'];
-    };
-
     this.recordToPost = {
       'date': this.formatedDate,
       'userId': JSON.parse(this.user).userId,
@@ -56,66 +42,8 @@ export class RegisterPage implements OnInit {
       'endInterval': null,
       'checkOutTime': null
     };
-
-    this.recordService.getRecords().then((dbRecords) => {
-      if (dbRecords.length !== 0) {
-      for (const record of dbRecords) {
-        if (this.hasInterval === true && record.date === this.formatedDate
-          && record.checkOutTime !== null
-          ){
-            this.records[this.dateKey][this.states[0]] = record.checkInTime;
-            this.records[this.dateKey][this.states[1]] = record.startInterval;
-            this.records[this.dateKey][this.states[2]] = record.endInterval;
-            this.records[this.dateKey][this.states[this.states.length -2]] = record.checkOutTime;
-            this.unableButton('record-time-btn');
-            this.recordState = this.states[this.states.length - 1];
-            this.presentAlert();
-        } else if (this.hasInterval === true &&
-          record.date === this.formatedDate &&
-          record.startInterval === null
-          ){
-            this.records[this.dateKey][this.states[0]] = record.checkInTime;
-            this.recordState = this.states[1];
-        } else if (this.hasInterval === true &&
-          record.date === this.formatedDate &&
-          record.endInterval === null
-          ){
-            this.records[this.dateKey][this.states[0]] = record.checkInTime;
-            this.records[this.dateKey][this.states[1]] = record.startInterval;
-            this.recordState = this.states[2];
-        } else if (this.hasInterval === true &&
-          record.date === this.formatedDate &&
-          record.checkOutTime === null
-          ){
-            this.records[this.dateKey][this.states[0]] = record.checkInTime;
-            this.records[this.dateKey][this.states[1]] = record.startInterval;
-            this.records[this.dateKey][this.states[2]] = record.endInterval;
-            this.recordState = this.states[this.states.length -2];
-        } else if (this.hasInterval === false &&
-          record.date === this.formatedDate &&
-          record.checkOutTime === null
-          ){
-            this.records[this.dateKey][this.states[0]] = record.checkInTime;
-            this.recordState = this.states[this.states.length -2];
-        } else if (this.hasInterval === false &&
-          record.date === this.formatedDate &&
-          record.checkOutTime !== null
-          ){
-            this.records[this.dateKey][this.states[0]] = record.checkInTime;
-            this.records[this.dateKey][this.states[this.states.length -2]] = record.checkOutTime;
-            this.unableButton('record-time-btn');
-            this.recordState = this.states[this.states.length - 1];
-            this.presentAlert();
-          } else {
-          this.recordState = this.states[0];
-        }
-        break;
-      }
-    } else {
-      this.recordState = this.states[0];
-    };
-    });
-
+    this.setParameters();
+    this.getTodaysRecord();
     this.displayTime();
   };
 
@@ -140,46 +68,45 @@ export class RegisterPage implements OnInit {
   };
 
   recordTime() {
+    //Case the user has no record for today
     if (this.recordState === this.states[0]) {
       this.recordToPost.checkInTime = this.time;
       this.postRecord();
-    };
-
-    this.records[this.dateKey][this.recordState] = this.time;
-
-    for ( const state of this.states) {
-      for (let i = 0; i < this.states.length; i++){
-        const nextState = this.states[i];
-        if (this.recordState === state && !this.records[this.dateKey][nextState]) {
-          this.recordState = nextState;
+    } else {
+        //Case the user has a record for today
+        this.records[this.dateKey][this.recordState] = this.time;
+        //Loop through the states array to find the next state
+        for ( const state of this.states) {
+          for (let i = 0; i < this.states.length; i++){
+            const nextState = this.states[i];
+            if (this.recordState === state && !this.records[this.dateKey][nextState]) {
+              this.recordState = nextState;
+            };
+          };
+        };
+        this.unableButton('record-time-btn');
+        this.putRecord();
+        //Case the user has finished his work day
+        if(this.recordState === this.states[this.states.length - 1]) {
+          this.presentAlert();
+          this.navCtrl.navigateForward('/page/records');
         };
       };
     };
 
-    this.unableButton('record-time-btn');
-    this.putRecord();
-
-    if(this.recordState === this.states[this.states.length - 1]) {
-      this.presentAlert();
-      this.navCtrl.navigateForward('/page/records');
-    };
-
-    this.storeRecord();
-  };
-
   async postRecord() {
     this.recordToPost.date = this.formatedDate;
-    this.storeRecord();
     await lastValueFrom(this.registerService.postRecords(this.recordToPost));
   };
 
   async putRecord() {
     const lastId: string = await this.registerService.getLastId();
-
+    //Case the user has no interval
     if(this.hasInterval === false){
       this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
       this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
     } else {
+        //Case the user has interval
         this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
         this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
         this.recordToPost.startInterval = this.records[this.dateKey][this.states[1]];
@@ -189,11 +116,84 @@ export class RegisterPage implements OnInit {
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
   };
 
-  storeRecord(){
-    localStorage.setItem('records', JSON.stringify(this.records));
-  };
-
   unableButton(btn: string) {
     document.getElementById(btn)!.setAttribute('disabled', 'true');
   };
+
+  getTodaysRecord(){
+    //Search for records in database
+    this.recordService.getRecords().then((dbRecords) => {
+      if (dbRecords.length !== 0) {
+        let matchingRecord: any = null;
+        for (const record of dbRecords) {
+          if (record.date === this.formatedDate) {
+            matchingRecord = record;
+            break;
+          }
+        }
+        if (matchingRecord !== null) {
+          //Case 1 - User has interval and all records are filled
+          if (this.hasInterval === true && matchingRecord['checkOutTime'] !== null) {
+              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.records[this.dateKey][this.states[1]] = matchingRecord['startInterval'];
+              this.records[this.dateKey][this.states[2]] = matchingRecord['endInterval'];
+              this.records[this.dateKey][this.states[this.states.length -2]] = matchingRecord['checkOutTime'];
+              this.unableButton('record-time-btn');
+              this.recordState = this.states[this.states.length - 1];
+              this.presentAlert();
+          //Case 2 - User has interval and only checkInTime is filled
+          } else if (this.hasInterval === true && matchingRecord['startInterval'] === null
+            ){
+              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.recordState = this.states[1];
+          //Case 3 - User has interval and only checkInTime and startInterval are filled
+          } else if (this.hasInterval === true && matchingRecord['endInterval'] === null
+            ){
+              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.records[this.dateKey][this.states[1]] = matchingRecord['startInterval'];
+              this.recordState = this.states[2];
+          //Case 4 - User has interval and only checkInTime, startInterval and endInterval are filled
+          } else if (this.hasInterval === true && matchingRecord.checkOutTime === null
+            ){
+              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.records[this.dateKey][this.states[1]] = matchingRecord['startInterval'];
+              this.records[this.dateKey][this.states[2]] = matchingRecord['endInterval'];
+              this.recordState = this.states[this.states.length -2];
+          //Case 5 - User has no interval and all records are filled
+          } else if (this.hasInterval === false && matchingRecord['checkOutTime'] === null
+            ){
+              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.recordState = this.states[this.states.length -2];
+          //Case 6 - User has no interval and only checkInTime is filled
+          } else if (this.hasInterval === false && matchingRecord['checkOutTime'] !== null
+            ){
+              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.records[this.dateKey][this.states[this.states.length -2]] = matchingRecord['checkOutTime'];
+              this.unableButton('record-time-btn');
+              this.recordState = this.states[this.states.length - 1];
+              this.presentAlert();
+          } else {
+              //Record not found
+              this.recordState = this.states[0];
+          }
+        }
+      } else {
+        //No records found
+        this.recordState = this.states[0];
+      }
+    });
+  }
+
+  setParameters(){
+    //Create a new record object
+    if (!this.records[this.dateKey]) {
+      this.records[this.dateKey] = {};
+    };
+    //Set the states array
+    if ( this.hasInterval === true ) {
+      this.states = ['chegada', 'intervalo', 'retorno','saída', 'concluído'];
+    } else {
+      this.states = ['chegada', 'saída', 'concluído'];
+    };
+  }
 };
