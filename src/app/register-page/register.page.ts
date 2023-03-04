@@ -131,8 +131,8 @@ export class RegisterPage implements OnInit {
           if (record.date === this.formatedDate) {
             matchingRecord = record;
             break;
-          }
-        }
+          };
+        };
         if (matchingRecord !== null) {
           //Case 1 - User has interval and all records are filled
           if (this.hasInterval === true && matchingRecord['checkOutTime'] !== null) {
@@ -177,14 +177,14 @@ export class RegisterPage implements OnInit {
           } else {
               //Record not found
               this.recordState = this.states[0];
-          }
-        }
-      } else {
-        //No records found
-        this.recordState = this.states[0];
-      }
+          };
+        } else {
+          //No records found
+          this.recordState = this.states[0];
+        };
+      };
     });
-  }
+  };
 
   setParameters(){
     //Create a new record object
@@ -197,5 +197,5 @@ export class RegisterPage implements OnInit {
     } else {
       this.states = ['chegada', 'saída', 'concluído'];
     };
-  }
+  };
 };
