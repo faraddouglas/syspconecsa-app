@@ -89,7 +89,9 @@ export class RegisterPage implements OnInit {
         //Case the user has finished his work day
         if(this.recordState === this.states[this.states.length - 1]) {
           this.presentAlert();
-          this.navCtrl.navigateForward('/page/records');
+          setTimeout(() => {
+            this.navCtrl.navigateForward('/page/records');
+          }, 1000);
         };
       };
     };
