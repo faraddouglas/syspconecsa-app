@@ -71,28 +71,14 @@ export class RegisterPage implements OnInit {
     //Case the user has no record for today
     if (this.recordState === this.states[0]) {
       this.recordToPost.checkInTime = this.time;
+      this.unableButton('record-time-btn');
+      this.updateRecordState();
       this.postRecord();
     } else {
         //Case the user has a record for today
-        this.records[this.dateKey][this.recordState] = this.time;
-        //Loop through the states array to find the next state
-        for ( const state of this.states) {
-          for (let i = 0; i < this.states.length; i++){
-            const nextState = this.states[i];
-            if (this.recordState === state && !this.records[this.dateKey][nextState]) {
-              this.recordState = nextState;
-            };
-          };
-        };
         this.unableButton('record-time-btn');
+        this.updateRecordState();
         this.putRecord();
-        //Case the user has finished his work day
-        if(this.recordState === this.states[this.states.length - 1]) {
-          this.presentAlert();
-          setTimeout(() => {
-            this.navCtrl.navigateForward('/page/records');
-          }, 1000);
-        };
       };
     };
 
@@ -198,4 +184,24 @@ export class RegisterPage implements OnInit {
       this.states = ['chegada', 'saída', 'concluído'];
     };
   };
+
+  updateRecordState(){
+    this.records[this.dateKey][this.recordState] = this.time;
+    //Loop through the states array to find the next state
+    for ( const state of this.states) {
+      for (let i = 0; i < this.states.length; i++){
+        const nextState = this.states[i];
+        if (this.recordState === state && !this.records[this.dateKey][nextState]) {
+          this.recordState = nextState;
+        };
+      };
+    };
+    //Case the user has finished his work day
+    if(this.recordState === this.states[this.states.length - 1]) {
+      this.presentAlert();
+      setTimeout(() => {
+        this.navCtrl.navigateForward('/page/records');
+      }, 1000);
+    };
+  }
 };
