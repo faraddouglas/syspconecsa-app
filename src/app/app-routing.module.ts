@@ -1,3 +1,4 @@
+import { RegisterUserPage } from './mananger/register-user/register-user.page';
 import { RegisterEnterprisePage } from './mananger/register-enterprise/register-enterprise.page';
 import { ManangerPage } from './mananger/mananger.page';
 import { NgModule } from '@angular/core';
@@ -51,6 +52,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
   },
+  {
+    path: 'page/mananger/register-user',
+    component: RegisterUserPage,
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./mananger/register-user/register-user.module').then( m => m.RegisterUserPageModule)
+  },
+
 ];
 
 @NgModule({
