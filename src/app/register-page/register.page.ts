@@ -168,6 +168,9 @@ export class RegisterPage implements OnInit {
           //No records found
           this.recordState = this.states[0];
         };
+      } else {
+        //No records found
+        this.recordState = this.states[0];
       };
     });
   };
