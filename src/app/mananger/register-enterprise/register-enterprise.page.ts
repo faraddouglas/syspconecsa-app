@@ -92,7 +92,7 @@ export class RegisterEnterprisePage implements OnInit {
 
   registerEnterprise(){
     const enterprise = {
-      companyId: this.register,
+      register: this.register,
       enterprise: this.enterprise,
       fantasyName: this.fantasyName,
       dateRecord: new Date().toLocaleDateString(),
