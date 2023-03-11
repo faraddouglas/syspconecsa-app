@@ -17,7 +17,7 @@ export class RegisterEnterprisePage implements OnInit {
   fantasyName: string = '';
   email: string = '';
   phone: string = '';
-  adress: string = '';
+  address: string = '';
   adressNum: string = '';
   adressComplement: string = '';
   district: string = '';
@@ -40,7 +40,7 @@ export class RegisterEnterprisePage implements OnInit {
       email: ['', [Validators.required, Validators.pattern(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i)]],
       phone: ['', [Validators.required, Validators.pattern(/^\([1-9]{2}\)\s*9?[0-9]{1}[0-9]{3}\-[0-9]{4}$/)]],
       zipCode: ['', [Validators.required, Validators.pattern(/^\d{5}\-\d{3}$/)]],
-      adress: ['', [Validators.required]],
+      address: ['', [Validators.required]],
       adressNum: ['', [Validators.required]],
       adressComplement: ['', [Validators.nullValidator]],
       district: ['', [Validators.required]],
@@ -96,7 +96,7 @@ export class RegisterEnterprisePage implements OnInit {
       enterprise: this.enterprise,
       fantasyName: this.fantasyName,
       dateRecord: new Date().toLocaleDateString(),
-      adress: this.adress,
+      address: this.address,
       adressNum: this.adressNum,
       adressComplement: this.adressComplement,
       district: this.district,
