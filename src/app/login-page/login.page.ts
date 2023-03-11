@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthGuard } from '../guards/auth.guard';
+import { CustomComponent } from '../custom-component/custom-component.component';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,10 @@ export class LoginPage implements OnInit {
   userType: string = '';
   user = localStorage.getItem('user');
 
-  constructor( private authGuard: AuthGuard) { }
+  constructor(
+    private authGuard: AuthGuard,
+    private customComponent: CustomComponent
+    ) { }
 
   ngOnInit() {}
     isSubmitting = false;
@@ -20,7 +24,12 @@ export class LoginPage implements OnInit {
   async login(){
 
     if(this.userId === '' || this.companyId === ''){
-      this.authGuard.presentAlert();
+      this.customComponent.presentAlert(
+        'Erro',
+        'Preencha todos os campos',
+        '',
+        ['OK']
+        );
   } else {
       await this.authGuard.login(this.companyId, this.userId);
       if(!this.user){

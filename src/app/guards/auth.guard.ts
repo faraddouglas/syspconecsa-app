@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { catchError, Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { AlertController } from '@ionic/angular';
+import { CustomComponent } from '../custom-component/custom-component.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private navCtrl: NavController,
     private http: HttpClient,
-    private alertController: AlertController,
+    private customComponent: CustomComponent
     ) {}
 
   canActivate(
@@ -58,7 +58,12 @@ export class AuthGuard implements CanActivate {
       .pipe(
         catchError((err) => {
           if(err.status === 401){
-            this.presentAlert();
+            this.customComponent.presentAlert(
+              'Atenção!',
+              'Não foi possível realizar o login!',
+              'Verifique suas credenciais',
+              ['OK']
+              );
             this.logout();
           }
           throw new Error('Não foi possível realizar o login');
@@ -75,15 +80,5 @@ export class AuthGuard implements CanActivate {
       }
     }
       });
-  }
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Atenção!',
-      subHeader: 'Não foi possível realizar o login!',
-      message: 'Verifique suas credenciais',
-      buttons: ['OK'],
-    });
-    await alert.present();
   }
 }
