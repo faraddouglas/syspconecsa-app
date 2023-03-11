@@ -11,7 +11,7 @@ import { CustomComponent } from 'src/app/custom-component/custom-component.compo
 })
 export class RegisterEnterprisePage implements OnInit {
   formGroup!: FormGroup;
-  companyId: string = '';
+  register: string = '';
   zipCode: string = '';
   enterprise: string = '';
   fantasyName: string = '';
@@ -34,7 +34,7 @@ export class RegisterEnterprisePage implements OnInit {
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      companyId: ['', [Validators.required, Validators.pattern(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/)]],
+      register: ['', [Validators.required, Validators.pattern(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/)]],
       enterprise: ['', [Validators.required]],
       fantasyName: ['', [Validators.nullValidator]],
       email: ['', [Validators.required, Validators.pattern(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i)]],
@@ -51,16 +51,16 @@ export class RegisterEnterprisePage implements OnInit {
   };
 
   sendCnpjMask(){
-    if (this.companyId.length == 2) {
-      this.companyId = this.companyId + '.';
-    } else if (this.companyId.length == 6) {
-      this.companyId = this.companyId + '.';
+    if (this.register.length == 2) {
+      this.register = this.register + '.';
+    } else if (this.register.length == 6) {
+      this.register = this.register + '.';
     }
-    else if (this.companyId.length == 10) {
-      this.companyId = this.companyId + '/';
+    else if (this.register.length == 10) {
+      this.register = this.register + '/';
     }
-    else if (this.companyId.length == 15) {
-      this.companyId = this.companyId + '-';
+    else if (this.register.length == 15) {
+      this.register = this.register + '-';
     }
   }
 
@@ -92,7 +92,7 @@ export class RegisterEnterprisePage implements OnInit {
 
   registerEnterprise(){
     const enterprise = {
-      companyId: this.companyId,
+      companyId: this.register,
       enterprise: this.enterprise,
       fantasyName: this.fantasyName,
       dateRecord: new Date().toLocaleDateString(),

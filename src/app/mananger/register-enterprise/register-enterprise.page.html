@@ -18,7 +18,7 @@
         <ion-item>
           <ion-label position="floating">CNPJ *</ion-label>
           <ion-input (keypress)="numericOnly()" inputmode="numeric" type="text"
-          formControlName="companyId" [(ngModel)]="companyId"
+          formControlName="register" [(ngModel)]="register"
           (ionChange)="sendCnpjMask()" maxlength="18">
           </ion-input>
         </ion-item>
