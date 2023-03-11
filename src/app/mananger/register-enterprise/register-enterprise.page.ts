@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterEnterpriseService } from './register-enterprise.service';
-import { CustomComponent } from 'src/app/custom-component/custom-component.component';
 
 
 @Component({
@@ -18,8 +17,8 @@ export class RegisterEnterprisePage implements OnInit {
   email: string = '';
   phone: string = '';
   address: string = '';
-  adressNum: string = '';
-  adressComplement: string = '';
+  addressNum: string = '';
+  addressComplement: string = '';
   district: string = '';
   city: string = '';
   state: string = '';
@@ -29,7 +28,6 @@ export class RegisterEnterprisePage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private registerEnterpriseService: RegisterEnterpriseService,
-    private customComponent: CustomComponent
     ) {}
 
   ngOnInit() {
@@ -41,8 +39,8 @@ export class RegisterEnterprisePage implements OnInit {
       phone: ['', [Validators.required, Validators.pattern(/^\([1-9]{2}\)\s*9?[0-9]{1}[0-9]{3}\-[0-9]{4}$/)]],
       zipCode: ['', [Validators.required, Validators.pattern(/^\d{5}\-\d{3}$/)]],
       address: ['', [Validators.required]],
-      adressNum: ['', [Validators.required]],
-      adressComplement: ['', [Validators.nullValidator]],
+      addressNum: ['', [Validators.required]],
+      addressComplement: ['', [Validators.nullValidator]],
       district: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
@@ -97,8 +95,8 @@ export class RegisterEnterprisePage implements OnInit {
       fantasyName: this.fantasyName,
       dateRecord: new Date().toLocaleDateString(),
       address: this.address,
-      adressNum: this.adressNum,
-      adressComplement: this.adressComplement,
+      addressNum: this.addressNum,
+      addressComplement: this.addressComplement,
       district: this.district,
       city: this.city,
       state: this.state,
@@ -109,11 +107,5 @@ export class RegisterEnterprisePage implements OnInit {
       website: this.website
     };
     this.registerEnterpriseService.postEnterprise(enterprise);
-    this.customComponent.presentAlert(
-      'Sucesso',
-      'Empresa cadastrada com sucesso!',
-      'Agora você pode cadastrar seus funcionários.',
-      ['OK']
-    );
   };
 };
