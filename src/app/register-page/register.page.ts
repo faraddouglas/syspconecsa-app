@@ -1,8 +1,9 @@
 import { RecordService } from './../records-page/record.service';
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { RegisterService } from './register.service';
 import { lastValueFrom } from 'rxjs';
+import { CustomComponent } from '../custom-component/custom-component.component';
 
 
 @Component({
@@ -25,10 +26,10 @@ export class RegisterPage implements OnInit {
   formatedDate = String(this.dateKey.split('/').reverse().join('-'));
 
   constructor(
-    private alertController: AlertController,
     private registerService: RegisterService,
     private recordService: RecordService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private customComponent: CustomComponent
     ) {}
 
   ngOnInit() {
@@ -55,16 +56,6 @@ export class RegisterPage implements OnInit {
         element.innerHTML = time;
         }, 1000);
     });
-  };
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Sucesso!',
-      subHeader: 'Todos os seus horários foram registrados!',
-      message: 'Volte amanhã para registrar seu horário de trabalho!',
-      buttons: ['OK'],
-    });
-    await alert.present();
   };
 
   recordTime() {
@@ -128,7 +119,12 @@ export class RegisterPage implements OnInit {
               this.records[this.dateKey][this.states[this.states.length -2]] = matchingRecord['checkOutTime'];
               this.unableButton('record-time-btn');
               this.recordState = this.states[this.states.length - 1];
-              this.presentAlert();
+              this.customComponent.presentAlert(
+                'Sucesso!',
+                'Todos os seus horários foram registrados!',
+                'Volte amanhã para registrar seu horário de trabalho!',
+                ['OK']
+                );
           //Case 2 - User has interval and only checkInTime is filled
           } else if (this.hasInterval === true && matchingRecord['startInterval'] === null
             ){
@@ -159,7 +155,12 @@ export class RegisterPage implements OnInit {
               this.records[this.dateKey][this.states[this.states.length -2]] = matchingRecord['checkOutTime'];
               this.unableButton('record-time-btn');
               this.recordState = this.states[this.states.length - 1];
-              this.presentAlert();
+              this.customComponent.presentAlert(
+                'Sucesso!',
+                'Todos os seus horários foram registrados!',
+                'Volte amanhã para registrar seu horário de trabalho!',
+                ['OK']
+                );
           } else {
               //Record not found
               this.recordState = this.states[0];
@@ -201,7 +202,12 @@ export class RegisterPage implements OnInit {
     };
     //Case the user has finished his work day
     if(this.recordState === this.states[this.states.length - 1]) {
-      this.presentAlert();
+      this.customComponent.presentAlert(
+        'Sucesso!',
+        'Todos os seus horários foram registrados!',
+        'Volte amanhã para registrar seu horário de trabalho!',
+        ['OK']
+        );
       setTimeout(() => {
         this.navCtrl.navigateForward('/page/records');
       }, 1000);
