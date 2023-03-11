@@ -13,7 +13,7 @@ import { lastValueFrom } from 'rxjs';
 
 export class RegisterPage implements OnInit {
 
-  user:any = localStorage.getItem('user');
+  user: any = localStorage.getItem('user');
   records: any [] = [];
   states: any [] = [];
   userType = JSON.parse(this.user).userType;
