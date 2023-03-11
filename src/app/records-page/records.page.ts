@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RecordsPage implements OnInit {
   constructor(private recordService: RecordService) {}
-  records: any = [];
+  records: object = [];
   user: any = localStorage.getItem('user');
   hasInterval = JSON.parse(this.user).hasInterval;
 
