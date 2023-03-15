@@ -79,7 +79,7 @@ export class RegisterPage implements OnInit {
   };
 
   async putRecord() {
-    const lastId: string = await this.registerService.getLastId();
+    const lastId: number = await this.registerService.getLastId();
     //Case the user has no interval
     if(this.hasInterval === false){
       this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
