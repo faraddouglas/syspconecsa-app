@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class RegisterService {
-  records: any[] = [];
+  records: [] = [];
   postUrl: string = 'https://syspteste.herokuapp.com/api/employee-time-record/'
   token = localStorage.getItem('token');
   headers = new HttpHeaders({
@@ -20,15 +20,15 @@ export class RegisterService {
   constructor(private http: HttpClient, private recordService: RecordService) {}
 
   postRecords(record: object) {
-    return this.http.post<any>(this.postUrl, record, { headers: this.headers});
+    return this.http.post<string>(this.postUrl, record, { headers: this.headers});
   }
 
-  putRecord(record: object, id: string) {
-    return this.http.put<any>(`${this.postUrl}${id}`, record, { headers: this.headers});
+  putRecord(record: object, id: number) {
+    return this.http.put<string>(`${this.postUrl}${id}`, record, { headers: this.headers});
   }
 
-  async getLastId(): Promise<any> {
-    const records: any = await this.recordService.getRecords();
+  async getLastId(): Promise<number> {
+    const records: [] = await this.recordService.getRecords();
     const idList: any = records.map((record: any) => record.id);
     let lastId = 0;
     idList.forEach((id: number) => {
