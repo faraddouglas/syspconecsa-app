@@ -7,19 +7,23 @@ import { CustomComponent } from '../custom-component/custom-component.component'
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
   userId: string = '';
   companyId: string = '';
   userType: string = '';
   user = localStorage.getItem('user');
+  isSubmitting: boolean = false;
 
   constructor(
     private authGuard: AuthGuard,
-    private customComponent: CustomComponent
+    private customComponent: CustomComponent,
     ) { }
 
-  ngOnInit() {}
-    isSubmitting = false;
+  ngOnInit() {
+    this.isSubmitting = false;
+  }
+
 
   async login(){
 
@@ -30,11 +34,13 @@ export class LoginPage implements OnInit {
         '',
         ['OK']
         );
-  } else {
-      await this.authGuard.login(this.companyId, this.userId);
-      if(!this.user){
-        this.isSubmitting = false;
-      } else { this.isSubmitting = true; }
+    } else {
+        await this.authGuard.login(this.companyId, this.userId);
+        if(!this.user){
+          this.isSubmitting = false;
+        } else {
+          this.isSubmitting = true;
+      }
     }
   }
 
