@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CustomComponentComponent } from './custom-component.component';
+import { CustomComponent } from './custom-component.component';
 
 describe('CustomComponentComponent', () => {
-  let component: CustomComponentComponent;
-  let fixture: ComponentFixture<CustomComponentComponent>;
+  let component: CustomComponent;
+  let fixture: ComponentFixture<CustomComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomComponentComponent ],
+      declarations: [ CustomComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomComponentComponent);
+    fixture = TestBed.createComponent(CustomComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

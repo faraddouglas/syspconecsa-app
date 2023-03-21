@@ -57,8 +57,7 @@ const routes: Routes = [
     component: RegisterUserPage,
     canActivate: [AuthGuard],
     loadChildren: () => import('./mananger/register-user/register-user.module').then( m => m.RegisterUserPageModule)
-  },
-
+  }
 ];
 
 @NgModule({
