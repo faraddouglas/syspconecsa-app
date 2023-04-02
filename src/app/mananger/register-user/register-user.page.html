@@ -11,12 +11,12 @@
 
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
-      <ion-input type="text" formControlName="name" [(ngModel)]="name"></ion-input>
+      <ion-input type="text" formControlName="name" [(ngModel)]="name" maxlength="55"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <ion-input type="text" formControlName="userId" [(ngModel)]="userId"></ion-input>
+      <ion-input type="text" formControlName="userId" [(ngModel)]="userId" maxlength="14" (ionInput)="sendCpfMask()"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -29,27 +29,30 @@
 
     <ion-item>
       <ion-label position="stacked">Possui intervalo</ion-label>
-      <ion-toggle formControlName="hasInterval" [(ngModel)]="hasInterval"></ion-toggle>
+      <ion-checkbox formControlName="hasInterval" [(ngModel)]="hasInterval"></ion-checkbox>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Endereço</ion-label>
-      <ion-input type="text" formControlName="address" [(ngModel)]="address"></ion-input>
+      <ion-input type="text" formControlName="address" [(ngModel)]="address" maxlength="55"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
-      <ion-input type="text" formControlName="city" [(ngModel)]="city"></ion-input>
+      <ion-input type="text" formControlName="city" [(ngModel)]="city" maxlength="55"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
-      <ion-input type="text" formControlName="state" [(ngModel)]="state"></ion-input>
+      <ion-input type="text" formControlName="state" [(ngModel)]="state" maxlength="55"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cep</ion-label>
-      <ion-input type="text" formControlName="zip" [(ngModel)]="zip"></ion-input>
+      <ion-input (keypress)="numericOnly()" inputmode="numeric" type="text"
+      formControlName="zipCode" [(ngModel)]="zipCode" (ionInput)="sendZipCodeMask()"
+      maxlength="9">
+      </ion-input>
     </ion-item>
 
     <ion-item>
@@ -59,7 +62,7 @@
 
     <ion-item>
       <ion-label position="stacked">Telefone</ion-label>
-      <ion-input type="text" formControlName="phone" [(ngModel)]="phone"></ion-input>
+      <ion-input type="text" formControlName="phone" [(ngModel)]="phone" (ionInput)="sendPhoneMask()" maxlength="15"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -67,6 +70,6 @@
       <ion-input type="email" formControlName="email" [(ngModel)]="email"></ion-input>
     </ion-item>
 
-    <ion-button type="submit" [disabled]="formGroup.invalid">Cadastrar usuário</ion-button>
+    <ion-button type="submit" [disabled]="formGroup.invalid" (click)="registerUser()">Cadastrar usuário</ion-button>
   </form>
 </ion-content>
