@@ -12,7 +12,7 @@ export class RegisterUserPage implements OnInit {
   formGroup!: FormGroup;
   companyId: string = JSON.parse(localStorage.getItem('user') || '{}').companyId;
   enterprise: string = JSON.parse(localStorage.getItem('user') || '{}').enterprise;
-  dateRecord: string =  Date.now().toString();
+  dateRecord: string =  new Date().toLocaleDateString();
   name: string = '';
   userId: string = '';
   userType: string = '';
