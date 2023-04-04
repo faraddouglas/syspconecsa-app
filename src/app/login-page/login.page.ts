@@ -18,15 +18,13 @@ export class LoginPage implements OnInit {
   constructor(
     private authGuard: AuthGuard,
     private customComponent: CustomComponent,
-    ) { }
+    ) {};
 
   ngOnInit() {
-
     this.isSubmitting = false;
   };
 
   async login(){
-
     if(this.userId === '' || this.companyId === ''){
       this.customComponent.presentAlert(
         'Erro',
