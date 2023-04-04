@@ -59,14 +59,14 @@ export class RegisterEnterprisePage implements OnInit {
     }
     else if (this.register.length == 15) {
       this.register = this.register + '-';
-    }
-  }
+    };
+  };
 
   sendZipCodeMask(){
     if (this.zipCode.length == 5) {
       this.zipCode = this.zipCode + '-';
-    }
-  }
+    };
+  };
 
   sendPhoneMask(){
     if (this.phone.length == 1 && this.phone != '(' && this.phone != ')') {
@@ -79,16 +79,16 @@ export class RegisterEnterprisePage implements OnInit {
       this.phone = this.phone + '-';
     } else if (this.phone.length == 10 && this.phone[5] == '9') {
       this.phone = this.phone + '-';
-    }
-  }
+    };
+  };
 
   numericOnly(){
     addEventListener('numericOnly', (event: any) => {
       event.target.value = event.target.value.replace(/[^0-9]/g, '');
     });
-  }
+  };
 
-  registerEnterprise(){
+  async registerEnterprise(){
     const enterprise = {
       register: this.register,
       enterprise: this.enterprise,
@@ -106,6 +106,6 @@ export class RegisterEnterprisePage implements OnInit {
       email: this.email,
       website: this.website
     };
-    this.registerEnterpriseService.postEnterprise(enterprise);
+    await this.registerEnterpriseService.postEnterprise(enterprise);
   };
 };

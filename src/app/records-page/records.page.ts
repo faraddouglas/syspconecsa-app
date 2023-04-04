@@ -15,11 +15,11 @@ export class RecordsPage implements OnInit {
 
   ngOnInit() {
     this.loadRecords();
-  }
+  };
 
   async loadRecords(){
     this.records = await this.recordService.getRecords();
-  }
+  };
 
   formatDate(_date: string) {
 
@@ -36,13 +36,13 @@ export class RecordsPage implements OnInit {
       return `${day}/0${month}/${year}`;
     } else {
       return `${day}/${month}/${year}`;
-    }
-  }
-}
+    };
+  };
+};
 
 @Pipe({ name: 'reverse' })
 export class ReversePipe implements PipeTransform {
   transform(value: any) {
     return value.slice().reverse();
-  }
-}
+  };
+};

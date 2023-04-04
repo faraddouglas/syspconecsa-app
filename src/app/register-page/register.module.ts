@@ -14,4 +14,4 @@ import { RegisterPageRoutingModule } from './register-routing.module';
   ],
   declarations: [RegisterPage]
 })
-export class RegisterPageModule {}
+export class RegisterPageModule {};

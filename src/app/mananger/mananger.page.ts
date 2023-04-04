@@ -15,9 +15,9 @@ export class ManangerPage implements OnInit {
 
   redirectToRegisterEnterprise(){
     this.router.navigate(['/page/mananger/register-enterprise']);
-  }
+  };
 
   redirectToRegisterUser(){
     this.router.navigate(['/page/mananger/register-user']);
-  }
-}
+  };
+};

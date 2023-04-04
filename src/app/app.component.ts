@@ -12,6 +12,5 @@ export class AppComponent {
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(_event: BeforeUnloadEvent) {
     this.authGuard.logout();
-  }
-}
-
+  };
+};

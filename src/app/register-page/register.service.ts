@@ -25,7 +25,7 @@ export class RegisterService {
 
   putRecord(record: object, id: number) {
     return this.http.put<string>(`${this.postUrl}${id}`, record, { headers: this.headers});
-  }
+  };
 
   async getLastId(): Promise<number> {
     const records: [] = await this.recordService.getRecords();
@@ -34,8 +34,8 @@ export class RegisterService {
     idList.forEach((id: number) => {
       while(id > lastId){
         lastId = id;
-      }
+      };
     });
     return lastId;
-  }
-}
+  };
+};

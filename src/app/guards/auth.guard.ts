@@ -19,7 +19,7 @@ export class AuthGuard {
     _route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.checkAuth();
-  }
+  };
 
   private async checkAuth(){
     const user = localStorage.getItem('user');
@@ -27,28 +27,28 @@ export class AuthGuard {
       return false || this.routToLogin();
     }else{
       return true
-    }
-  }
+    };
+  };
 
   private routToLogin(){
     this.navCtrl.navigateRoot('page/login');
     return true;
-  }
+  };
 
   private redirect(page: string){
     this.navCtrl.navigateForward(page);
-  }
+  };
 
   redirectTo(page: string){
     this.redirect(page)
-  }
+  };
 
   logout(){
     localStorage.removeItem('user');
     localStorage.removeItem('records');
     localStorage.removeItem('token');
     this.routToLogin();
-  }
+  };
 
   async login(companyId: string, userId: string){
     const req: any =  this.http.post(
@@ -65,10 +65,10 @@ export class AuthGuard {
               ['OK']
               );
             this.logout();
-          }
+          };
           throw new Error('Não foi possível realizar o login');
         }
-      ))
+      ));
       req.subscribe((res: any) => {
       if(res.user.userId == userId){
         localStorage.setItem('user', JSON.stringify(res.user));
@@ -77,8 +77,8 @@ export class AuthGuard {
           this.navCtrl.navigateForward('page/mananger');
         } else {
           this.navCtrl.navigateForward('page/register');
-        }
-      }
+        };
+      };
     });
-  }
-}
+  };
+};

@@ -17,4 +17,4 @@ import { ManangerPage } from './mananger.page';
   ],
   declarations: [ManangerPage]
 })
-export class ManangerPageModule {}
+export class ManangerPageModule {};

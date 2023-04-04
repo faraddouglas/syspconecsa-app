@@ -46,9 +46,9 @@ export class RegisterUserService {
                         );
                         this.router.navigate(['page/login']);
                         return err;
-                    }
+                    };
                 })
             );
         return lastValueFrom(req);
-    }
-}
+    };
+};

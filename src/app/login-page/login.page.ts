@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
     this.isSubmitting = false;
-  }
+  };
 
   async login(){
 
@@ -40,13 +40,13 @@ export class LoginPage implements OnInit {
           this.isSubmitting = false;
         } else {
           this.isSubmitting = true;
-      }
-    }
-  }
+      };
+    };
+  };
 
   numericOnly(){
     addEventListener('numericOnly', (event: any) => {
       event.target.value = event.target.value.replace(/[^0-9]/g, '');
     });
-  }
-}
+  };
+};

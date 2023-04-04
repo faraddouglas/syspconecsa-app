@@ -12,5 +12,5 @@ export class TabsPage {
 
   navigateTabs(page: string){
     this.navCtrl.navigateForward(page);
-  }
-}
+  };
+};

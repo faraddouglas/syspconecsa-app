@@ -17,4 +17,4 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   declarations: [RegisterUserPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class RegisterUserPageModule {}
+export class RegisterUserPageModule {};

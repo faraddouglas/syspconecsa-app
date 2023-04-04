@@ -91,7 +91,6 @@ export class RegisterPage implements OnInit {
         this.recordToPost.startInterval = this.records[this.dateKey][this.states[1]];
         this.recordToPost.endInterval = this.records[this.dateKey][this.states[2]];
         };
-
     await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
   };
 
@@ -212,5 +211,5 @@ export class RegisterPage implements OnInit {
         this.navCtrl.navigateForward('/page/records');
       }, 1000);
     };
-  }
+  };
 };

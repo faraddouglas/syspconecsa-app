@@ -27,7 +27,7 @@ export class RegisterEnterpriseService {
       'Accept': '*/*'
     });
     return lastValueFrom( this.http.get<any>(this.urlEnterprises, { headers: headers }))
-  }
+  };
 
   async postEnterprise(enterprise: object) {
     const headers = new HttpHeaders({
@@ -57,20 +57,18 @@ export class RegisterEnterpriseService {
             );
             this.router.navigate(['page/login']);
             return err;
-          }
-        })
-      );
-      req.subscribe((res: any) => {
-        if (res.companyId != null) {
-          this.customComponent.presentAlert(
-            'Sucesso',
-            'A empresa foi cadastrada',
-            'Agora você pode cadastrar os usuários',
-            ['Ok']
-          );
-          this.router.navigate(['page/mananger/register-user']);
-        }
-      }
-    );
-  }
-}
+          };
+        }));
+    req.subscribe((res: any) => {
+      if (res.companyId != null) {
+        this.customComponent.presentAlert(
+          'Sucesso',
+          'A empresa foi cadastrada',
+          'Agora você pode cadastrar os usuários',
+          ['Ok']
+        );
+        this.router.navigate(['page/mananger/register-user']);
+      };
+    });
+  };
+};

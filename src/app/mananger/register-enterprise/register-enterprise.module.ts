@@ -17,4 +17,4 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [RegisterEnterprisePage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class RegisterEnterprisePageModule {}
+export class RegisterEnterprisePageModule {};

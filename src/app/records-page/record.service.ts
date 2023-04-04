@@ -26,4 +26,4 @@ export class RecordService {
     });
     return lastValueFrom( this.http.get<any>(this.getRecordsFromUserUrl, { headers: headers }))
   };
-}
+};

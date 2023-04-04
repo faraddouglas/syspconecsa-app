@@ -20,5 +20,5 @@ export class CustomComponent implements OnInit {
       buttons: buttons
     });
     await alert.present();
-  }
-}
+  };
+};

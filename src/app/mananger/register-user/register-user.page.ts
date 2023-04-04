@@ -44,19 +44,19 @@ export class RegisterUserPage implements OnInit {
         phone: ['', Validators.required],
         email: ['', Validators.email],
     });
-  }
+  };
 
   sendZipCodeMask() {
     if (this.zipCode.length === 5) {
       this.zipCode = this.zipCode + '-';
-    }
-  }
+    };
+  };
 
   numericOnly(){
     addEventListener('numericOnly', (event: any) => {
       event.target.value = event.target.value.replace(/[^0-9]/g, '');
     });
-  }
+  };
 
   sendCpfMask(){
     if (this.userId.length == 3) {
@@ -66,8 +66,8 @@ export class RegisterUserPage implements OnInit {
     }
     else if (this.userId.length == 11) {
       this.userId = this.userId + '-';
-    }
-  }
+    };
+  };
 
   sendPhoneMask(){
     if (this.phone.length == 1 && this.phone != '(' && this.phone != ')') {
@@ -80,11 +80,11 @@ export class RegisterUserPage implements OnInit {
       this.phone = this.phone + '-';
     } else if (this.phone.length == 10 && this.phone[5] == '9') {
       this.phone = this.phone + '-';
-    }
-  }
+    };
+  };
 
   async registerUser() {
-    const user = {
+    const newUser = {
       companyId: this.companyId,
       enterprise: this.enterprise,
       dateRecord: this.dateRecord,
@@ -100,8 +100,6 @@ export class RegisterUserPage implements OnInit {
       phone: this.phone,
       email: this.email,
     };
-    console.log(Number(this.userId.replace(/\D/g, '')))
-    const response = await this.registerUserService.postUser(user);
-    console.log(response);
-  }
-}
+    await this.registerUserService.postUser(newUser);
+  };
+};

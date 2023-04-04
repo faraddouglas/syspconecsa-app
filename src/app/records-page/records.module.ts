@@ -15,4 +15,4 @@ import { RecordsPageRoutingModule } from './records-routing.module';
   ],
   declarations: [RecordsPage, ReversePipe]
 })
-export class RecordsPageModule {}
+export class RecordsPageModule {};

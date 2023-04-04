@@ -24,4 +24,4 @@ import { CustomComponent } from './custom-component/custom-component.component';
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule {};
