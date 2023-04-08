@@ -1,0 +1,29 @@
+<ion-content>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+    </ion-toolbar>
+    <ion-header collapse="condense">
+        <ion-title size="large">App Ponto</ion-title>
+  </ion-header>
+    </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-label position="floating">Matricula:</ion-label>
+      <ion-input aria-label="Matricula" (keypress)="numericOnly()" inputmode="numeric" type="Matricula" [(ngModel)]="userId"></ion-input>
+
+      <ion-button (click)="login()" [disabled]="isSubmitting">
+        <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
+        Entrar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer collapse="condense">
+  App Ponto V1.0
+</ion-footer>

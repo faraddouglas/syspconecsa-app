@@ -14,7 +14,7 @@ export class RegisterUserPage implements OnInit {
   enterprise: string = JSON.parse(localStorage.getItem('user') || '{}').enterprise;
   dateRecord: string =  new Date().toLocaleDateString();
   name: string = '';
-  userId: string = '';
+  register: string = '';
   userType: string = '';
   hasInterval: boolean = true;
   address: string = '';
@@ -33,7 +33,7 @@ export class RegisterUserPage implements OnInit {
   ngOnInit() {
       this.formGroup = this.formBuilder.group({
         name: ['', Validators.required],
-        userId: ['', [Validators.required, Validators.pattern(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)]],
+        register: ['', [Validators.required, Validators.pattern(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)]],
         userType: ['', Validators.required],
         hasInterval: [false],
         address: ['', Validators.required],
@@ -59,13 +59,13 @@ export class RegisterUserPage implements OnInit {
   };
 
   sendCpfMask(){
-    if (this.userId.length == 3) {
-      this.userId = this.userId + '.';
-    } else if (this.userId.length == 7) {
-      this.userId = this.userId + '.';
+    if (this.register.length == 3) {
+      this.register = this.register + '.';
+    } else if (this.register.length == 7) {
+      this.register = this.register + '.';
     }
-    else if (this.userId.length == 11) {
-      this.userId = this.userId + '-';
+    else if (this.register.length == 11) {
+      this.register = this.register + '-';
     };
   };
 
@@ -89,7 +89,7 @@ export class RegisterUserPage implements OnInit {
       enterprise: this.enterprise,
       dateRecord: this.dateRecord,
       name: this.name,
-      userId: Number(this.userId.replace(/\D/g, '')),
+      register: Number(this.register.replace(/\D/g, '')),
       userType: this.userType,
       hasInterval: this.hasInterval,
       address: this.address,

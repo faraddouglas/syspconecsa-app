@@ -10,16 +10,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'page',
+    path: 'page/tabs',
     component: TabsPage,
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'page/register',
+        path: 'register',
         loadChildren: () => import('../register-page/register.module').then(m => m.RegisterPageModule)
       },
       {
-        path: 'page/records',
+        path: 'records',
         loadChildren: () => import('../records-page/records.module').then(m => m.RecordsPageModule)
       }
     ]

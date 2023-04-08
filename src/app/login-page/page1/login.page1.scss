@@ -18,9 +18,9 @@ ion-icon{
 }
 
 ion-card-content.ios{
-  background-image: url(../../assets/icon/favicon.png);
+  background-image: url(../../../assets/icon/favicon.png);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 80%;
   background-position: top;
   display: block;
   margin-top: auto;
@@ -30,11 +30,11 @@ ion-card-content.ios{
 }
 
 ion-card-content.md{
-  background-image: url(../../assets/icon/favicon.png);
+  background-image: url(../../../assets/icon/favicon.png);
   background-repeat: no-repeat;
-  background-size: 90%;
+  background-size: 70%;
   background-position: top;
-  display: block;
+  display: flex;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;

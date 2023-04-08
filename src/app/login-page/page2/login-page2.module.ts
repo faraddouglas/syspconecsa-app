@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { LoginPageRoutingModule } from './login-routing.module';
-import { LoginPage } from './login.page';
+import { LoginPage2RoutingModule } from './login-page2-routing.module';
+import { LoginPage2 as LoginPage2 } from './login.page2';
 
 
 @NgModule({
@@ -11,8 +11,8 @@ import { LoginPage } from './login.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule
+    LoginPage2RoutingModule
   ],
-  declarations: [LoginPage]
+  declarations: [LoginPage2]
 })
-export class LoginPageModule {};
+export class LoginPage2Module {};

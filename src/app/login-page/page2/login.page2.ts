@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthGuard } from '../guards/auth.guard';
-import { CustomComponent } from '../custom-component/custom-component.component';
+import { AuthGuard } from '../../guards/auth.guard';
+import { CustomComponent } from '../../custom-component/custom-component.component';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  templateUrl: './login.page2.html',
+  styleUrls: ['./login.page2.scss'],
 })
 
-export class LoginPage implements OnInit {
+export class LoginPage2 implements OnInit {
   userId: string = '';
-  companyId: string = '';
+  enterprise: any = localStorage.getItem('enterprise');
+  companyId = JSON.parse(this.enterprise).companyId;
   userType: string = '';
   user = localStorage.getItem('user');
   isSubmitting: boolean = false;
@@ -25,20 +26,16 @@ export class LoginPage implements OnInit {
   };
 
   async login(){
-    if(this.userId === '' || this.companyId === ''){
+    if(this.userId === ''){
       this.customComponent.presentAlert(
         'Erro',
-        'Preencha todos os campos',
+        'Preencha o campo corretamente',
         '',
         ['OK']
         );
     } else {
+        this.isSubmitting = true;
         await this.authGuard.login(this.companyId, this.userId);
-        if(!this.user){
-          this.isSubmitting = false;
-        } else {
-          this.isSubmitting = true;
-      };
     };
   };
 

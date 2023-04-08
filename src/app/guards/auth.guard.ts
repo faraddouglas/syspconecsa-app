@@ -23,10 +23,11 @@ export class AuthGuard {
 
   private async checkAuth(){
     const user = localStorage.getItem('user');
-    if(!user || user === 'undefined'){
-      return false || this.routToLogin();
-    }else{
+    const enterprise = localStorage.getItem('enterprise');
+    if(user || user !== 'undefined' || enterprise || enterprise !== 'undefined'){
       return true
+    } else {
+      return true || this.routToLogin();
     };
   };
 
@@ -35,22 +36,16 @@ export class AuthGuard {
     return true;
   };
 
-  private redirect(page: string){
-    this.navCtrl.navigateForward(page);
-  };
-
-  redirectTo(page: string){
-    this.redirect(page)
-  };
-
   logout(){
     localStorage.removeItem('user');
     localStorage.removeItem('records');
     localStorage.removeItem('token');
+    localStorage.removeItem('companyId');
+    localStorage.removeItem('enterprise')
     this.routToLogin();
   };
 
-  async login(companyId: string, userId: string){
+  async login(companyId: any, userId: string){
     const req: any =  this.http.post(
       `https://syspteste.herokuapp.com/api/login?companyId=${companyId}&userId=${userId}`, {
         responseType: 'json'
@@ -70,14 +65,42 @@ export class AuthGuard {
         }
       ));
       req.subscribe((res: any) => {
-      if(res.user.userId == userId){
+      if(res.user.userId === userId){
         localStorage.setItem('user', JSON.stringify(res.user));
         localStorage.setItem('token', res.token);
           if(res.user.userType === 'admin'){
-          this.navCtrl.navigateForward('page/mananger');
+          this.navCtrl.navigateRoot('page/mananger');
         } else {
-          this.navCtrl.navigateForward('page/register');
+          this.navCtrl.navigateRoot('page/tabs/register');
         };
+      };
+    });
+  };
+
+  async getEnterprises(companyId: string){
+    const req: any = this.http.post(
+      `https://syspteste.herokuapp.com/api/login/loginEnterprise?companyId=${companyId}`, {
+      responseType: 'json'
+      }
+    )
+    .pipe(
+      catchError((err) => {
+        if(err.status === 401){
+          this.customComponent.presentAlert(
+            'Atenção!',
+            'Não foi possível realizar o login!',
+            'Empresa não cadastrada',
+            ['OK']
+            );
+          this.logout();
+        };
+        throw new Error('Não foi possível realizar o login');
+      })
+    );
+    req.subscribe((res: any) => {
+      if(res.companyId === companyId){
+        localStorage.setItem('enterprise', JSON.stringify(res));
+        this.navCtrl.navigateForward('page/login/user');
       };
     });
   };

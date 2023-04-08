@@ -208,7 +208,7 @@ export class RegisterPage implements OnInit {
         ['OK']
         );
       setTimeout(() => {
-        this.navCtrl.navigateForward('/page/records');
+        this.navCtrl.navigateForward('/page/tabs/records');
       }, 1000);
     };
   };

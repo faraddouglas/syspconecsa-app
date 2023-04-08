@@ -18,7 +18,7 @@ export class RegisterEnterpriseService {
     private router: Router
     ) {}
 
-  async getEnterprise() {
+  async getEnterprise(companyId: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
       'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export class RegisterEnterpriseService {
       'Conection': 'keep-alive',
       'Accept': '*/*'
     });
-    return lastValueFrom( this.http.get<any>(this.urlEnterprises, { headers: headers }))
+    return lastValueFrom( this.http.get<any>(this.urlEnterprises + `/${companyId}`, { headers: headers }))
   };
 
   async postEnterprise(enterprise: object) {
