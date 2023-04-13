@@ -15,15 +15,19 @@ import { CustomComponent } from '../custom-component/custom-component.component'
 export class RegisterPage implements OnInit {
 
   user: any = localStorage.getItem('user');
+  companyId = JSON.parse(this.user).companyId;
+  userId = JSON.parse(this.user).userId;
   records: any [] = [];
   states: any [] = [];
   userType = JSON.parse(this.user).userType;
   hasInterval = JSON.parse(this.user).hasInterval;
   recordState: any = null;
   recordToPost: any = {};
+  date = new Date();
   time: any = new Date().toLocaleTimeString();
   dateKey: any = new Date().toLocaleDateString();
   formatedDate = String(this.dateKey.split('/').reverse().join('-'));
+  formadatedTimeStamp = `${this.formatedDate} ${this.time}`;
 
   constructor(
     private registerService: RegisterService,
@@ -34,7 +38,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.recordToPost = {
-      'date': this.formatedDate,
+      'date': `${this.formatedDate} 00:00:00`,
       'userId': JSON.parse(this.user).userId,
       'employee': JSON.parse(this.user).name,
       'companyId': JSON.parse(this.user).companyId,
@@ -50,8 +54,7 @@ export class RegisterPage implements OnInit {
 
   displayTime() {
     setInterval(() => {
-      const date = new Date();
-      const time = date.toLocaleTimeString();
+      const time = this.date.toLocaleTimeString();
       document.querySelectorAll('#time').forEach((element) => {
         element.innerHTML = time;
         }, 1000);
@@ -61,7 +64,7 @@ export class RegisterPage implements OnInit {
   recordTime() {
     //Case the user has no record for today
     if (this.recordState === this.states[0]) {
-      this.recordToPost.checkInTime = this.time;
+      this.recordToPost.checkInTime = this.formadatedTimeStamp;
       this.unableButton('record-time-btn');
       this.updateRecordState();
       this.postRecord();
@@ -82,16 +85,29 @@ export class RegisterPage implements OnInit {
     const lastId: number = await this.registerService.getLastId();
     //Case the user has no interval
     if(this.hasInterval === false){
-      this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
-      this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
+      if (this.recordState === this.states[2]) {
+        this.recordToPost.checkInTime = `${this.formatedDate} ${this.records[this.dateKey][this.states[0]]}`;
+        this.recordToPost.checkOutTime = `${this.formatedDate} ${this.records[this.dateKey][this.states[1]]}`;
+      };
     } else {
-        //Case the user has interval
-        this.recordToPost.checkInTime = this.records[this.dateKey][this.states[0]];
-        this.recordToPost.checkOutTime = this.records[this.dateKey][this.states[this.states.length - 2]];
-        this.recordToPost.startInterval = this.records[this.dateKey][this.states[1]];
-        this.recordToPost.endInterval = this.records[this.dateKey][this.states[2]];
-        };
-    await lastValueFrom(this.registerService.putRecord(this.recordToPost, lastId));
+      //Case the user has interval
+      if (this.recordState === this.states[2]) {
+        this.recordToPost.checkInTime = `${this.formatedDate} ${this.records[this.dateKey][this.states[0]]}`;
+        this.recordToPost.startInterval = `${this.formatedDate} ${this.records[this.dateKey][this.states[1]]}`;
+      };
+      if (this.recordState === this.states[3]) {
+        this.recordToPost.checkInTime = `${this.formatedDate} ${this.records[this.dateKey][this.states[0]]}`;
+        this.recordToPost.startInterval = `${this.formatedDate} ${this.records[this.dateKey][this.states[1]]}`;
+        this.recordToPost.endInterval = `${this.formatedDate} ${this.records[this.dateKey][this.states[2]]}`;
+      };
+      if (this.recordState === this.states[4]) {
+        this.recordToPost.checkInTime = `${this.formatedDate} ${this.records[this.dateKey][this.states[0]]}`;
+        this.recordToPost.startInterval = `${this.formatedDate} ${this.records[this.dateKey][this.states[1]]}`;
+        this.recordToPost.endInterval = `${this.formatedDate} ${this.records[this.dateKey][this.states[2]]}`;
+        this.recordToPost.checkOutTime = `${this.formatedDate} ${this.records[this.dateKey][this.states[3]]}`;
+      };
+    };
+    await lastValueFrom(this.registerService.putRecord(this.recordToPost, this.companyId, this.userId, lastId));
   };
 
   unableButton(btn: string) {
@@ -104,7 +120,7 @@ export class RegisterPage implements OnInit {
       if (dbRecords.length !== 0) {
         let matchingRecord: any = null;
         for (const record of dbRecords) {
-          if (record.date === this.formatedDate) {
+          if (record.date === `${this.formatedDate}T00:00:00.000Z`) {
             matchingRecord = record;
             break;
           };
@@ -112,10 +128,22 @@ export class RegisterPage implements OnInit {
         if (matchingRecord !== null) {
           //Case 1 - User has interval and all records are filled
           if (this.hasInterval === true && matchingRecord['checkOutTime'] !== null) {
-              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
-              this.records[this.dateKey][this.states[1]] = matchingRecord['startInterval'];
-              this.records[this.dateKey][this.states[2]] = matchingRecord['endInterval'];
-              this.records[this.dateKey][this.states[this.states.length -2]] = matchingRecord['checkOutTime'];
+              this.records[this.dateKey][this.states[0]] = new Date(matchingRecord['checkInTime']).toLocaleTimeString(
+                'pt-BR',
+                { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                );
+              this.records[this.dateKey][this.states[1]] = new Date(matchingRecord['startInterval']).toLocaleTimeString(
+                'pt-BR',
+                { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                );
+              this.records[this.dateKey][this.states[2]] = new Date(matchingRecord['endInterval']).toLocaleTimeString(
+                'pt-BR',
+                { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                );
+              this.records[this.dateKey][this.states[this.states.length -2]] = new Date(matchingRecord['checkOutTime']).toLocaleTimeString(
+                'pt-BR',
+                { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                );
               this.unableButton('record-time-btn');
               this.recordState = this.states[this.states.length - 1];
               this.customComponent.presentAlert(
@@ -127,31 +155,67 @@ export class RegisterPage implements OnInit {
           //Case 2 - User has interval and only checkInTime is filled
           } else if (this.hasInterval === true && matchingRecord['startInterval'] === null
             ){
-              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.records[this.dateKey][this.states[0]] = new Date(
+                matchingRecord['checkInTime']).toLocaleTimeString( 
+                  'pt-BR', 
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC' }
+                );
               this.recordState = this.states[1];
           //Case 3 - User has interval and only checkInTime and startInterval are filled
           } else if (this.hasInterval === true && matchingRecord['endInterval'] === null
             ){
-              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
-              this.records[this.dateKey][this.states[1]] = matchingRecord['startInterval'];
+              this.records[this.dateKey][this.states[0]] = new Date(
+                matchingRecord['checkInTime']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
+              this.records[this.dateKey][this.states[1]] = new Date(
+                matchingRecord['startInterval']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
               this.recordState = this.states[2];
           //Case 4 - User has interval and only checkInTime, startInterval and endInterval are filled
           } else if (this.hasInterval === true && matchingRecord.checkOutTime === null
             ){
-              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
-              this.records[this.dateKey][this.states[1]] = matchingRecord['startInterval'];
-              this.records[this.dateKey][this.states[2]] = matchingRecord['endInterval'];
+              this.records[this.dateKey][this.states[0]] = new Date(
+                matchingRecord['checkInTime']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
+              this.records[this.dateKey][this.states[1]] = new Date(
+                matchingRecord['startInterval']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
+              this.records[this.dateKey][this.states[2]] = new Date(
+                matchingRecord['endInterval']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
               this.recordState = this.states[this.states.length -2];
           //Case 5 - User has no interval and all records are filled
           } else if (this.hasInterval === false && matchingRecord['checkOutTime'] === null
             ){
-              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
+              this.records[this.dateKey][this.states[0]] = new Date(
+                matchingRecord['checkInTime']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
               this.recordState = this.states[this.states.length -2];
           //Case 6 - User has no interval and only checkInTime is filled
           } else if (this.hasInterval === false && matchingRecord['checkOutTime'] !== null
             ){
-              this.records[this.dateKey][this.states[0]] = matchingRecord['checkInTime'];
-              this.records[this.dateKey][this.states[this.states.length -2]] = matchingRecord['checkOutTime'];
+              this.records[this.dateKey][this.states[0]] = new Date(
+                matchingRecord['checkInTime']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
+              this.records[this.dateKey][this.states[this.states.length -2]] = new Date(
+                matchingRecord['checkOutTime']).toLocaleTimeString(
+                  'pt-BR',
+                  { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC'}
+                  );
               this.unableButton('record-time-btn');
               this.recordState = this.states[this.states.length - 1];
               this.customComponent.presentAlert(

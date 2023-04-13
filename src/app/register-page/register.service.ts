@@ -20,11 +20,11 @@ export class RegisterService {
   constructor(private http: HttpClient, private recordService: RecordService) {}
 
   postRecords(record: object) {
-    return this.http.post<string>(this.postUrl, record, { headers: this.headers});
+    return this.http.post<any>(this.postUrl, record, { headers: this.headers});
   }
 
-  putRecord(record: object, id: number) {
-    return this.http.put<string>(`${this.postUrl}${id}`, record, { headers: this.headers});
+  putRecord(record: object, companyId: number, userId: number, id: number) {
+    return this.http.put<string>(`${this.postUrl}${companyId}/${userId}/${id}`, record, { headers: this.headers});
   };
 
   async getLastId(): Promise<number> {
