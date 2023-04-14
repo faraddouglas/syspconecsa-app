@@ -29,7 +29,7 @@ export class RegisterPage implements OnInit {
   formatedDate = String(this.dateKey.split('/').reverse().join('-'));
   formadatedTimeStamp = `${this.formatedDate} ${this.time}`;
   locale: string = 'pt-BR';
-  config: {} = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC' };
+  timeConfig: {} = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC' };
 
   constructor(
     private registerService: RegisterService,
@@ -132,19 +132,19 @@ export class RegisterPage implements OnInit {
           if (this.hasInterval === true && matchingRecord['checkOutTime'] !== null) {
               this.records[this.dateKey][this.states[0]] = new Date(
                 matchingRecord['checkInTime']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.records[this.dateKey][this.states[1]] = new Date(
                 matchingRecord['startInterval']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.records[this.dateKey][this.states[2]] = new Date(
                 matchingRecord['endInterval']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.records[this.dateKey][this.states[this.states.length -2]] = new Date(
                 matchingRecord['checkOutTime']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.unableButton('record-time-btn');
               this.recordState = this.states[this.states.length - 1];
@@ -159,7 +159,7 @@ export class RegisterPage implements OnInit {
             ){
               this.records[this.dateKey][this.states[0]] = new Date(
                 matchingRecord['checkInTime']).toLocaleTimeString( 
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.recordState = this.states[1];
           //Case 3 - User has interval and only checkInTime and startInterval are filled
@@ -167,11 +167,11 @@ export class RegisterPage implements OnInit {
             ){
               this.records[this.dateKey][this.states[0]] = new Date(
                 matchingRecord['checkInTime']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.records[this.dateKey][this.states[1]] = new Date(
                 matchingRecord['startInterval']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.recordState = this.states[2];
           //Case 4 - User has interval and only checkInTime, startInterval and endInterval are filled
@@ -179,15 +179,15 @@ export class RegisterPage implements OnInit {
             ){
               this.records[this.dateKey][this.states[0]] = new Date(
                 matchingRecord['checkInTime']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.records[this.dateKey][this.states[1]] = new Date(
                 matchingRecord['startInterval']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.records[this.dateKey][this.states[2]] = new Date(
                 matchingRecord['endInterval']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.recordState = this.states[this.states.length -2];
           //Case 5 - User has no interval and all records are filled
@@ -195,7 +195,7 @@ export class RegisterPage implements OnInit {
             ){
               this.records[this.dateKey][this.states[0]] = new Date(
                 matchingRecord['checkInTime']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.recordState = this.states[this.states.length -2];
           //Case 6 - User has no interval and only checkInTime is filled
@@ -203,11 +203,11 @@ export class RegisterPage implements OnInit {
             ){
               this.records[this.dateKey][this.states[0]] = new Date(
                 matchingRecord['checkInTime']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.records[this.dateKey][this.states[this.states.length -2]] = new Date(
                 matchingRecord['checkOutTime']).toLocaleTimeString(
-                  this.locale, this.config
+                  this.locale, this.timeConfig
                 );
               this.unableButton('record-time-btn');
               this.recordState = this.states[this.states.length - 1];
