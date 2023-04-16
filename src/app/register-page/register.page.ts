@@ -23,7 +23,6 @@ export class RegisterPage implements OnInit {
   hasInterval = JSON.parse(this.user).hasInterval;
   recordState: any = null;
   recordToPost: any = {};
-  date = new Date();
   time: any = new Date().toLocaleTimeString();
   dateKey: any = new Date().toLocaleDateString();
   formatedDate = String(this.dateKey.split('/').reverse().join('-'));
@@ -56,7 +55,7 @@ export class RegisterPage implements OnInit {
 
   displayTime() {
     setInterval(() => {
-      const time = this.date.toLocaleTimeString();
+      const time = new Date().toLocaleTimeString();
       document.querySelectorAll('#time').forEach((element) => {
         element.innerHTML = time;
         }, 1000);
