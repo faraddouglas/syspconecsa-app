@@ -1,21 +1,60 @@
-ion-item {
-  --padding-start: 0;
+.header-title {
+  margin: 0 auto;
 }
 
-/* iOS places the subtitle above the title */
-ion-card-header.ios {
-  display: flex;
-  flex-flow: column-reverse;
+.bankedHours ion-item {
+  --ion-item-text-color: #333;
+  --ion-item-detail-color: #666;
+  --ion-item-detail-font-size: 14px;
 }
 
-ion-label.ios {
+#totalBankedHours ion-label {
+  white-space: pre;
   font-size: 14px;
 }
 
-ion-label.md {
-  font-size: 14px;
-  margin-left: auto;
-  margin-right: auto;
+.record-card {
+  margin: 10px;
 }
 
+.record-card-header {
+  font-size: 16px;
+  font-weight: bold;
+}
 
+.record-card-content p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.record-card-text {
+  margin: 0;
+}
+
+.record-card-text:nth-child(3):empty::before {
+  content: "N/A";
+}
+
+.bankedHours-title {
+  padding: 10px;
+}
+
+.bankedHours-icon {
+  color: #999;
+}
+
+.bankedHours-title-text {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.bankedHours-item {
+  padding: 5px;
+}
+
+.bankedHours-label {
+  white-space: pre;
+  padding: auto;
+  margin-left: 0;
+}

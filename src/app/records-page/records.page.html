@@ -1,35 +1,51 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Registros
-    </ion-title>
+    <ion-title class="header-title">Registros</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf=" hasInterval === true; else noInterval">
-    <ion-card *ngFor="let dayRecord of records | reverse">
+  <ion-card>
+    <div class="bankedHours">
       <ion-card-header>
+        <ion-item lines="none" class="bankedHours-title">
+          <ion-icon name="time-outline"></ion-icon>
+          <ion-title class="bankedHours-title-text">Banco de Horas</ion-title>
+          <ion-icon name="ellipsis-horizontal-outline" slot="end" class="bankedHours-icon"></ion-icon>
+        </ion-item>
+      </ion-card-header>
+      <ion-item id="totalBankedHours" lines="none" class="bankedHours-item">
+        <ion-label slot="start" class="bankedHours-label">
+          Horas trabalhadas no período: {{totalBankedHours}}<br>
+          Horas extras 60%: {{totalExtraHours}}<br>
+          Horas extras 100%: {{totalWeekendHours}}<br>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-card>
+  <ng-container *ngIf="hasInterval === true; else noInterval">
+    <ion-card *ngFor="let dayRecord of records | reverse" class="record-card">
+      <ion-card-header class="record-card-header">
         {{ formatDate(dayRecord.date) }}
       </ion-card-header>
-      <ion-card-content>
-        <p>Nome: {{ dayRecord.employee }}</p>
-        <p>Chegada: {{ dayRecord.checkInTime }}</p>
-        <p>Intervalo: {{ dayRecord.startInterval }}</p>
-        <p>Retorno: {{ dayRecord.endInterval }}</p>
-        <p>Saída: {{ dayRecord.checkOutTime }}</p>
+      <ion-card-content class="record-card-content">
+        <p class="record-card-text">Nome: {{ dayRecord.employee }}</p>
+        <p class="record-card-text">Chegada: {{ formatTime(dayRecord.checkInTime) }}</p>
+        <p class="record-card-text">Intervalo: {{ formatTime(dayRecord.startInterval) }}</p>
+        <p class="record-card-text">Retorno: {{ formatTime(dayRecord.endInterval) }}</p>
+        <p class="record-card-text">Saída: {{ formatTime(dayRecord.checkOutTime) }}</p>
       </ion-card-content>
     </ion-card>
   </ng-container>
   <ng-template #noInterval>
-    <ion-card *ngFor="let dayRecord of records | reverse">
-      <ion-card-header>
+    <ion-card *ngFor="let dayRecord of records | reverse" class="record-card">
+      <ion-card-header class="record-card-header">
         {{ formatDate(dayRecord.date) }}
       </ion-card-header>
-      <ion-card-content>
-        <p>Nome: {{ dayRecord.employee }}</p>
-        <p>Chegada: {{ dayRecord.checkInTime }}</p>
-        <p>Saída: {{ dayRecord.checkOutTime }}</p>
+      <ion-card-content class="record-card-content">
+        <p class="record-card-text">Nome: {{ dayRecord.employee }}</p>
+        <p class="record-card-text">Chegada: {{ formatTime(dayRecord.checkInTime) }}</p>
+        <p class="record-card-text">Saída: {{ formatTime(dayRecord.checkOutTime) }}</p>
       </ion-card-content>
     </ion-card>
   </ng-template>
