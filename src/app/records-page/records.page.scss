@@ -9,8 +9,10 @@
 }
 
 #totalBankedHours ion-label {
-  white-space: pre;
-  font-size: 14px;
+  white-space: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  padding: auto;
 }
 
 .record-card {
@@ -57,4 +59,6 @@
   white-space: pre;
   padding: auto;
   margin-left: 0;
+  margin-right: auto;
+  display: block;
 }
