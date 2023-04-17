@@ -11,7 +11,12 @@
         <ion-item lines="none" class="bankedHours-title">
           <ion-icon name="time-outline"></ion-icon>
           <ion-title class="bankedHours-title-text">Banco de Horas</ion-title>
-          <ion-icon name="ellipsis-horizontal-outline" slot="end" class="bankedHours-icon"></ion-icon>
+            <ion-select aria-label="filter" slot="end" [(ngModel)]="selectedInterval" (ionChange)="getRecordsByInterval(selectedInterval)" class="bankedHours-select">
+              <ion-select-option value="week">Últimos sete dias</ion-select-option>
+              <ion-select-option value="month">Mês anterior</ion-select-option>
+              <ion-select-option value="year">Últimos doze meses</ion-select-option>
+              <ion-select-option value="specificPeriod">Período específico</ion-select-option>
+            </ion-select>
         </ion-item>
       </ion-card-header>
       <ion-item id="totalBankedHours" lines="none" class="bankedHours-item">
