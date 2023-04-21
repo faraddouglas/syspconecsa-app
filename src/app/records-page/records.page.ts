@@ -15,16 +15,20 @@ export class RecordsPage implements OnInit {
   records: any = [];
   user: any = localStorage.getItem('user');
   hasInterval = JSON.parse(this.user).hasInterval;
-  bankedHours: any [] = [];
-  extraHours: any [] = [];
-  weekendHours: any [] = [];
-  totalBankedHours: string = '00:00';
-  totalExtraHours: string = '00:00';
-  totalWeekendHours: string = '00:00';
+  workedHours: never | string [] = [];
+  extraHours: never | string [] = [];
+  weekendHours: never | string [] = [];
+  outstandingHours: never | string [] = [];
+  totalBankedHours = {
+    totalWorkedHours: '00:00',
+    totalExtraHours: '00:00',
+    totalWeekendHours: '00:00',
+    totalOutstandingHours: '00:00'
+  };
   selectedInterval = 'week'
   interval = {
-    startDate: '',
-    endDate: ''
+    startDate: this.formatDate(new Date()).split('/').reverse().join('-'),
+    endDate: this.formatDate(new Date()).split('/').reverse().join('-')
   };
 
   ngOnInit() {
@@ -34,9 +38,9 @@ export class RecordsPage implements OnInit {
   async getRecordsByInterval(interval: string) {
     this.records = await this.recordService.getRecords();
   
-    // Filter records based on interval
+    // Filter records based on selected interval
     const currentDate = new Date();
-    let startDate: Date;
+    let startDate: Date | string;
     switch (interval) {
       case 'week':
         startDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -47,6 +51,7 @@ export class RecordsPage implements OnInit {
         });
         break;
       case 'month':
+        this.selectedInterval = 'month';
         startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate());
         this.records = this.records.filter((record: { date: string | number | Date; }) => {
           const recordDate = new Date(record.date);
@@ -56,21 +61,23 @@ export class RecordsPage implements OnInit {
         });
         break;
       case 'year':
+        this.selectedInterval = 'year';
         startDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate() + 1);
         this.records = this.records.filter((record: { date: string | number | Date; }) => {
           const recordDate = new Date(record.date);
-          return recordDate >= startDate && 
+          return recordDate > startDate && 
             recordDate <= currentDate;
         });
         break;
       // If interval is not 'week', 'month', or 'year', assume it's a specific date range
       default:
+        this.selectedInterval = 'custom';
         startDate = new Date(this.interval.startDate);
         const endDate = new Date(this.interval.endDate);
         this.records = this.records.filter((record: { date: string | number | Date; }) => {
           const recordDate = new Date(record.date);
-          return this.formatDate(recordDate) >= this.formatDate(startDate) && 
-            this.formatDate(recordDate) <= this.formatDate(endDate);
+          return recordDate  > startDate && 
+            recordDate <= new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() + 2);
         });
         break;
     };
@@ -78,20 +85,46 @@ export class RecordsPage implements OnInit {
   };
 
   async getBankedHours() {
-    this.bankedHours = [];
+    this.workedHours = [];
     this.extraHours = [];
     this.weekendHours = [];
+    this.outstandingHours = [];
+
     const workedHours = await this.records.map((record: any) => record.bankedHours);
+    
     for (let i = 0; i < workedHours.length; i++) {
       if (workedHours.length > 0 && workedHours[i] !== undefined) {
-        this.bankedHours.push(workedHours[i]['totalWorkedHoursWithInterval']);
+        this.workedHours.push(workedHours[i]['totalWorkedHours']);
         this.extraHours.push(workedHours[i]['extraHours']);
         this.weekendHours.push(workedHours[i]['extraWeekendHours']);
+        this.outstandingHours.push(workedHours[i]['outstandingHours']);
       };
     };
-    this.totalBankedHours = this.sumTimeValues(this.bankedHours);
-    this.totalExtraHours = this.sumTimeValues(this.extraHours);
-    this.totalWeekendHours = this.sumTimeValues(this.weekendHours);
+
+    this.totalBankedHours.totalWorkedHours = this.sumTimeValues(this.workedHours);
+
+    if (this.selectedInterval === 'week' && this.timestringtotimestamp(
+        this.totalBankedHours.totalWorkedHours) > 44 * 60 * 60) {
+      this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
+      this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
+    } else if (this.selectedInterval === 'month' && this.timestringtotimestamp(
+        this.totalBankedHours.totalWorkedHours) > 176 * 60 * 60) {
+      this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
+      this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
+    } else if (this.selectedInterval === 'year' && this.timestringtotimestamp(
+        this.totalBankedHours.totalWorkedHours) > 2112 * 60 * 60) {
+      this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
+      this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
+    } else {
+      this.totalBankedHours.totalOutstandingHours = this.sumTimeValues(this.outstandingHours);
+    };
+  };
+
+  timestringtotimestamp(timestring: string) {
+    const time = timestring.split(':');
+    const hours = parseInt(time[0]);
+    const minutes = parseInt(time[1]);
+    return hours * 60 * 60 + minutes * 60;
   };
 
   formatDate(_date: string | number | Date) {

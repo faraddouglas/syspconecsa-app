@@ -7,10 +7,10 @@ import { lastValueFrom } from 'rxjs';
 })
 export class RecordService {
   user: any = localStorage.getItem('user');
-  userId = JSON.parse(this.user).userId;
-  companyId = JSON.parse(this.user).companyId;
   records: any[] = [];
-  getRecordsFromUserUrl = `https://syspteste.herokuapp.com/api/user-records?companyId=${this.companyId}&userId=${this.userId}`;
+  getRecordsFromUserUrl = 
+    `https://syspteste.herokuapp.com/api/user-records?companyId=
+      ${JSON.parse(this.user).companyId}&userId=${JSON.parse(this.user).userId}`;
   token = localStorage.getItem('token');
 
 
