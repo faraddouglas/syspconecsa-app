@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
-@Component({
-  selector: 'app-custom-component',
-  templateUrl: './custom-component.component.html',
-  styleUrls: ['./custom-component.component.scss'],
+@NgModule({
+  declarations: [],
+  imports: [],
+  exports: [],
+  providers: [],
+  bootstrap: []
 })
-export class CustomComponent implements OnInit {
-
+export class CustomComponent {
   constructor(private readonly alertController: AlertController) { }
-
-  ngOnInit() {}
 
   async presentAlert(header: string, subHeader: string, message: string, buttons: string[]){
     const alert = await this.alertController.create({
