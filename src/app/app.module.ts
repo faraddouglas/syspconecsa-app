@@ -18,9 +18,10 @@ import { CustomComponent } from './custom-component/custom-component.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CustomComponent
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, CustomComponent],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

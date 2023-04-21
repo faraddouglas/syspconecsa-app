@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CustomComponent } from './custom-component.component';
 
-describe('CustomComponentComponent', () => {
+describe('CustomComponent', () => {
   let component: CustomComponent;
   let fixture: ComponentFixture<CustomComponent>;
 
