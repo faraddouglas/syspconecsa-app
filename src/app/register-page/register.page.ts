@@ -15,15 +15,15 @@ import { CustomComponent } from '../custom-component/custom-component.component'
 export class RegisterPage implements OnInit {
 
   user: any = localStorage.getItem('user');
-  companyId = JSON.parse(this.user).companyId;
-  userId = JSON.parse(this.user).userId;
+  companyId: number = '' || JSON.parse(this.user).companyId;
+  userId: number = ''|| JSON.parse(this.user).userId;
   records: any [] = [];
-  states: any [] = [];
+  states: string [] = [];
   userType = JSON.parse(this.user).userType;
   hasInterval = JSON.parse(this.user).hasInterval;
   recordState: any = null;
   recordToPost: any = {};
-  time: any = new Date().toLocaleTimeString();
+  time: string = new Date().toLocaleTimeString();
   dateKey: any = new Date().toLocaleDateString();
   formatedDate = String(this.dateKey.split('/').reverse().join('-'));
   formadatedTimeStamp = `${this.formatedDate} ${this.time}`;
