@@ -33,9 +33,12 @@ export class LoginPage1 implements OnInit {
         '',
         ['OK']
         );
-      this.isSubmitting = false;
+        this.isSubmitting = false;
     } else {
       await this.authGuard.getEnterprises(this.companyId);
+      setTimeout(() => {
+        this.isSubmitting = false;
+      }, 5000);
     };
   };
 
