@@ -41,23 +41,26 @@ export class RecordsPage implements OnInit {
     // Filter records based on selected interval
     const currentDate = new Date();
     let startDate: Date | string;
+    let endDate: Date;
     switch (interval) {
       case 'week':
         startDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+        endDate = new Date(currentDate.getTime());
+        this.selectedInterval = 'week';
         this.records = this.records.filter((record: { date: string | number | Date; }) => {
           const recordDate = new Date(record.date);
-          return this.formatDate(recordDate) >= this.formatDate(startDate) && 
-            this.formatDate(recordDate) <= this.formatDate(currentDate);
+          return recordDate > startDate && 
+            recordDate <= endDate;
         });
         break;
       case 'month':
         this.selectedInterval = 'month';
-        startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate());
+        startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1);
+        endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         this.records = this.records.filter((record: { date: string | number | Date; }) => {
           const recordDate = new Date(record.date);
-          return this.formatDate(recordDate) >= this.formatDate(startDate) && 
-            this.formatDate(recordDate) <= new Date(currentDate.getFullYear(), 
-            currentDate.getMonth(), 1).toDateString();
+          return recordDate > startDate && 
+            recordDate <= endDate;
         });
         break;
       case 'year':
@@ -73,7 +76,7 @@ export class RecordsPage implements OnInit {
       default:
         this.selectedInterval = 'custom';
         startDate = new Date(this.interval.startDate);
-        const endDate = new Date(this.interval.endDate);
+        endDate = new Date(this.interval.endDate);
         this.records = this.records.filter((record: { date: string | number | Date; }) => {
           const recordDate = new Date(record.date);
           return recordDate  > startDate && 
@@ -103,15 +106,15 @@ export class RecordsPage implements OnInit {
 
     this.totalBankedHours.totalWorkedHours = this.sumTimeValues(this.workedHours);
 
-    if (this.selectedInterval === 'week' && this.timestringtotimestamp(
+    if (this.selectedInterval === 'week' && this.timestringToTimestamp(
         this.totalBankedHours.totalWorkedHours) > 44 * 60 * 60) {
       this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
       this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
-    } else if (this.selectedInterval === 'month' && this.timestringtotimestamp(
+    } else if (this.selectedInterval === 'month' && this.timestringToTimestamp(
         this.totalBankedHours.totalWorkedHours) > 176 * 60 * 60) {
       this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
       this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
-    } else if (this.selectedInterval === 'year' && this.timestringtotimestamp(
+    } else if (this.selectedInterval === 'year' && this.timestringToTimestamp(
         this.totalBankedHours.totalWorkedHours) > 2112 * 60 * 60) {
       this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
       this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
@@ -120,7 +123,7 @@ export class RecordsPage implements OnInit {
     };
   };
 
-  timestringtotimestamp(timestring: string) {
+  timestringToTimestamp(timestring: string) {
     const time = timestring.split(':');
     const hours = parseInt(time[0]);
     const minutes = parseInt(time[1]);
