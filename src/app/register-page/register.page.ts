@@ -39,7 +39,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.recordToPost = {
-      'date': `${this.formatedDate} 00:00:00`,
+      'date': `${this.formatedDate} 03:00:00`,
       'userId': JSON.parse(this.user).userId,
       'employee': JSON.parse(this.user).name,
       'companyId': JSON.parse(this.user).companyId,
@@ -121,7 +121,7 @@ export class RegisterPage implements OnInit {
       if (dbRecords.length !== 0) {
         let matchingRecord: any = null;
         for (const record of dbRecords) {
-          if (record.date === `${this.formatedDate}T00:00:00.000Z`) {
+          if (record.date === `${this.formatedDate}T03:00:00.000Z`) {
             matchingRecord = record;
             break;
           };
