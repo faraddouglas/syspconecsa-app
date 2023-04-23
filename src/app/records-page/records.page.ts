@@ -88,38 +88,99 @@ export class RecordsPage implements OnInit {
   };
 
   async getBankedHours() {
-    this.workedHours = [];
-    this.extraHours = [];
-    this.weekendHours = [];
-    this.outstandingHours = [];
+    const bankedHours = await Promise.all(this.records.map((record: { bankedHours: any; }) => record.bankedHours));
 
-    const workedHours = await this.records.map((record: any) => record.bankedHours);
+    this.totalBankedHours.totalWorkedHours = this.sumTimeValues(
+      bankedHours.map(hours => hours?.totalWorkedHours ?? '00:00')
+    );
+
+    const extraHours = bankedHours.filter(hours => hours?.extraHours).map(hours => hours.extraHours);
+    const weekendHours = bankedHours.filter(hours => hours?.extraWeekendHours).map(hours => hours.extraWeekendHours);
+    const outstandingHours = bankedHours.filter(hours => hours?.outstandingHours).map(hours => hours.outstandingHours);
+
+    const totalExtraHours = this.sumTimeValues(extraHours);
+    const totalWeekendHours = this.sumTimeValues(weekendHours);
+    const totalOutstandingHours = this.sumTimeValues(outstandingHours);
     
-    for (let i = 0; i < workedHours.length; i++) {
-      if (workedHours.length > 0 && workedHours[i] !== undefined) {
-        this.workedHours.push(workedHours[i]['totalWorkedHours']);
-        this.extraHours.push(workedHours[i]['extraHours']);
-        this.weekendHours.push(workedHours[i]['extraWeekendHours']);
-        this.outstandingHours.push(workedHours[i]['outstandingHours']);
-      };
-    };
-
-    this.totalBankedHours.totalWorkedHours = this.sumTimeValues(this.workedHours);
-
     if (this.selectedInterval === 'week' && this.timestringToTimestamp(
         this.totalBankedHours.totalWorkedHours) > 44 * 60 * 60) {
-      this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
-      this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
+          const relativeExtraHours = this.timestringToTimestamp(totalExtraHours) - 
+          this.timestringToTimestamp(totalOutstandingHours);
+      if (relativeExtraHours > 0) {
+        this.totalBankedHours.totalExtraHours = this.timestampToTimestring(relativeExtraHours);
+      } else {
+        this.totalBankedHours.totalExtraHours = '00:00';
+      };
+      const relativeWeekendHours = this.timestringToTimestamp(totalWeekendHours) -
+        this.timestringToTimestamp(totalOutstandingHours);
+      if (relativeWeekendHours > 0) {
+        this.totalBankedHours.totalWeekendHours = this.timestampToTimestring(relativeWeekendHours);
+      } else {
+        this.totalBankedHours.totalWeekendHours = '00:00';
+      };
+      const relativeOutstandingHours = this.timestringToTimestamp(totalOutstandingHours) -
+        this.timestringToTimestamp(totalOutstandingHours) -
+        this.timestringToTimestamp(totalExtraHours) -
+        this.timestringToTimestamp(totalWeekendHours);
+      if (relativeOutstandingHours > 0) {
+        this.totalBankedHours.totalOutstandingHours = this.timestampToTimestring(relativeOutstandingHours);
+      } else {
+        this.totalBankedHours.totalOutstandingHours = '00:00';
+      };
     } else if (this.selectedInterval === 'month' && this.timestringToTimestamp(
         this.totalBankedHours.totalWorkedHours) > 176 * 60 * 60) {
-      this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
-      this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
+          const relativeExtraHours = this.timestringToTimestamp(totalExtraHours) -
+          this.timestringToTimestamp(totalOutstandingHours);
+      if (relativeExtraHours > 0) {
+        this.totalBankedHours.totalExtraHours = this.timestampToTimestring(relativeExtraHours);
+      } else {
+        this.totalBankedHours.totalExtraHours = '00:00';
+      };
+      const relativeWeekendHours = this.timestringToTimestamp(totalWeekendHours) -
+        this.timestringToTimestamp(totalOutstandingHours);
+      if (relativeWeekendHours > 0) {
+        this.totalBankedHours.totalWeekendHours = this.timestampToTimestring(relativeWeekendHours);
+      } else {
+        this.totalBankedHours.totalWeekendHours = '00:00';
+      };
+      const relativeOutstandingHours = this.timestringToTimestamp(totalOutstandingHours) -
+        this.timestringToTimestamp(totalOutstandingHours) -
+        this.timestringToTimestamp(totalExtraHours) -
+        this.timestringToTimestamp(totalWeekendHours);
+      if (relativeOutstandingHours > 0) {
+        this.totalBankedHours.totalOutstandingHours = this.timestampToTimestring(relativeOutstandingHours);
+      } else {
+        this.totalBankedHours.totalOutstandingHours = '00:00';
+      };
     } else if (this.selectedInterval === 'year' && this.timestringToTimestamp(
         this.totalBankedHours.totalWorkedHours) > 2112 * 60 * 60) {
-      this.totalBankedHours.totalExtraHours = this.sumTimeValues(this.extraHours);
-      this.totalBankedHours.totalWeekendHours = this.sumTimeValues(this.weekendHours);
+          const relativeExtraHours = this.timestringToTimestamp(totalExtraHours) -
+          this.timestringToTimestamp(totalOutstandingHours);
+      if (relativeExtraHours > 0) {
+        this.totalBankedHours.totalExtraHours = this.timestampToTimestring(relativeExtraHours);
+      } else {
+        this.totalBankedHours.totalExtraHours = '00:00';
+      };
+      const relativeWeekendHours = this.timestringToTimestamp(totalWeekendHours) -
+        this.timestringToTimestamp(totalOutstandingHours);
+      if (relativeWeekendHours > 0) {
+        this.totalBankedHours.totalWeekendHours = this.timestampToTimestring(relativeWeekendHours);
+      } else {
+        this.totalBankedHours.totalWeekendHours = '00:00';
+      };
+      const relativeOutstandingHours = this.timestringToTimestamp(totalOutstandingHours) -
+        this.timestringToTimestamp(totalOutstandingHours) -
+        this.timestringToTimestamp(totalExtraHours) -
+        this.timestringToTimestamp(totalWeekendHours);
+      if (relativeOutstandingHours > 0) {
+        this.totalBankedHours.totalOutstandingHours = this.timestampToTimestring(relativeOutstandingHours);
+      } else {
+        this.totalBankedHours.totalOutstandingHours = '00:00';
+      };
     } else {
-      this.totalBankedHours.totalOutstandingHours = this.sumTimeValues(this.outstandingHours);
+      this.totalBankedHours.totalExtraHours = totalExtraHours;
+      this.totalBankedHours.totalWeekendHours = totalWeekendHours;
+      this.totalBankedHours.totalOutstandingHours = totalOutstandingHours;
     };
   };
 
@@ -128,6 +189,12 @@ export class RecordsPage implements OnInit {
     const hours = parseInt(time[0]);
     const minutes = parseInt(time[1]);
     return hours * 60 * 60 + minutes * 60;
+  };
+
+  timestampToTimestring(timestamp: number) {
+    const hours = Math.floor(timestamp / 3600);
+    const minutes = Math.floor((timestamp - hours * 3600) / 60);
+    return `${this.padLeadingZero(hours)}:${this.padLeadingZero(minutes)}`;
   };
 
   formatDate(_date: string | number | Date) {
