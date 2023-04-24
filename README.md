@@ -23,8 +23,11 @@ To use this app, simply clone the repository and install the necessary dependenc
 git clone https://github.com/CristianosLeite/syspconecsa-app.git
 ```	
 
-cd time-tracking-app
+```
+cd syspconecsa-app
 ```	
+
+```
 npm install
 ```	
 
