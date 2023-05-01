@@ -7,7 +7,6 @@ import { CustomComponent } from '../../custom-component/custom-component.compone
   templateUrl: './login.page2.html',
   styleUrls: ['./login.page2.scss'],
 })
-
 export class LoginPage2 implements OnInit {
   userId: string = '';
   enterprise: any = localStorage.getItem('enterprise');
@@ -18,28 +17,28 @@ export class LoginPage2 implements OnInit {
 
   constructor(
     private authGuard: AuthGuard,
-    private customComponent: CustomComponent,
-    ) {};
+    private customComponent: CustomComponent
+  ) {};
 
   ngOnInit() {
     this.isSubmitting = false;
   };
 
-  async login(){
-    if(this.userId === ''){
+  async login() {
+    if (this.userId === '') {
       this.customComponent.presentAlert(
         'Erro',
         'Preencha o campo corretamente',
         '',
         ['OK']
-        );
+      );
     } else {
-        this.isSubmitting = true;
-        await this.authGuard.login(this.companyId, this.userId);
+      this.isSubmitting = true;
+      await this.authGuard.login(this.companyId, this.userId);
     };
   };
 
-  numericOnly(){
+  numericOnly() {
     addEventListener('numericOnly', (event: any) => {
       event.target.value = event.target.value.replace(/[^0-9]/g, '');
     });

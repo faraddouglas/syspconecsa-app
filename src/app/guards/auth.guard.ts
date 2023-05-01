@@ -13,7 +13,7 @@ export class AuthGuard {
     private navCtrl: NavController,
     private http: HttpClient,
     private customComponent: CustomComponent
-    ) {}
+    ) {};
 
   canActivate(
     _route: ActivatedRouteSnapshot,
@@ -41,7 +41,7 @@ export class AuthGuard {
     localStorage.removeItem('records');
     localStorage.removeItem('token');
     localStorage.removeItem('companyId');
-    localStorage.removeItem('enterprise')
+    localStorage.removeItem('enterprise');
     this.routToLogin();
   };
 
@@ -77,7 +77,7 @@ export class AuthGuard {
     });
   };
 
-  async getEnterprises(companyId: string){
+  async getEnterprise(companyId: string){
     const req: any = this.http.post(
       `https://syspteste.herokuapp.com/api/login/loginEnterprise?companyId=${companyId}`, {
       responseType: 'json'
@@ -93,13 +93,14 @@ export class AuthGuard {
             ['OK']
             );
           this.logout();
+          throw new Error('Não foi possível realizar o login');
         };
         throw new Error('Não foi possível realizar o login');
       })
     );
     req.subscribe((res: any) => {
-      if(res.companyId === companyId){
-        localStorage.setItem('enterprise', JSON.stringify(res));
+      if(res.enterprise.companyId === companyId){
+        localStorage.setItem('enterprise', JSON.stringify(res.enterprise));
         this.navCtrl.navigateForward('page/login/user');
       };
     });
