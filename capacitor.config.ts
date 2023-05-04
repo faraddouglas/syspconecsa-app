@@ -4,7 +4,8 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'syspapp',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+
 };
 
 export default config;

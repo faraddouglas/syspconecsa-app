@@ -1,7 +1,21 @@
 {
   "name": "syspapp",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "platforms": [
+        "android"
+      ],
+      "appId": "com.syspapp.app",
+      "appName": "syspapp",
+      "bundledWebRuntime": false,
+      "npmClient": "npm",
+      "webDir": "www",
+      "plugins": {
+        "SplashScreen": {
+          "launchShowDuration": 0
+        }
+      }
+    }
   },
   "type": "angular"
 }

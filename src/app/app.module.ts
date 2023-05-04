@@ -11,7 +11,6 @@ import { CustomComponent } from './custom-component/custom-component.component';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
