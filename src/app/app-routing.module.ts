@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { TabsPage } from './tabs/tabs.page';
-import { LoginPage2 } from './login-page/page2/login.page2';
 
 const routes: Routes = [
 
@@ -18,19 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'page/login',
-    loadChildren: () => import('./login-page/page1/login.page1.module').then( m => m.LoginPage1Module)
+    loadChildren: () => import('./login-page/login.page.module').then( m => m.LoginPageModule)
   },
-  {
-    path: '',
-    component: LoginPage2,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'page/login/user',
-        loadChildren: () => import('./login-page/page2/login-page2.module').then( m => m.LoginPage2Module)
-      }
-    ]
-  },
+
   {
     path: 'page/tabs',
     component: TabsPage,

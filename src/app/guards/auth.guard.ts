@@ -101,7 +101,6 @@ export class AuthGuard {
     req.subscribe((res: any) => {
       if(res.enterprise.companyId === companyId){
         localStorage.setItem('enterprise', JSON.stringify(res.enterprise));
-        this.navCtrl.navigateForward('page/login/user');
       };
     });
   };

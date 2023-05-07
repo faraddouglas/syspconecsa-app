@@ -1,11 +1,10 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'syspapp',
+  appId: 'syspteste',
+  appName: 'App Ponto - Conecsa',
   webDir: 'www',
-  bundledWebRuntime: false,
-
+  bundledWebRuntime: false
 };
 
 export default config;
