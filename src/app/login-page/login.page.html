@@ -1,0 +1,64 @@
+<ion-header collapse="condense" [translucent]="true"></ion-header>
+<ion-content>
+
+  <ion-title size="large">App Ponto</ion-title>
+
+  <ng-container *ngIf=" itsEnterprise === false; else itsUser">
+  <ion-card class="login-card">
+
+    <ion-icon name="person-circle-outline"></ion-icon>
+
+
+    <ion-card-content>
+      <ion-input
+      label="Cod. Empresa"
+      label-placement="floating"
+      placeholder="Cod. Empresa"
+      fill="outline"
+      aria-label="Cod.Empresa"
+      (keypress)="numericOnly()"
+      inputmode="numeric"
+      [(ngModel)]="companyId">
+    </ion-input>
+
+    <ion-checkbox labelPlacement="end" justify="start">Salvar credenciais</ion-checkbox>
+
+    <ion-button (click)="getEnterprise()" [disabled]="isSubmitting">
+      <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
+      Avançar
+    </ion-button>
+    </ion-card-content>
+  </ion-card>
+  </ng-container>
+  <ng-template #itsUser>
+  <ion-card class="login-card">
+
+    <ion-icon name="person-circle-outline"></ion-icon>
+
+
+    <ion-card-content>
+      <ion-input
+      label="Matrícula"
+      label-placement="floating"
+      placeholder="Matrícula"
+      fill="outline"
+      aria-label="Matrícula"
+      (keypress)="numericOnly()"
+      inputmode="numeric"
+      [(ngModel)]="userId">
+    </ion-input>
+
+    <ion-checkbox labelPlacement="end" justify="start">Salvar credenciais</ion-checkbox>
+
+    <ion-button (click)="login()" [disabled]="isSubmitting">
+      <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
+      Entrar
+    </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ng-template>
+</ion-content>
+
+<ion-footer collapse="condense">
+  App Ponto V1.0
+</ion-footer>
