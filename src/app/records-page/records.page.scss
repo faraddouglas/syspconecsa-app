@@ -1,5 +1,49 @@
+ion-header {
+  min-height: 80px;
+  align-items: flex-end;
+  justify-content: safe;
+}
+
+ion-toolbar {
+  min-height: 40px;
+  align-items: flex-end;
+  justify-content: safe;
+  margin-top: 40px;
+}
+
 .header-title {
-  margin: 0 auto;
+  align-items: safe;
+  justify-content: safe;
+}
+
+.bankedHours-filter {
+  align-items: flex-start;
+  justify-content: right;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: -30px;
+  display: flex;
+  padding: auto;
+  position: relative;
+}
+
+.clock-icon {
+  color: #011c43e6;
+  font-size: 20px;
+  border-radius: 50px;
+  margin-left: 2px;
+  display: flex;
+  padding: auto;
+  position: relative;
+  align-items: safe;
+  justify-items: safe;
+}
+
+.banked-hours-card-header {
+  flex-flow: column;
+  position: relative;
+  display: block;
+  padding: 2px;
 }
 
 .bankedHours ion-item {
@@ -9,10 +53,18 @@
 }
 
 #totalBankedHours ion-label {
-  white-space: inherit;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   padding: auto;
+}
+
+.bankedHours-items {
+  padding: auto;
+  display: block;
+  flex-flow: column;
+  justify-content: safe;
+  align-items: safe;
+  min-width: 150px;
 }
 
 .record-card {
@@ -39,7 +91,9 @@
 }
 
 .bankedHours-title {
-  padding: 10px;
+  padding: auto;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .bankedHours-icon {
@@ -47,18 +101,15 @@
 }
 
 .bankedHours-title-text {
-  flex-grow: 1;
-  text-align: center;
-}
-
-.bankedHours-item {
-  padding: 5px;
+  align-items: safe;
+  justify-content: safe;
+  flex-flow: row;
 }
 
 .bankedHours-label {
-  white-space: pre;
-  padding: auto;
+  padding: 2px;
   margin-left: 0;
   margin-right: auto;
-  display: block;
+  display: flex;
+  min-width: 300px;
 }
