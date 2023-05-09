@@ -1,3 +1,21 @@
+ion-header {
+  min-height: 80px;
+  align-items: flex-end;
+  justify-content: safe;
+}
+
+ion-toolbar {
+  min-height: 40px;
+  align-items: flex-end;
+  justify-content: safe;
+  margin-top: 40px;
+}
+
+ion-title {
+  align-items: flex-end;
+  justify-content: safe;
+}
+
 .clock {
   font-size: 50px;
   text-align: center;
