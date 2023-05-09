@@ -1,12 +1,17 @@
-<ion-header collapse="condense" [translucent]="true"></ion-header>
+<ion-header collapse="condense" [translucent]="true">
+</ion-header>
+
 <ion-content>
 
-  <ion-title size="large">App Ponto</ion-title>
+  <ion-title size="large">
+    <ion-icon class="clock-icon" name="time-outline"></ion-icon>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;App Ponto
+  </ion-title>
 
   <ng-container *ngIf=" itsEnterprise === false; else itsUser">
     <ion-card class="login-card">
 
-      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-icon name="person-circle-outline" class="user-icon"></ion-icon>
 
       <ion-card-content>
         <ion-input
