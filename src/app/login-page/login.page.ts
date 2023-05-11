@@ -12,10 +12,8 @@ export class LoginPage implements OnInit {
   companyId: string = localStorage.getItem('companyId') || '';
   isSubmitting: boolean = false;
   itsEnterprise: boolean = false;
-  itsUser: boolean = false;
-  checkboxCredentials: boolean = localStorage.getItem('companyId') !== '' ? false : true;
-  checkboxAttribute = 'unchecked';
-
+  checkboxCredentials: boolean =
+    localStorage.getItem('companyId') !== '' ? false : true;
 
   constructor(
     private customComponent: CustomComponent,
