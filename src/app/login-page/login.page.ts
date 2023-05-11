@@ -13,7 +13,7 @@ export class LoginPage implements OnInit {
   isSubmitting: boolean = false;
   itsEnterprise: boolean = false;
   checkboxCredentials: boolean =
-    localStorage.getItem('companyId') !== '' ? false : true;
+    localStorage.getItem('companyId') ? true : false;
 
   constructor(
     private customComponent: CustomComponent,
@@ -71,7 +71,6 @@ export class LoginPage implements OnInit {
 
   changeAttribute() {
     this.checkboxCredentials = !this.checkboxCredentials;
-    console.log(this.checkboxCredentials);
   }
 
   async storeCredentials() {
