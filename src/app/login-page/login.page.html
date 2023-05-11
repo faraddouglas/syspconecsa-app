@@ -1,5 +1,4 @@
-<ion-header collapse="condense" [translucent]="true">
-</ion-header>
+<ion-header collapse="condense" [translucent]="true"></ion-header>
 
 <ion-content>
 
@@ -8,7 +7,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;App Ponto
   </ion-title>
 
-  <ng-container *ngIf=" itsEnterprise === false; else itsUser">
+  <ng-container *ngIf=" itsEnterprise === false; else itsUser" class="card-container">
     <ion-card class="login-card">
 
       <ion-icon name="person-circle-outline" class="user-icon"></ion-icon>
@@ -46,7 +45,6 @@
 
       <ion-icon name="person-circle-outline" class="user-icon"></ion-icon>
 
-
       <ion-card-content>
         <ion-input
           label="Matrícula"
@@ -75,6 +73,7 @@
       </ion-card-content>
     </ion-card>
   </ng-template>
+
 </ion-content>
 
 <ion-footer collapse="condense">
