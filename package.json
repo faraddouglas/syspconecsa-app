@@ -37,6 +37,7 @@
     "rxjs": "~7.5.0",
     "stream-http": "^3.2.0",
     "tslib": "^2.3.0",
+    "upgrade": "^1.1.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
@@ -54,12 +55,15 @@
     "@ionic/lab": "3.2.15",
     "@types/jasmine": "4.3.1",
     "@types/node": "18.15.11",
-    "@typescript-eslint/eslint-plugin": "5.57.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.5",
     "@typescript-eslint/parser": "5.57.0",
-    "eslint": "^7.6.0",
-    "eslint-plugin-import": "2.22.1",
+    "eslint": "^8.40.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsdoc": "30.7.6",
+    "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-prefer-arrow": "1.2.2",
+    "eslint-plugin-promise": "^6.1.1",
     "jasmine-core": "~4.3.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.4.0",
@@ -69,7 +73,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~5.0.4"
+    "typescript": "^5.0.4"
   },
   "description": "An Ionic project"
 }

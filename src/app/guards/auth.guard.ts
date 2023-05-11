@@ -41,6 +41,7 @@ export class AuthGuard {
     localStorage.removeItem('records');
     localStorage.removeItem('token');
     localStorage.removeItem('companyId');
+    localStorage.removeItem('userId');
     localStorage.removeItem('enterprise');
     this.routToLogin();
   };
