@@ -7,7 +7,7 @@ import { CustomComponent } from '../custom-component/custom-component.component'
 
 
 @Component({
-  selector: 'register',
+  selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register-page.page.scss'],
 })
@@ -157,7 +157,7 @@ export class RegisterPage implements OnInit {
           } else if (this.hasInterval === true && matchingRecord['startInterval'] === null
             ){
               this.records[this.dateKey][this.states[0]] = new Date(
-                matchingRecord['checkInTime']).toLocaleTimeString( 
+                matchingRecord['checkInTime']).toLocaleTimeString(
                   this.locale, this.timeConfig
                 );
               this.recordState = this.states[1];
