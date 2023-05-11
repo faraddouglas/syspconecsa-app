@@ -1,6 +1,5 @@
 ion-header {
   --ion-background-color: #01a44e;
-  background-color: #01a44e;
 }
 
 ion-title {
@@ -122,8 +121,6 @@ ion-content{
      rgba(1,164,78,0.5186449579831933) 100%
     );
   border: #6e7f8f 0.1px solid;
-  justify-items: center;
-  position: absolute;
 }
 
 ion-footer{
@@ -131,12 +128,10 @@ ion-footer{
   background-color: #01a44e;
   min-height: 50px;
   font-size: 15px;
-  display: block;
   border: #01a44e 10px solid;
   color: #f5f5f5;
   justify-content: left;
   text-shadow: 1px 0px 5px #000;
-  position:absolute;
   bottom: 0;
 }
 
