@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomComponent } from './custom-component/custom-component.component';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,10 +17,10 @@ import { CustomComponent } from './custom-component/custom-component.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CustomComponent
+    CustomComponent,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {};
+export class AppModule {}

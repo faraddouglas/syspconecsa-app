@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'page/login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'page/tabs',
@@ -16,17 +16,23 @@ const routes: Routes = [
     children: [
       {
         path: 'register',
-        loadChildren: () => import('../register-page/register.module').then(m => m.RegisterPageModule)
+        loadChildren: () =>
+          import('../register-page/register.module').then(
+            (m) => m.RegisterPageModule
+          ),
       },
       {
         path: 'records',
-        loadChildren: () => import('../records-page/records.module').then(m => m.RecordsPageModule)
-      }
-    ]
+        loadChildren: () =>
+          import('../records-page/records.module').then(
+            (m) => m.RecordsPageModule
+          ),
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {};
+export class TabsPageRoutingModule {}

@@ -5,15 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule as LoginPageRoutingModule } from './login-page-routing.module';
 import { LoginPage } from './login.page';
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    LoginPageRoutingModule
-  ],
+  imports: [CommonModule, FormsModule, IonicModule, LoginPageRoutingModule],
   declarations: [LoginPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class LoginPageModule {};
+export class LoginPageModule {}

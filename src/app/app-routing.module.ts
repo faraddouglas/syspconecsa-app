@@ -7,17 +7,20 @@ import { AuthGuard } from './guards/auth.guard';
 import { TabsPage } from './tabs/tabs.page';
 
 const routes: Routes = [
-
   {
-    path: '', redirectTo: 'page/login', pathMatch: 'full'
+    path: '',
+    redirectTo: 'page/login',
+    pathMatch: 'full',
   },
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () =>
+      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
   {
     path: 'page/login',
-    loadChildren: () => import('./login-page/login.page.module').then( m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./login-page/login.page.module').then((m) => m.LoginPageModule),
   },
 
   {
@@ -27,44 +30,58 @@ const routes: Routes = [
     children: [
       {
         path: 'page/tabs/register',
-        loadChildren: () => import('./register-page/register.module').then( m => m.RegisterPageModule)
+        loadChildren: () =>
+          import('./register-page/register.module').then(
+            (m) => m.RegisterPageModule
+          ),
       },
       {
         path: 'page/tabs/records',
-        loadChildren: () => import('./records-page/records.module').then( m => m.RecordsPageModule)
+        loadChildren: () =>
+          import('./records-page/records.module').then(
+            (m) => m.RecordsPageModule
+          ),
       },
-    ]
+    ],
   },
   {
     path: '',
     component: ManangerPage,
     canActivate: [AuthGuard],
     children: [
-
-    {
-      path: 'page/mananger',
-      loadChildren: () => import('./mananger/mananger.module').then( m => m.ManangerPageModule)
-    }
-  ],
+      {
+        path: 'page/mananger',
+        loadChildren: () =>
+          import('./mananger/mananger.module').then(
+            (m) => m.ManangerPageModule
+          ),
+      },
+    ],
   },
   {
     path: 'page/mananger/register-enterprise',
     component: RegisterEnterprisePage,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./mananger/register-enterprise/register-enterprise.module').then( m => m.RegisterEnterprisePageModule)
+    loadChildren: () =>
+      import('./mananger/register-enterprise/register-enterprise.module').then(
+        (m) => m.RegisterEnterprisePageModule
+      ),
   },
   {
     path: 'page/mananger/register-user',
     component: RegisterUserPage,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./mananger/register-user/register-user.module').then( m => m.RegisterUserPageModule)
-  }
+    loadChildren: () =>
+      import('./mananger/register-user/register-user.module').then(
+        (m) => m.RegisterUserPageModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {};
+export class AppRoutingModule {}

@@ -7,12 +7,7 @@ import { RecordsPage, ReversePipe } from './records.page';
 import { RecordsPageRoutingModule } from './records-routing.module';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    RecordsPageRoutingModule
-  ],
-  declarations: [RecordsPage, ReversePipe]
+  imports: [IonicModule, CommonModule, FormsModule, RecordsPageRoutingModule],
+  declarations: [RecordsPage, ReversePipe],
 })
-export class RecordsPageModule {};
+export class RecordsPageModule {}
