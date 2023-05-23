@@ -153,7 +153,7 @@ export class RegisterPage implements OnInit {
       if (dbRecords.length !== 0) {
         let matchingRecord: any = null;
         for (const record of dbRecords) {
-          if (record.date === `${this.formatedDate}T03:00:00.000Z`) {
+          if (record.date === `${this.formatedDate}T00:00:00.000Z`) {
             matchingRecord = record;
             break;
           }
