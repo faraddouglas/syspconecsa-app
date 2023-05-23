@@ -1,14 +1,8 @@
-ion-header {
-  --ion-background-color: #01a44e;
-}
-
 ion-title {
-  --ion-background-color: #01a44e;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   background-color: #01a44e;
   color: #f5f5f5;
   font-size: 20px;
-  display: flex;
   border-bottom: #6e7f8f 1px solid;
   margin-top: 40px;
   margin-bottom: auto;
@@ -16,10 +10,7 @@ ion-title {
   margin-right: auto;
   padding: auto;
   text-shadow: 1px 0px 5px #000;
-  min-height: 40px;
-  max-height: 40px;
-  justify-content: safe;
-  align-items: safe;
+  height: 40px;
 }
 
 .clock-icon {
@@ -74,7 +65,7 @@ ion-title {
 
 ion-input {
   font-size: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   text-shadow: 1px 0px 5px #000;
   color: #fff;
   margin-left: auto;
@@ -87,11 +78,8 @@ ion-input {
   backdrop-filter: blur(5px);
   box-shadow: 1px 0px 15px black;
   --border-width: 1px
-  --border-color: #fff
   --border-radius: 10px
-  --highlight-color-focused: #fff
 }
-
 
 ion-checkbox {
   --size: 32px;
@@ -107,7 +95,7 @@ ion-checkbox::part(container) {
 }
 
 ion-checkbox::content{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   color: #f5f5f5;
   text-shadow: 1px 0px 5px #000;
 }
@@ -125,14 +113,9 @@ ion-content{
      rgba(1,164,78,0.5186449579831933) 100%
     );
   border: #6e7f8f 0.1px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-
 ion-footer{
-  --ion-background-color: #01a44e;
   background-color: #01a44e;
   min-height: 50px;
   font-size: 15px;
@@ -141,10 +124,6 @@ ion-footer{
   justify-content: left;
   text-shadow: 1px 0px 5px #000;
   bottom: 0;
-}
-
-.spinner-button {
-  position: relative;
 }
 
 .spinner-button i.fa-spinner {
