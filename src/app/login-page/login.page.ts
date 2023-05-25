@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomComponent } from '../custom-component/custom-component.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,9 @@ export class LoginPage implements OnInit {
   companyId: string = localStorage.getItem('companyId') || '';
   isSubmitting: boolean = false;
   itsEnterprise: boolean = false;
-  checkboxCredentials: boolean =
-    localStorage.getItem('companyId') ? true : false;
+  checkboxCredentials: boolean = localStorage.getItem('companyId')
+    ? true
+    : false;
 
   constructor(
     private customComponent: CustomComponent,
@@ -24,7 +26,7 @@ export class LoginPage implements OnInit {
     this.isSubmitting = false;
   }
 
-  async getEnterprise() {
+  getEnterprise() {
     this.isSubmitting = true;
     if (this.companyId === '') {
       this.customComponent.presentAlert(
@@ -35,14 +37,21 @@ export class LoginPage implements OnInit {
       );
       this.isSubmitting = false;
     } else {
-      await this.authGuard.getEnterprise(this.companyId);
-      if (this.checkboxCredentials === true) {
-        await this.storeCredentials();
-      }
-      setTimeout(() => {
-        this.isSubmitting = false;
-      }, 5000);
-      this.itsEnterprise = true;
+      this.authGuard.getEnterprise(this.companyId).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.itsEnterprise = true;
+          this.isSubmitting = false;
+          if (this.checkboxCredentials === true) {
+            this.storeCredentials();
+          }
+        },
+        error: (error) => {
+          this.itsEnterprise = false;
+          this.isSubmitting = false;
+          console.log(error);
+        },
+      });
     }
   }
 
@@ -56,6 +65,7 @@ export class LoginPage implements OnInit {
       );
     } else {
       this.isSubmitting = true;
+      console.log(this.companyId);
       await this.authGuard.login(this.companyId, this.userId);
       if (this.checkboxCredentials === true) {
         await this.storeCredentials();

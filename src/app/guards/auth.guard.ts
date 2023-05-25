@@ -8,6 +8,7 @@ import { catchError, Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { CustomComponent } from '../custom-component/custom-component.component';
+import { Enterprise } from '../iterfaces/enterprise.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +60,7 @@ export class AuthGuard {
   }
 
   async login(companyId: any, userId: string) {
+    console.log(companyId);
     const req: any = this.http
       .post(
         `https://syspteste.herokuapp.com/api/login?companyId=${companyId}&userId=${userId}`,
@@ -93,6 +95,7 @@ export class AuthGuard {
     });
   }
 
+  /*
   async getEnterprise(companyId: string) {
     const req: any = this.http
       .post(
@@ -117,9 +120,35 @@ export class AuthGuard {
         })
       );
     req.subscribe((res: any) => {
+      console.log(res);
       if (res.enterprise.companyId === companyId) {
         localStorage.setItem('enterprise', JSON.stringify(res.enterprise));
       }
     });
+  }*/
+
+  getEnterprise(companyId: string): Observable<Enterprise> {
+    return this.http
+      .post<Enterprise>(
+        `https://syspteste.herokuapp.com/api/login/loginEnterprise?companyId=${companyId}`,
+        {
+          responseType: 'json',
+        }
+      )
+      .pipe(
+        catchError((err) => {
+          if (err.status === 401) {
+            this.customComponent.presentAlert(
+              'Atenção!',
+              'Não foi possível realizar o login!',
+              'Empresa não cadastrada',
+              ['OK']
+            );
+            this.logout();
+            throw new Error('Não foi possível realizar o login');
+          }
+          throw new Error('Não foi possível realizar o login');
+        })
+      );
   }
 }
