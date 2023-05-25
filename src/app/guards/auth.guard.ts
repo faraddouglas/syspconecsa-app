@@ -94,6 +94,7 @@ export class AuthGuard {
   }
 
   async getEnterprise(companyId: string) {
+    //retorna uma empresa
     const req: any = this.http
       .post(
         `https://syspteste.herokuapp.com/api/login/loginEnterprise?companyId=${companyId}`,
