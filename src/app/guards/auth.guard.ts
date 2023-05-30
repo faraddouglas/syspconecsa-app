@@ -60,7 +60,6 @@ export class AuthGuard {
   }
 
   async login(companyId: any, userId: string) {
-    console.log(companyId);
     const req: any = this.http
       .post(
         `https://syspteste.herokuapp.com/api/login?companyId=${companyId}&userId=${userId}`,
@@ -120,7 +119,6 @@ export class AuthGuard {
         })
       );
     req.subscribe((res: any) => {
-      console.log(res);
       if (res.enterprise.companyId === companyId) {
         localStorage.setItem('enterprise', JSON.stringify(res.enterprise));
       }
