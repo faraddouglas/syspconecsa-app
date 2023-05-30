@@ -42,6 +42,8 @@ export class LoginPage implements OnInit {
           console.log(data);
           this.itsEnterprise = true;
           this.isSubmitting = false;
+          // store enterprise data is necessary to get the companyId on register page
+          localStorage.setItem('enterprise', JSON.stringify(data.enterprise));
           if (this.checkboxCredentials === true) {
             this.storeCredentials();
           }
