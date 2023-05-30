@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomComponent } from '../custom-component/custom-component.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
-import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -48,10 +47,9 @@ export class LoginPage implements OnInit {
             this.storeCredentials();
           }
         },
-        error: (error) => {
+        error: (_error) => {
           this.itsEnterprise = false;
           this.isSubmitting = false;
-          console.log(error);
         },
       });
     }
@@ -67,7 +65,6 @@ export class LoginPage implements OnInit {
       );
     } else {
       this.isSubmitting = true;
-      console.log(this.companyId);
       await this.authGuard.login(this.companyId, this.userId);
       if (this.checkboxCredentials === true) {
         await this.storeCredentials();
