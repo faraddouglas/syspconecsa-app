@@ -8,6 +8,7 @@ import { catchError, Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { CustomComponent } from '../custom-component/custom-component.component';
+import { Enterprise } from '../iterfaces/enterprise.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -93,6 +94,7 @@ export class AuthGuard {
     });
   }
 
+  /*
   async getEnterprise(companyId: string) {
     //retorna uma empresa
     const req: any = this.http
@@ -122,5 +124,30 @@ export class AuthGuard {
         localStorage.setItem('enterprise', JSON.stringify(res.enterprise));
       }
     });
+  }*/
+
+  getEnterprise(companyId: string): Observable<Enterprise> {
+    return this.http
+      .post<Enterprise>(
+        `https://syspteste.herokuapp.com/api/login/loginEnterprise?companyId=${companyId}`,
+        {
+          responseType: 'json',
+        }
+      )
+      .pipe(
+        catchError((err) => {
+          if (err.status === 401) {
+            this.customComponent.presentAlert(
+              'Atenção!',
+              'Não foi possível realizar o login!',
+              'Empresa não cadastrada',
+              ['OK']
+            );
+            this.logout();
+            throw new Error('Não foi possível realizar o login');
+          }
+          throw new Error('Não foi possível realizar o login');
+        })
+      );
   }
 }

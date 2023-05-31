@@ -12,8 +12,9 @@ export class LoginPage implements OnInit {
   companyId: string = localStorage.getItem('companyId') || '';
   isSubmitting: boolean = false;
   itsEnterprise: boolean = false;
-  checkboxCredentials: boolean =
-    localStorage.getItem('companyId') ? true : false;
+  checkboxCredentials: boolean = localStorage.getItem('companyId')
+    ? true
+    : false;
 
   constructor(
     private customComponent: CustomComponent,
@@ -24,7 +25,7 @@ export class LoginPage implements OnInit {
     this.isSubmitting = false;
   }
 
-  async getEnterprise() {
+  getEnterprise() {
     this.isSubmitting = true;
     if (this.companyId === '') {
       this.customComponent.presentAlert(
@@ -35,14 +36,22 @@ export class LoginPage implements OnInit {
       );
       this.isSubmitting = false;
     } else {
-      await this.authGuard.getEnterprise(this.companyId);
-      if (this.checkboxCredentials === true) {
-        await this.storeCredentials();
-      }
-      setTimeout(() => {
-        this.isSubmitting = false;
-      }, 5000);
-      this.itsEnterprise = true;
+      this.authGuard.getEnterprise(this.companyId).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.itsEnterprise = true;
+          this.isSubmitting = false;
+          // store enterprise data is necessary to get the companyId on register page
+          localStorage.setItem('enterprise', JSON.stringify(data.enterprise));
+          if (this.checkboxCredentials === true) {
+            this.storeCredentials();
+          }
+        },
+        error: (_error) => {
+          this.itsEnterprise = false;
+          this.isSubmitting = false;
+        },
+      });
     }
   }
 
