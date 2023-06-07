@@ -4,39 +4,39 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" >
+<ion-content class="ion-padding">
   <ng-container *ngIf=" hasInterval === true; else noInterval">
-  <ion-list *ngFor="let record of records | keyvalue">
-    <ion-item>
-      <ion-label>{{ record.key }}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>chegada: {{ record.value[states[0]] }}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>intervalo: {{ record.value[states[1]] }}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>retorno: {{ record.value[states[2]] }}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>saída: {{ record.value[states[3]] }}</ion-label>
-    </ion-item>
-  </ion-list>
-</ng-container>
-<ng-template #noInterval>
-  <ion-list *ngFor="let record of records | keyvalue">
-    <ion-item>
-      <ion-label>{{ record.key }}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>chegada: {{ record.value[states[0]] }}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>saída: {{ record.value[states[1]] }}</ion-label>
-    </ion-item>
-  </ion-list>
-</ng-template>
+    <ion-list *ngFor="let record of records | keyvalue">
+      <ion-item>
+        <ion-label>{{ record.key }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>chegada: {{ record.value[states[0]] }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>intervalo: {{ record.value[states[1]] }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>retorno: {{ record.value[states[2]] }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>saída: {{ record.value[states[3]] }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-template #noInterval>
+    <ion-list *ngFor="let record of records | keyvalue">
+      <ion-item>
+        <ion-label>{{ record.key }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>chegada: {{ record.value[states[0]] }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>saída: {{ record.value[states[1]] }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-template>
   <div class="clock">
     <p id="time"></p>
   </div>

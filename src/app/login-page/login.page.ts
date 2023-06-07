@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
     } else {
       this.authGuard.getEnterprise(this.companyId).subscribe({
         next: (data) => {
-          console.log(data);
+          (data);
           this.itsEnterprise = true;
           this.isSubmitting = false;
           // store enterprise data is necessary to get the companyId on register page
