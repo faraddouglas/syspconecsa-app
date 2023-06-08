@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RecordService } from '../records-page/record.service';
+import { RecordService } from './record.service';
 import { HttpHeaders } from '@angular/common/http';
+import { Record, RecordToPost } from '../app/iterfaces/record.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegisterService {
-  records: [] = [];
+  records: Record[] = [];
   postUrl: string = 'https://syspteste.herokuapp.com/api/employee-time-record/';
   token = localStorage.getItem('token');
   headers = new HttpHeaders({
@@ -20,10 +21,17 @@ export class RegisterService {
   constructor(private http: HttpClient, private recordService: RecordService) {}
 
   postRecords(record: object) {
-    return this.http.post<any>(this.postUrl, record, { headers: this.headers });
+    return this.http.post<RecordToPost>(this.postUrl, record, {
+      headers: this.headers,
+    });
   }
 
-  putRecord(record: object, companyId: number, userId: number, id: number) {
+  putRecord(
+    record: object,
+    companyId: string | null,
+    userId: string | null,
+    id: number
+  ) {
     return this.http.put<string>(
       `${this.postUrl}${companyId}/${userId}/${id}`,
       record,
@@ -32,7 +40,7 @@ export class RegisterService {
   }
 
   async getLastId(): Promise<number> {
-    const records: [] = await this.recordService.getRecords();
+    const records: Record[] = await this.recordService.getRecords();
     const idList: any = records.map((record: any) => record.id);
     let lastId = 0;
     idList.forEach((id: number) => {

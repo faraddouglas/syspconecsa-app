@@ -16,6 +16,29 @@ ion-toolbar {
   justify-content: safe;
 }
 
+.record-card {
+  margin: 10px;
+}
+
+.record-card-header {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.record-card-content p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.record-card-text {
+  margin: 0;
+}
+
+.record-card-text:nth-child(3):empty::before {
+  content: "N/A";
+}
+
 .bankedHours-filter {
   align-items: flex-start;
   justify-content: right;
@@ -65,29 +88,6 @@ ion-toolbar {
   justify-content: safe;
   align-items: safe;
   min-width: 150px;
-}
-
-.record-card {
-  margin: 10px;
-}
-
-.record-card-header {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.record-card-content p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #666;
-}
-
-.record-card-text {
-  margin: 0;
-}
-
-.record-card-text:nth-child(3):empty::before {
-  content: "N/A";
 }
 
 .bankedHours-title {
