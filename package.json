@@ -35,12 +35,11 @@
     "ionicons": "^6.0.3",
     "rxjs": "~7.5.0",
     "stream-http": "^3.2.0",
-    "tslib": "^2.3.0",
+    "tslib": "^2.5.3",
     "upgrade": "^1.1.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@ionic/cli": "^7.0.0",
     "@angular-devkit/build-angular": "^16.0.0",
     "@angular-eslint/builder": "15.2.1",
     "@angular-eslint/eslint-plugin": "15.2.1",
@@ -52,6 +51,7 @@
     "@angular/language-service": "^16.0.0",
     "@capacitor/cli": "next",
     "@ionic/angular-toolkit": "9.0.0",
+    "@ionic/cli": "^7.0.0",
     "@ionic/lab": "3.2.15",
     "@types/jasmine": "4.3.1",
     "@types/node": "18.15.11",
