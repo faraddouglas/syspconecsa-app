@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomComponent } from '../custom-component/custom-component.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { Enterprise } from '../iterfaces/enterprise.interface';
 
 @Component({
   selector: 'app-login',
@@ -37,11 +38,10 @@ export class LoginPage implements OnInit {
       this.isSubmitting = false;
     } else {
       this.authGuard.getEnterprise(this.companyId).subscribe({
-        next: (data) => {
+        next: (data: Enterprise) => {
           (data);
           this.itsEnterprise = true;
           this.isSubmitting = false;
-          // store enterprise data is necessary to get the companyId on register page
           localStorage.setItem('enterprise', JSON.stringify(data.enterprise));
           if (this.checkboxCredentials === true) {
             this.storeCredentials();
