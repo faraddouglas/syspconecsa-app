@@ -37,6 +37,7 @@ export class RegisterPage implements OnInit {
     date: `${this.formatedDate} 03:00:00`,
     userId: this.user.userId,
     employee: this.user.name,
+    workSchedule: this.user.workSchedule,
     companyId: this.user.companyId,
     checkInTime: null,
     startInterval: null,

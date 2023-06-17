@@ -6,6 +6,7 @@ export interface User {
   register: string | null;
   userType: string | null;
   hasInterval: boolean | string | null;
+  workSchedule: string | null;
   address: string | null;
   city: string | null;
   state: string | null;
