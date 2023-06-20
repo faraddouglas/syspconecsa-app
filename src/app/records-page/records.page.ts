@@ -130,7 +130,10 @@ export class RecordsPage implements OnInit {
 
     const extraHours = this.getValidHours(bankedHours, 'extraHours');
     const weekendHours = this.getValidHours(bankedHours, 'extraWeekendHours');
-    const outstandingHours = this.getValidHours(bankedHours, 'outstandingHours');
+    const outstandingHours = this.getValidHours(
+      bankedHours,
+      'outstandingHours'
+    );
 
     const totalExtraHours = this.sumTimeValues(extraHours);
     const totalWeekendHours = this.sumTimeValues(weekendHours);
@@ -163,11 +166,15 @@ export class RecordsPage implements OnInit {
       this.timestringToTimestamp(hours) -
       this.timestringToTimestamp(subtractHours);
 
-    return relativeHours > 0 ? this.timestampToTimestring(relativeHours) : '00:00';
+    return relativeHours > 0
+      ? this.timestampToTimestring(relativeHours)
+      : '00:00';
   }
 
   updateExtraHours() {
-    const totalWorkedHours = this.timestringToTimestamp(this.bankedHours.totalWorkedHours);
+    const totalWorkedHours = this.timestringToTimestamp(
+      this.bankedHours.totalWorkedHours
+    );
 
     if (this.filter === 'week' && totalWorkedHours < 44 * 60 * 60) {
       this.bankedHours.extraHours = '00:00';
@@ -182,7 +189,9 @@ export class RecordsPage implements OnInit {
   }
 
   updateOutstandingHours() {
-    const totalWorkedHours = this.timestringToTimestamp(this.bankedHours.totalWorkedHours);
+    const totalWorkedHours = this.timestringToTimestamp(
+      this.bankedHours.totalWorkedHours
+    );
 
     if (this.filter === 'week' && totalWorkedHours > 44 * 60 * 60) {
       this.bankedHours.outstandingHours = '00:00';
@@ -208,7 +217,7 @@ export class RecordsPage implements OnInit {
 
   formatDate(_date: string | number | Date) {
     const date = new Date(_date);
-    const day = this.padLeadingZero(date.getDate());
+    const day = this.padLeadingZero(date.getDate() + 1);
     const month = this.padLeadingZero(date.getMonth() + 1);
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;

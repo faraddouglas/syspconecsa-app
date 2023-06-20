@@ -5,6 +5,7 @@ export interface Record {
   userId: string | number;
   companyId: string | number;
   employee: string;
+  workSchedule: string;
   date: string | number | Date;
   checkInTime: string | number | Date;
   startInterval: string | number | Date;
@@ -17,6 +18,7 @@ export interface RecordToPost {
   userId: string | null;
   companyId: string | null;
   employee: string | null;
+  workSchedule: string | null;
   date: string | null;
   checkInTime: string | null;
   startInterval: string | null;
