@@ -1,10 +1,16 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'syspteste',
+  appId: 'io.ionic.syspconecsa',
   appName: 'App Ponto - Conecsa',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+
+  plugins: {
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"],
+    },
+  }
 };
 
 export default config;
