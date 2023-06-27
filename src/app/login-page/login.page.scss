@@ -50,18 +50,19 @@
 }
 
 .input {
-  font-size: 20px;
+  font-size: 22px;
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   font-weight: 600;
   color: #011d43;
   min-height: 55px;
+  margin-bottom: 5px;
 }
 
 ion-checkbox {
-  min-height: 40px;
+  min-height: 50px;
   --size: 20px;
-  --checkbox-background-checked: #7fbd8c;
-  --checkbox-background: #7fbd8c;
+  --checkbox-background-checked: #6c969c80;
+  --checkbox-background: #6c969c80;
   --checkmark-color: #011c43e6
 }
 
@@ -69,18 +70,15 @@ ion-checkbox::part(container) {
   border-radius: 6px;
   border: 2px solid #011c43e6;
   background-color: #6c969c80;
-  box-shadow: 0px 0px 5px #6e7f8f;
 }
 
 ion-checkbox::content{
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 600;
   color: #011d43;
-  text-shadow: 1px 0px 1px #6e7f8f;
   display: flex;
   position: relative;
-  margin-top: 5px;
 }
 
 ion-button {
@@ -92,8 +90,7 @@ ion-button {
   min-height: 50px;
   font-size: 18px;
   font-weight: 800;
-  color: #d6d6d6;
-  text-shadow: #6e7f8f;
+  color: #6e7f8f;
 }
 
 .login-page__logo {
