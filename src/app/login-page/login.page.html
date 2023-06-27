@@ -1,68 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-title class="header-title">
-    <div class="header-icon">
-      <ion-icon class="clock-icon" name="time-outline"></ion-icon>
-    </div>
-    <div class="app-name">
-      App Ponto - Conecsa
-    </div>
-  </ion-title>
-</ion-header>
-
 <ion-content>
-
+  <ion-card-content class="login-page">
+  <ion-img class="login-page__logo" src="../../assets/login-ui-logo.png"></ion-img>
+  <ng-container *ngIf=" itsEnterprise === false; else itsUser" class="card-container">
   <ion-card-content class="login-card">
-    <ng-container *ngIf=" itsEnterprise === false; else itsUser" class="card-container">
+    <ion-input class="input" label="Cod. Empresa " label-placement="floating" color="medium" placeholder="Cod. Empresa " fill="outline"
+    aria-label="Cod.Empresa " (keypress)="numericOnly()" inputmode="numeric" [(ngModel)]="companyId">
+    <ion-icon name="business-outline" class="company-icon"></ion-icon>
+  </ion-input>
+  <ion-checkbox labelPlacement="end" justify="start" [checked]="checkboxCredentials"
+  (ionChange)="changeAttribute()">
+  Salvar credenciais
+</ion-checkbox>
+<ion-button (click)="getEnterprise()" [disabled]="isSubmitting">
+  <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
+  Avançar
+</ion-button>
 
-      <ion-card-content class="login-card-icon">
-        <ion-icon name="business-outline" class="company-icon"></ion-icon>
-      </ion-card-content>
-
-      <ion-card-content>
-        <ion-input label="Cod. Empresa " label-placement="floating" placeholder="Cod. Empresa " fill="outline"
-          aria-label="Cod.Empresa " (keypress)="numericOnly()" inputmode="numeric" [(ngModel)]="companyId">
-        </ion-input>
-
-        <ion-checkbox labelPlacement="end" justify="start" [checked]="checkboxCredentials"
-          (ionChange)="changeAttribute()">
-          Salvar credenciais
-        </ion-checkbox>
-
-        <ion-button (click)="getEnterprise()" [disabled]="isSubmitting">
-          <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
-          Avançar
-        </ion-button>
-
-      </ion-card-content>
-
-    </ng-container>
-    <ng-template #itsUser>
-
-      <ion-card-content class="login-card-icon">
-        <ion-icon name="person-circle-outline" class="user-icon"></ion-icon>
-      </ion-card-content>
-
-      <ion-card-content>
-        <ion-input label="Matrícula " label-placement="floating" placeholder="Matrícula " fill="outline"
-          aria-label="Matrícula " (keypress)="numericOnly()" inputmode="numeric" [(ngModel)]="userId">
-        </ion-input>
-
-        <ion-checkbox labelPlacement="end" justify="start" [checked]="checkboxCredentials"
-          (ionChange)="changeAttribute()">
-          Salvar credenciais
-        </ion-checkbox>
-
-        <ion-button (click)="login()" [disabled]="isSubmitting">
-          <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
-          Entrar
-        </ion-button>
-
-      </ion-card-content>
-    </ng-template>
   </ion-card-content>
+</ng-container>
+<ng-template #itsUser>
+  <ion-card-content class="login-card">
+    <ion-input class="input" label="Matrícula " label-placement="floating" placeholder="Matrícula " fill="outline"
+      aria-label="Matrícula " (keypress)="numericOnly()" inputmode="numeric" [(ngModel)]="userId">
+      <ion-icon name="person-circle-outline" class="user-icon"></ion-icon>
+    </ion-input>
 
+    <ion-checkbox labelPlacement="end" justify="start" [checked]="checkboxCredentials"
+      (ionChange)="changeAttribute()">
+      Salvar credenciais
+    </ion-checkbox>
+
+    <ion-button (click)="login()" [disabled]="isSubmitting">
+      <i *ngIf="isSubmitting true" class="fa fa-spinner fa-spin"><ion-spinner></ion-spinner></i>
+      Entrar
+    </ion-button>
+
+  </ion-card-content>
+</ng-template>
+  </ion-card-content>
 </ion-content>
 
-<ion-footer collapse="condense">
-  App Ponto V1.1
-</ion-footer>

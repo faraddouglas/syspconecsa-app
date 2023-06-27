@@ -1,92 +1,43 @@
-ion-header {
-  border-bottom: #6e7f8f 1px solid;
-  height: 80px;
-  position: absolute;
-  flex-flow: column;
-  display: block;
-}
-
-.header-icon {
-  padding: 1px;
-  position: relative;
-}
-
-.app-name {
-  margin-left: 50px;
-  margin-top: 6px;
+.login-page {
+  max-width: 500px;
+  align-items: center;
   display: flex;
-}
-
-.header-title {
-  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  font-weight: 800;
-  background-color: #01a44e;
-  color: #011c43e6;
-  font-size: 25px;
-  border-bottom: #6e7f8f 1px solid;
-  height: 80px;
-  text-shadow: 1px 0px 2px #6e7f8f;
-  position: relative;
-  justify-content: left;
-  align-items: self-end;
+  margin-left: auto;
+  margin-right: auto;
+  flex-flow: column;
   padding: 10px;
 }
 
-.clock-icon {
+.user-icon {
   color: #011c43e6;
   font-size: 30px;
-  border-radius: 50px;
-  position: absolute;
-  display: flex;
-}
-
-.login-card-icon {
+  justify-content: right;
   position: relative;
   display: flex;
-  padding: 20px;
-}
-
-.user-icon {
-  margin-top: 20px;
-  margin-bottom: 45px;
-  margin-left: auto;
-  margin-right: auto;
-  color: #011c43e6;
-  font-size: 70px;
-  border-radius: 50px;
-  box-shadow: 0px 0px 15px whitesmoke;
-  display: block;
+  margin-bottom: 20px;
 }
 
 .company-icon {
-  margin-top: 20px;
-  margin-bottom: 45px;
-  margin-left: auto;
-  margin-right: auto;
   color: #011c43e6;
-  font-size: 70px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px whitesmoke;
-  display: block;
+  font-size: 30px;
+  justify-content: right;
+  position: relative;
+  display: flex;
+  margin-bottom: 20px;
 }
 
 .login-card {
-  background-image: url(../../assets/icon/favicon.png);
-  background-repeat: no-repeat;
-  background-size: 65%;
-  background-position: center;
-  border: 1px solid #01a44e;
   border-radius: 10px;
-  max-width: 350px;
   flex-flow: column;
   box-shadow: 5px 5px 15px black;
-  background-color: #7fbd8c;
+  background-color: #6c969c80;
   box-shadow: 0px 0px 5px #6e7f8f;
-  margin-top: calc(50vh - 200px);
-  margin-bottom: calc(50vh - 250px);
   margin-left: auto;
   margin-right: auto;
-  padding: 1px;
+  margin-top: calc(40vh - 300px);
+  min-width: 350px;
+  min-height: 250px;
+  padding: 10px;
 }
 
 .card-container {
@@ -95,36 +46,24 @@ ion-header {
   justify-content: center;
 }
 
-ion-input {
+.input {
   font-size: 20px;
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  text-shadow: 1px 1px 2px #000;
   font-weight: 800;
-  color: #d6d6d6;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 70px;
-  display: flex;
-  border: #011c43e6 3px solid;
-  border-radius: 8px;
-  backdrop-filter: blur(5px);
-  box-shadow: 1px 1px 10px #6e7f8f;
-  --border-width: 1px
-  --border-radius: 10px
+  color: #011c43e6;
 }
 
 ion-checkbox {
-  --size: 32px;
+  --size: 20px;
   --checkbox-background-checked: #7fbd8c;
   --checkbox-background: #7fbd8c;
-  --checkmark-color: #01a44e
+  --checkmark-color: #011c43e6
 }
 
 ion-checkbox::part(container) {
   border-radius: 6px;
   border: 2px solid #011c43e6;
-  background-color: #7fbd8c;
-  margin-bottom: 6px;
+  background-color: #6c969c80;
   box-shadow: 0px 0px 5px #6e7f8f;
 }
 
@@ -132,48 +71,42 @@ ion-checkbox::content{
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   font-size: 20px;
   font-weight: 800;
-  color: #d6d6d6;
-  text-shadow: 1px 0px 2px #000;
+  color: #011c43e6;
+  text-shadow: 1px 0px 1px #6e7f8f;
   display: flex;
   position: relative;
-  padding: 2px;
+  margin-top: 20px;
 }
 
 ion-button {
-  margin-top: 10px;
+  margin-top: 20px;
   position: relative;
   display: flex;
   margin-left: auto;
   margin-right: auto;
   min-height: 50px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: #d6d6d6;
   text-shadow: #6e7f8f;
 }
 
+.login-page__logo {
+  max-width: 70%;
+  max-height: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: calc(50vh - 250px);
+  margin-bottom: 30px;
+}
+
 ion-content{
   --ion-background-color: radial-gradient(
     circle, rgba(0,0,0,0.6138830532212884) 0%,
-     rgba(1,28,67,0.7175245098039216) 35%,
-     rgba(1,164,78,0.5186449579831933) 100%
+    rgba(1,164,78,0.5186449579831933) 0%,
+     rgba(1,28,67,0.7175245098039216) 100%
     );
-  border: #6e7f8f 0.1px solid;
-  display: flex;
-  position: relative;
-}
-
-ion-footer{
-  background-color: #01a44e;
-  min-height: 50px;
-  font-size: 20px;
-  font-weight: 800;
-  border: #01a44e 10px solid;
-  color: #011c43e6;
-  justify-content: left;
-  text-shadow: 1px 0px 2px #6e7f8f;
-  bottom: 0;
-  position: fixed;
+    filter: brightness(120%) contrast(120%);
 }
 
 .spinner-button i.fa-spinner {
