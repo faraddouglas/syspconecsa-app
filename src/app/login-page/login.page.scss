@@ -1,60 +1,43 @@
-ion-title {
-  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  background-color: #01a44e;
-  color: #f5f5f5;
-  font-size: 20px;
-  border-bottom: #6e7f8f 1px solid;
-  margin-top: 40px;
-  margin-bottom: auto;
+.login-page {
+  max-width: 500px;
+  align-items: center;
+  display: flex;
   margin-left: auto;
   margin-right: auto;
-  padding: auto;
-  text-shadow: 1px 0px 5px #000;
-  height: 40px;
+  flex-flow: column;
+  padding: 10px;
 }
 
-.clock-icon {
+.user-icon {
   color: #011c43e6;
-  font-size: 20px;
-  border-radius: 50px;
-  box-shadow: 0px 0px 10px black;
-  margin-left: -10px;
-  margin-right: auto;
-  display: flex;
-  padding: auto;
-  position: absolute;
-}
-
-.user-icon{
-  color: #011c43e6;
-  font-size: 70px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  border-radius: 50px;
-  box-shadow: 0px 0px 15px whitesmoke;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  padding: auto;
+  font-size: 30px;
+  justify-content: right;
   position: relative;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.company-icon {
+  color: #011c43e6;
+  font-size: 30px;
+  justify-content: right;
+  position: relative;
+  display: flex;
+  margin-bottom: 20px;
 }
 
 .login-card {
-  background-image: url(../../assets/icon/favicon.png);
-  background-repeat: no-repeat;
-  background-size: 60%;
-  background-position: center;
-  border: 1px solid #01a44e;
   border-radius: 10px;
-  max-width: 300px;
   flex-flow: column;
   box-shadow: 5px 5px 15px black;
-  background-color: #7fbd8c;
-  box-shadow: 0px 0px 5px whitesmoke;
+  background-color: #6c969c80;
+  box-shadow: 0px 0px 5px #6e7f8f;
   margin-left: auto;
   margin-right: auto;
-  margin-top: calc(50vh - 250px);
-  margin-bottom: calc(50vh - 250px);
+  margin-top: calc(40vh - 300px);
+  min-width: 350px;
+  min-height: 250px;
+  padding: 10px;
 }
 
 .card-container {
@@ -63,67 +46,67 @@ ion-title {
   justify-content: center;
 }
 
-ion-input {
+.input {
   font-size: 20px;
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  text-shadow: 1px 0px 5px #000;
-  color: #fff;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  display: flex;
-  border: #01a44e 1px solid;
-  border-radius: 10px;
-  backdrop-filter: blur(5px);
-  box-shadow: 1px 0px 15px black;
-  --border-width: 1px
-  --border-radius: 10px
+  font-weight: 800;
+  color: #011c43e6;
 }
 
 ion-checkbox {
-  --size: 32px;
+  --size: 20px;
   --checkbox-background-checked: #7fbd8c;
   --checkbox-background: #7fbd8c;
-  --checkmark-color: #01a44e
+  --checkmark-color: #011c43e6
 }
 
 ion-checkbox::part(container) {
   border-radius: 6px;
   border: 2px solid #011c43e6;
-  background-color: #7fbd8c;
+  background-color: #6c969c80;
+  box-shadow: 0px 0px 5px #6e7f8f;
 }
 
 ion-checkbox::content{
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  color: #f5f5f5;
-  text-shadow: 1px 0px 5px #000;
+  font-size: 20px;
+  font-weight: 800;
+  color: #011c43e6;
+  text-shadow: 1px 0px 1px #6e7f8f;
+  display: flex;
+  position: relative;
+  margin-top: 20px;
 }
 
 ion-button {
-  margin-top: 40px;
+  margin-top: 20px;
   position: relative;
-  display: block;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 50px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #d6d6d6;
+  text-shadow: #6e7f8f;
+}
+
+.login-page__logo {
+  max-width: 70%;
+  max-height: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: calc(50vh - 250px);
+  margin-bottom: 30px;
 }
 
 ion-content{
   --ion-background-color: radial-gradient(
     circle, rgba(0,0,0,0.6138830532212884) 0%,
-     rgba(1,28,67,0.7175245098039216) 35%,
-     rgba(1,164,78,0.5186449579831933) 100%
+    rgba(1,164,78,0.5186449579831933) 0%,
+     rgba(1,28,67,0.7175245098039216) 100%
     );
-  border: #6e7f8f 0.1px solid;
-}
-
-ion-footer{
-  background-color: #01a44e;
-  min-height: 50px;
-  font-size: 15px;
-  border: #01a44e 10px solid;
-  color: #f5f5f5;
-  justify-content: left;
-  text-shadow: 1px 0px 5px #000;
-  bottom: 0;
+    filter: brightness(120%) contrast(120%);
 }
 
 .spinner-button i.fa-spinner {

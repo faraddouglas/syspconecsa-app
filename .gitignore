@@ -70,3 +70,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Firebase keys
+
+google-services.json
+
+resources/ios/**/*
+resources/android/**/*
