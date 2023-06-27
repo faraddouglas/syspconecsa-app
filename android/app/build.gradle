@@ -41,6 +41,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
     implementation (files("../capacitor-cordova-android-plugins/src/main/libs"))
+    implementation "androidx.activity:activity:1.7.2"
+    implementation "androidx.fragment:fragment:1.6.0"
 }
 
 apply from: 'capacitor.build.gradle'
