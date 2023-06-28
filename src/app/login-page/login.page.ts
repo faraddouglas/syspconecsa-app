@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CustomComponent } from '../custom-component/custom-component.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { Enterprise } from '../iterfaces/enterprise.interface';
-import { FirebaseService } from '../push-notifications/firebase.service'
 
 @Component({
   selector: 'app-login',
@@ -25,8 +24,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.isSubmitting = false;
-    const firebaseService = new FirebaseService();
-    firebaseService.initPush();
   }
 
   getEnterprise() {

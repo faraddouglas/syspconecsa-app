@@ -5,6 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { AndroidFullScreen } from '@awesome-cordova-plugins/android-full-screen';
 
+
 if (environment.production) {
   enableProdMode();
 }
