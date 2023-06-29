@@ -17,12 +17,17 @@ export class FirebaseService {
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
-    await PushNotifications.requestPermissions().then((result) => {
+    await PushNotifications.checkPermissions().then(async (result) => {
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
       } else {
-        // Show some error
+        await PushNotifications.requestPermissions().then((result) => {
+          if (result.receive === 'granted') {
+            // Register with Apple / Google to receive push via APNS/FCM
+            PushNotifications.register();
+          }
+        });
       }
     });
 
