@@ -1,6 +1,6 @@
 # Time Tracking App
 
-Pra TCC2 Engenharia de Software Unicesumar
+Para TCC2 Engenharia de Software Unicesumar
 
 This is a simple time tracking app that allows users to track their worked hours, extra hours, weekend worked hours, and outstanding hours. It also calculates the total banked hours and provides relative values based on the selected time interval.
 
